@@ -1,0 +1,1 @@
+{"type":"error","timestamp":1793908065536,"sessionID":"ses_e52bf3dabffe7YuWs1X55QFo6i","error":{"type":"provider.auth","message":"This model is not available in your country","status":403,"response":{"body":"{\"type\":\"error\",\"error\":{\"type\":\"RegionError\",\"message\":\"This model is not available in your country\"}}"}}}

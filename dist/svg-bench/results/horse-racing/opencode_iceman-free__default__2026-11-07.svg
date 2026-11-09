@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1200 800" width="1200" height="800" preserveAspectRatio="xMidYMid meet">
+  <title>Thrilling Horse Race at Full Gallop</title>
+  <desc>A thrilling horse race with multiple horses racing head-to-head on a turf track from elevated side angle</desc>
+  
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#B0E0E6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#F0F8FF;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Grass gradient -->
+    <linearGradient id="grassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#228B22;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#006400;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Turf track gradient -->
+    <linearGradient id="trackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B7355;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A0522D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Grandstand gradient -->
+    <linearGradient id="grandstandGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#654321;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Sun gradient -->
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="70%" style="stop-color:#FFA500;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FF8C00;stop-opacity:0.8" />
+    </radialGradient>
+    
+    <!-- Dust puff gradient -->
+    <radialGradient id="dustGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#D2691E;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#8B4513;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="1200" height="400" fill="url(#skyGrad)"/>
+  
+  <!-- Sun -->
+  <circle cx="950" cy="80" r="40" fill="url(#sunGrad)">
+    <animate attributeName="opacity" values="1;0.9;1" dur="4s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Sun rays -->
+  <g opacity="0.7">
+    <line x1="950" y1="40" x2="950" y2="20" stroke="#FFD700" stroke-width="3" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="0 950 80; 360 950 80" dur="20s" repeatCount="indefinite"/>
+    </line>
+    <line x1="990" y1="80" x2="1010" y2="80" stroke="#FFD700" stroke-width="3" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="0 950 80; 360 950 80" dur="20s" repeatCount="indefinite"/>
+    </line>
+    <line x1="950" y1="120" x2="950" y2="140" stroke="#FFD700" stroke-width="3" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="0 950 80; 360 950 80" dur="20s" repeatCount="indefinite"/>
+    </line>
+    <line x1="910" y1="80" x2="890" y2="80" stroke="#FFD700" stroke-width="3" stroke-linecap="round">
+      <animateTransform attributeName="transform" type="rotate" values="0 950 80; 360 950 80" dur="20s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Drifting clouds -->
+  <g opacity="0.9">
+    <ellipse cx="200" cy="100" rx="60" ry="30" fill="white">
+      <animateMotion path="M -100,0 L 1400,0" dur="60s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="150" cy="110" rx="40" ry="25" fill="white">
+      <animateMotion path="M -100,0 L 1400,0" dur="60s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="250" cy="110" rx="45" ry="25" fill="white">
+      <animateMotion path="M -100,0 L 1400,0" dur="60s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+  
+  <g opacity="0.8">
+    <ellipse cx="500" cy="60" rx="50" ry="25" fill="white">
+      <animateMotion path="M -150,0 L 1350,0" dur="75s" repeatCount="indefinite" begin="10s"/>
+    </ellipse>
+    <ellipse cx="470" cy="70" rx="35" ry="20" fill="white">
+      <animateMotion path="M -150,0 L 1350,0" dur="75s" repeatCount="indefinite" begin="10s"/>
+    </ellipse>
+    <ellipse cx="530" cy="70" rx="40" ry="20" fill="white">
+      <animateMotion path="M -150,0 L 1350,0" dur="75s" repeatCount="indefinite" begin="10s"/>
+    </ellipse>
+  </g>
+  
+  <!-- Grass beyond track -->
+  <rect y="400" width="1200" height="400" fill="url(#grassGrad)"/>
+  
+  <!-- Grandstand -->
+  <g>
+    <!-- Grandstand base -->
+    <rect x="50" y="420" width="200" height="120" fill="url(#grandstandGrad)" stroke="#4A4A4A" stroke-width="2"/>
+    <!-- Grandstand roof -->
+    <polygon points="40,420 260,420 230,380 70,380" fill="#654321" stroke="#4A4A4A" stroke-width="2"/>
+    <!-- Roof supports -->
+    <line x1="70" y1="380" x2="70" y2="420" stroke="#654321" stroke-width="8"/>
+    <line x1="150" y1="380" x2="150" y2="420" stroke="#654321" stroke-width="8"/>
+    <line x1="230" y1="380" x2="230" y2="420" stroke="#654321" stroke-width="8"/>
+    
+    <!-- Flags on roof -->
+    <g>
+      <line x1="70" y1="380" x2="70" y2="350" stroke="#8B4513" stroke-width="3"/>
+      <polygon points="70,350 90,355 70,360" fill="#FF0000">
+        <animateTransform attributeName="transform" type="rotate" values="-10 70 355; 10 70 355; -10 70 355" dur="1.5s" repeatCount="indefinite"/>
+      </polygon>
+      
+      <line x1="150" y1="380" x2="150" y2="345" stroke="#8B4513" stroke-width="3"/>
+      <polygon points="150,345 170,350 150,355" fill="#0000FF">
+        <animateTransform attributeName="transform" type="rotate" values="10 150 350; -10 150 350; 10 150 350" dur="1.3s" repeatCount="indefinite"/>
+      </polygon>
+      
+      <line x1="230" y1="380" x2="230" y2="348" stroke="#8B4513" stroke-width="3"/>
+      <polygon points="230,348 250,353 230,358" fill="#FFD700">
+        <animateTransform attributeName="transform" type="rotate" values="-8 230 353; 12 230 353; -8 230 353" dur="1.7s" repeatCount="indefinite"/>
+      </polygon>
+    </g>
+    
+    <!-- Crowd in grandstand -->
+    <g fill="#333">
+      <!-- Row 1 -->
+      <circle cx="80" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="95" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.9s" repeatCount="indefinite" begin="0.2s"/>
+      </circle>
+      <circle cx="110" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.7s" repeatCount="indefinite" begin="0.1s"/>
+      </circle>
+      <circle cx="125" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite" begin="0.3s"/>
+      </circle>
+      <circle cx="140" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.9s" repeatCount="indefinite" begin="0.15s"/>
+      </circle>
+      <circle cx="155" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.7s" repeatCount="indefinite" begin="0.25s"/>
+      </circle>
+      <circle cx="170" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite" begin="0.05s"/>
+      </circle>
+      <circle cx="185" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.9s" repeatCount="indefinite" begin="0.35s"/>
+      </circle>
+      <circle cx="200" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.7s" repeatCount="indefinite" begin="0.12s"/>
+      </circle>
+      <circle cx="215" cy="440" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite" begin="0.28s"/>
+      </circle>
+      
+      <!-- Row 2 -->
+      <circle cx="90" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.75s" repeatCount="indefinite" begin="0.1s"/>
+      </circle>
+      <circle cx="105" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.85s" repeatCount="indefinite" begin="0.3s"/>
+      </circle>
+      <circle cx="120" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.95s" repeatCount="indefinite" begin="0.2s"/>
+      </circle>
+      <circle cx="135" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.75s" repeatCount="indefinite" begin="0.4s"/>
+      </circle>
+      <circle cx="150" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.85s" repeatCount="indefinite" begin="0.25s"/>
+      </circle>
+      <circle cx="165" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.95s" repeatCount="indefinite" begin="0.15s"/>
+      </circle>
+      <circle cx="180" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.75s" repeatCount="indefinite" begin="0.35s"/>
+      </circle>
+      <circle cx="195" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.85s" repeatCount="indefinite" begin="0.05s"/>
+      </circle>
+      <circle cx="210" cy="455" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.95s" repeatCount="indefinite" begin="0.32s"/>
+      </circle>
+      
+      <!-- Row 3 -->
+      <circle cx="100" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite" begin="0.18s"/>
+      </circle>
+      <circle cx="115" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.9s" repeatCount="indefinite" begin="0.38s"/>
+      </circle>
+      <circle cx="130" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.7s" repeatCount="indefinite" begin="0.22s"/>
+      </circle>
+      <circle cx="145" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite" begin="0.42s"/>
+      </circle>
+      <circle cx="160" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.9s" repeatCount="indefinite" begin="0.27s"/>
+      </circle>
+      <circle cx="175" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.7s" repeatCount="indefinite" begin="0.17s"/>
+      </circle>
+      <circle cx="190" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.8s" repeatCount="indefinite" begin="0.37s"/>
+      </circle>
+      <circle cx="205" cy="470" r="3">
+        <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="0.9s" repeatCount="indefinite" begin="0.13s"/>
+      </circle>
+    </g>
+  </g>
+  
+  <!-- Tote Board -->
+  <g>
+    <rect x="300" y="380" width="150" height="80" fill="#000000" stroke="#FFD700" stroke-width="3"/>
+    <rect x="305" y="385" width="140" height="70" fill="#001100"/>
+    <!-- Board text -->
+    <text x="375" y="400" font-family="Arial, sans-serif" font-size="10" fill="#00FF00" text-anchor="middle" font-weight="bold">TOTE BOARD</text>
+    <text x="375" y="415" font-family="Arial, sans-serif" font-size="8" fill="#FFFF00" text-anchor="middle">RACE 5 - TURF</text>
+    <text x="375" y="430" font-family="Arial, sans-serif" font-size="7" fill="#FF0000" text-anchor="middle">PHOTO FINISH</text>
+    <!-- Changing numbers -->
+    <text x="320" y="445" font-family="Courier New, monospace" font-size="9" fill="#00FF00">1. THUNDER</text>
+    <text x="320" y="455" font-family="Courier New, monospace" font-size="9" fill="#00FF00">2. BOLT</text>
+    <text x="320" y="465" font-family="Courier New, monospace" font-size="9" fill="#00FF00">3. STORM</text>
+    <text x="320" y="475" font-family="Courier New, monospace" font-size="9" fill="#00FF00">4. COMET</text>
+    <!-- Animated odds/numbers -->
+    <text x="400" y="445" font-family="Courier New, monospace" font-size="9" fill="#FFFF00">3.2</text>
+    <text x="400" y="455" font-family="Courier New, monospace" font-size="9" fill="#FFFF00">2.8</text>
+    <text x="400" y="465" font-family="Courier New, monospace" font-size="9" fill="#FFFF00">4.5</text>
+    <text x="400" y="475" font-family="Courier New, monospace" font-size="9" fill="#FFFF00">6.1</text>
+  </g>
+  
+  <!-- Racetrack -->
+  <!-- Track outer rail -->
+  <ellipse cx="600" cy="550" rx="550" ry="150" fill="none" stroke="#FFFFFF" stroke-width="8"/>
+  <!-- Track inner rail -->
+  <ellipse cx="600" cy="550" rx="520" ry="140" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+  <!-- Track surface -->
+  <ellipse cx="600" cy="550" rx="520" ry="140" fill="url(#trackGrad)" opacity="0.9"/>
+  <!-- Track markings -->
+  <!-- Start/finish area -->
+  <rect x="1080" y="540" width="40" height="20" fill="#000000" opacity="0.7"/>
+  <!-- Finish line -->
+  <line x1="1100" y1="410" x2="1100" y2="690" stroke="#FFFFFF" stroke-width="6" stroke-dasharray="10,10">
+    <animate attributeName="opacity" values="1;0.3;1" dur="2s" repeatCount="indefinite"/>
+  </line>
+  <!-- Track lane markers -->
+  <ellipse cx="600" cy="550" rx="500" ry="135" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="20,15" opacity="0.6"/>
+  <ellipse cx="600" cy="550" rx="480" ry="130" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="20,15" opacity="0.6"/>
+  <ellipse cx="600" cy="550" rx="460" ry="125" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="20,15" opacity="0.6"/>
+  <ellipse cx="600" cy="550" rx="440" ry="120" fill="none" stroke="#8B7355" stroke-width="2" stroke-dasharray="20,15" opacity="0.6"/>
+  
+  <!-- Grass beyond inner rail -->
+  <ellipse cx="600" cy="550" rx="400" ry="110" fill="url(#grassGrad)" opacity="0.8"/>
+  
+  <!-- Finish beam/camera -->
+  <g>
+    <rect x="1120" y="500" width="15" height="100" fill="#333333"/>
+    <rect x="1115" y="495" width="25" height="10" fill="#666666"/>
+    <circle cx="1127.5" cy="500" r="3" fill="#FF0000">
+      <animate attributeName="opacity" values="1;0.2;1" dur="1s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Photo finish flash effect -->
+  <rect x="0" y="0" width="1200" height="800" fill="white" opacity="0">
+    <animate attributeName="opacity" values="0;0.3;0" dur="0.2s" begin="12s" repeatCount="1"/>
+  </rect>
+  
+  <!-- Horse 1 - Thunder (Bay horse, red silks) -->
+  <g>
+    <!-- Dust puffs behind horse 1 -->
+    <g opacity="0.6">
+      <circle cx="200" cy="580" r="8" fill="url(#dustGrad)">
+        <animate attributeName="r" values="5;12;5" dur="0.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="0.6s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="180" cy="585" r="6" fill="url(#dustGrad)">
+        <animate attributeName="r" values="4;10;4" dur="0.6s" repeatCount="indefinite" begin="0.15s"/>
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="0.6s" repeatCount="indefinite" begin="0.15s"/>
+      </circle>
+      <circle cx="160" cy="590" r="7" fill="url(#dustGrad)">
+        <animate attributeName="r" values="4;11;4" dur="0.6s" repeatCount="indefinite" begin="0.3s"/>
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="0.6s" repeatCount="indefinite" begin="0.3s"/>
+      </circle>
+    </g>
+    
+    <!-- Horse 1 body and animation -->
+    <g>
+      <animateMotion path="M 1200,0 L -200,0" dur="8s" repeatCount="indefinite"/>
+      <!-- Horse body (bay color) -->
+      <ellipse cx="0" cy="0" rx="35" ry="18" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+      <!-- Horse neck -->
+      <ellipse cx="25" cy="-8" rx="12" ry="8" fill="#8B4513" stroke="#654321" stroke-width="2" transform="rotate(-20 25 -8)"/>
+      <!-- Horse head -->
+      <ellipse cx="35" cy="-15" rx="10" ry="8" fill="#8B4513" stroke="#654321" stroke-width="2"/>
+      <!-- Ears -->
+      <polygon points="30,-22 32,-28 34,-22" fill="#8B4513"/>
+      <polygon points="38,-22 40,-28 42,-22" fill="#8B4513"/>
+      <!-- Eye -->
+      <circle cx="38" cy="-16" r="1.5" fill="#000000"/>
+      <!-- Nostrils -->
+      <circle cx="43" cy="-15" r="1" fill="#000000"/>
+      <!-- Mane (flowing) -->
+      <path d="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" stroke="#654321" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25; M 25,-15 Q 22,-28 18,-22 Q 12,-32 8,-28; M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" dur="0.5s" repeatCount="indefinite"/>
+      </path>
+      <!-- Tail (flowing) -->
+      <path d="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" stroke="#654321" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40; M -35,0 Q -48,-12 -42,-22 Q -52,-32 -48,-42; M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" dur="0.4s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Legs with galloping motion -->
+      <!-- Front left leg -->
+      <g>
+        <line x1="15" y1="10" x2="20" y2="30" stroke="#8B4513" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-30 15 10; 20 15 10; -30 15 10" dur="0.4s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="22" cy="32" rx="4" ry="6" fill="#8B4513">
+          <animateTransform attributeName="transform" type="rotate" values="-30 22 32; 20 22 32; -30 22 32" dur="0.4s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <!-- Front right leg -->
+      <g>
+        <line x1="25" y1="10" x2="30" y2="30" stroke="#8B4513" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="20 25 10; -30 25 10; 20 25 10" dur="0.4s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="32" cy="32" rx="4" ry="6" fill="#8B4513">
+          <animateTransform attributeName="transform" type="rotate" values="20 32 32; -30 32 32; 20 32 32" dur="0.4s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <!-- Back left leg -->
+      <g>
+        <line x1="-15" y1="10" x2="-20" y2="30" stroke="#8B4513" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="25  -15 10; -25 -15 10; 25 -15 10" dur="0.4s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-22" cy="32" rx="4" ry="6" fill="#8B4513">
+          <animateTransform attributeName="transform" type="rotate" values="25 -22 32; -25 -22 32; 25 -22 32" dur="0.4s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <!-- Back right leg -->
+      <g>
+        <line x1="-5" y1="10" x2="-10" y2="30" stroke="#8B4513" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -5 10; 25 -5 10; -25 -5 10" dur="0.4s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-12" cy="32" rx="4" ry="6" fill="#8B4513">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -12 32; 25 -12 32; -25 -12 32" dur="0.4s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      
+      <!-- Saddle -->
+      <rect x="-5" y="-2" width="15" height="6" rx="2" fill="#8B0000" stroke="#600000" stroke-width="1"/>
+      <!-- Saddle numbers -->
+      <text x="2.5" y="3" font-family="Arial, sans-serif" font-size="6" fill="#FFFFFF" text-anchor="middle" font-weight="bold">1</text>
+      
+      <!-- Jockey 1 (red silks) -->
+      <g>
+        <!-- Jockey body -->
+        <ellipse cx="2.5" cy="-12" rx="8" ry="10" fill="#FF0000"/>
+        <!-- Jockey head -->
+        <circle cx="2.5" cy="-20" r="6" fill="#F4A460"/>
+        <!-- Jockey helmet -->
+        <ellipse cx="2.5" cy="-22" rx="6" ry="4" fill="#8B0000"/>
+        <!-- Helmet stripe -->
+        <rect x="-2.5" y="-22" width="10" height="2" fill="#FFD700"/>
+        <!-- Jockey arms -->
+        <line x1="-3" y1="-10" x2="-8" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="8" y1="-10" x2="13" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <!-- Reins -->
+        <path d="M -3,-10 Q -15,-5 -25,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <path d="M 8,-10 Q 20,-5 30,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <!-- Jockey legs -->
+        <line x1="0" y1="-2" x2="-2" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="5" y1="-2" x2="7" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <!-- Boots -->
+        <ellipse cx="-2.5" cy="6" rx="2" ry="3" fill="#000000"/>
+        <ellipse cx="7.5" cy="6" rx="2" ry="3" fill="#000000"/>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Horse 2 - Bolt (Chestnut horse, blue silks) -->
+  <g>
+    <!-- Dust puffs -->
+    <g opacity="0.6">
+      <circle cx="400" cy="575" r="7" fill="url(#dustGrad)">
+        <animate attributeName="r" values="4;11;4" dur="0.55s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="0.55s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="380" cy="580" r="6" fill="url(#dustGrad)">
+        <animate attributeName="r" values="3;9;3" dur="0.55s" repeatCount="indefinite" begin="0.12s"/>
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="0.55s" repeatCount="indefinite" begin="0.12s"/>
+      </circle>
+    </g>
+    
+    <g>
+      <animateMotion path="M 1200,0 L -200,0" dur="7.5s" repeatCount="indefinite" begin="0.5s"/>
+      <!-- Horse body (chestnut) -->
+      <ellipse cx="0" cy="0" rx="35" ry="18" fill="#D2691E" stroke="#8B4513" stroke-width="2"/>
+      <!-- Neck -->
+      <ellipse cx="25" cy="-8" rx="12" ry="8" fill="#D2691E" stroke="#8B4513" stroke-width="2" transform="rotate(-20 25 -8)"/>
+      <!-- Head -->
+      <ellipse cx="35" cy="-15" rx="10" ry="8" fill="#D2691E" stroke="#8B4513" stroke-width="2"/>
+      <!-- Ears -->
+      <polygon points="30,-22 32,-28 34,-22" fill="#D2691E"/>
+      <polygon points="38,-22 40,-28 42,-22" fill="#D2691E"/>
+      <!-- Eye -->
+      <circle cx="38" cy="-16" r="1.5" fill="#000000"/>
+      <!-- Nostrils -->
+      <circle cx="43" cy="-15" r="1" fill="#000000"/>
+      <!-- Mane -->
+      <path d="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25; M 25,-15 Q 22,-28 18,-22 Q 12,-32 8,-28; M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" dur="0.45s" repeatCount="indefinite"/>
+      </path>
+      <!-- Tail -->
+      <path d="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" stroke="#8B4513" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40; M -35,0 Q -48,-12 -42,-22 Q -52,-32 -48,-42; M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" dur="0.35s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Legs -->
+      <g>
+        <line x1="15" y1="10" x2="20" y2="30" stroke="#D2691E" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-30 15 10; 20 15 10; -30 15 10" dur="0.35s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="22" cy="32" rx="4" ry="6" fill="#D2691E">
+          <animateTransform attributeName="transform" type="rotate" values="-30 22 32; 20 22 32; -30 22 32" dur="0.35s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="25" y1="10" x2="30" y2="30" stroke="#D2691E" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="20 25 10; -30 25 10; 20 25 10" dur="0.35s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="32" cy="32" rx="4" ry="6" fill="#D2691E">
+          <animateTransform attributeName="transform" type="rotate" values="20 32 32; -30 32 32; 20 32 32" dur="0.35s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="-15" y1="10" x2="-20" y2="30" stroke="#D2691E" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="25 -15 10; -25 -15 10; 25 -15 10" dur="0.35s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-22" cy="32" rx="4" ry="6" fill="#D2691E">
+          <animateTransform attributeName="transform" type="rotate" values="25 -22 32; -25 -22 32; 25 -22 32" dur="0.35s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="-5" y1="10" x2="-10" y2="30" stroke="#D2691E" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -5 10; 25 -5 10; -25 -5 10" dur="0.35s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-12" cy="32" rx="4" ry="6" fill="#D2691E">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -12 32; 25 -12 32; -25 -12 32" dur="0.35s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      
+      <!-- Saddle -->
+      <rect x="-5" y="-2" width="15" height="6" rx="2" fill="#0000CD" stroke="#00008B" stroke-width="1"/>
+      <text x="2.5" y="3" font-family="Arial, sans-serif" font-size="6" fill="#FFFFFF" text-anchor="middle" font-weight="bold">2</text>
+      
+      <!-- Jockey 2 (blue silks) -->
+      <g>
+        <ellipse cx="2.5" cy="-12" rx="8" ry="10" fill="#0000FF"/>
+        <circle cx="2.5" cy="-20" r="6" fill="#F4A460"/>
+        <ellipse cx="2.5" cy="-22" rx="6" ry="4" fill="#00008B"/>
+        <rect x="-2.5" y="-22" width="10" height="2" fill="#FFFFFF"/>
+        <line x1="-3" y1="-10" x2="-8" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="8" y1="-10" x2="13" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <path d="M -3,-10 Q -15,-5 -25,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <path d="M 8,-10 Q 20,-5 30,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <line x1="0" y1="-2" x2="-2" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="5" y1="-2" x2="7" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="-2.5" cy="6" rx="2" ry="3" fill="#000000"/>
+        <ellipse cx="7.5" cy="6" rx="2" ry="3" fill="#000000"/>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Horse 3 - Storm (Gray horse, green silks) -->
+  <g>
+    <!-- Dust puffs -->
+    <g opacity="0.6">
+      <circle cx="600" cy="570" r="8" fill="url(#dustGrad)">
+        <animate attributeName="r" values="5;12;5" dur="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="0.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="580" cy="575" r="6" fill="url(#dustGrad)">
+        <animate attributeName="r" values="4;10;4" dur="0.5s" repeatCount="indefinite" begin="0.1s"/>
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="0.5s" repeatCount="indefinite" begin="0.1s"/>
+      </circle>
+    </g>
+    
+    <g>
+      <animateMotion path="M 1200,0 L -200,0" dur="7s" repeatCount="indefinite" begin="1s"/>
+      <!-- Horse body (gray) -->
+      <ellipse cx="0" cy="0" rx="35" ry="18" fill="#808080" stroke="#696969" stroke-width="2"/>
+      <!-- Neck -->
+      <ellipse cx="25" cy="-8" rx="12" ry="8" fill="#808080" stroke="#696969" stroke-width="2" transform="rotate(-20 25 -8)"/>
+      <!-- Head -->
+      <ellipse cx="35" cy="-15" rx="10" ry="8" fill="#808080" stroke="#696969" stroke-width="2"/>
+      <!-- Ears -->
+      <polygon points="30,-22 32,-28 34,-22" fill="#808080"/>
+      <polygon points="38,-22 40,-28 42,-22" fill="#808080"/>
+      <!-- Eye -->
+      <circle cx="38" cy="-16" r="1.5" fill="#000000"/>
+      <!-- Nostrils -->
+      <circle cx="43" cy="-15" r="1" fill="#000000"/>
+      <!-- Mane -->
+      <path d="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" stroke="#696969" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25; M 25,-15 Q 22,-28 18,-22 Q 12,-32 8,-28; M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" dur="0.4s" repeatCount="indefinite"/>
+      </path>
+      <!-- Tail -->
+      <path d="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" stroke="#696969" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40; M -35,0 Q -48,-12 -42,-22 Q -52,-32 -48,-42; M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" dur="0.3s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Legs -->
+      <g>
+        <line x1="15" y1="10" x2="20" y2="30" stroke="#808080" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-30 15 10; 20 15 10; -30 15 10" dur="0.3s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="22" cy="32" rx="4" ry="6" fill="#808080">
+          <animateTransform attributeName="transform" type="rotate" values="-30 22 32; 20 22 32; -30 22 32" dur="0.3s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="25" y1="10" x2="30" y2="30" stroke="#808080" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="20 25 10; -30 25 10; 20 25 10" dur="0.3s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="32" cy="32" rx="4" ry="6" fill="#808080">
+          <animateTransform attributeName="transform" type="rotate" values="20 32 32; -30 32 32; 20 32 32" dur="0.3s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="-15" y1="10" x2="-20" y2="30" stroke="#808080" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="25 -15 10; -25 -15 10; 25 -15 10" dur="0.3s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-22" cy="32" rx="4" ry="6" fill="#808080">
+          <animateTransform attributeName="transform" type="rotate" values="25 -22 32; -25 -22 32; 25 -22 32" dur="0.3s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="-5" y1="10" x2="-10" y2="30" stroke="#808080" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -5 10; 25 -5 10; -25 -5 10" dur="0.3s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-12" cy="32" rx="4" ry="6" fill="#808080">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -12 32; 25 -12 32; -25 -12 32" dur="0.3s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      
+      <!-- Saddle -->
+      <rect x="-5" y="-2" width="15" height="6" rx="2" fill="#228B22" stroke="#006400" stroke-width="1"/>
+      <text x="2.5" y="3" font-family="Arial, sans-serif" font-size="6" fill="#FFFFFF" text-anchor="middle" font-weight="bold">3</text>
+      
+      <!-- Jockey 3 (green silks) -->
+      <g>
+        <ellipse cx="2.5" cy="-12" rx="8" ry="10" fill="#008000"/>
+        <circle cx="2.5" cy="-20" r="6" fill="#F4A460"/>
+        <ellipse cx="2.5" cy="-22" rx="6" ry="4" fill="#006400"/>
+        <rect x="-2.5" y="-22" width="10" height="2" fill="#FFD700"/>
+        <line x1="-3" y1="-10" x2="-8" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="8" y1="-10" x2="13" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <path d="M -3,-10 Q -15,-5 -25,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <path d="M 8,-10 Q 20,-5 30,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <line x1="0" y1="-2" x2="-2" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="5" y1="-2" x2="7" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="-2.5" cy="6" rx="2" ry="3" fill="#000000"/>
+        <ellipse cx="7.5" cy="6" rx="2" ry="3" fill="#000000"/>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Horse 4 - Comet (Black horse, yellow/purple silks) -->
+  <g>
+    <!-- Dust puffs -->
+    <g opacity="0.6">
+      <circle cx="800" cy="565" r="7" fill="url(#dustGrad)">
+        <animate attributeName="r" values="4;11;4" dur="0.48s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.8;0;0.8" dur="0.48s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="780" cy="570" r="6" fill="url(#dustGrad)">
+        <animate attributeName="r" values="3;9;3" dur="0.48s" repeatCount="indefinite" begin="0.08s"/>
+        <animate attributeName="opacity" values="0.7;0;0.7" dur="0.48s" repeatCount="indefinite" begin="0.08s"/>
+      </circle>
+    </g>
+    
+    <g>
+      <animateMotion path="M 1200,0 L -200,0" dur="6.5s" repeatCount="indefinite" begin="1.5s"/>
+      <!-- Horse body (black) -->
+      <ellipse cx="0" cy="0" rx="35" ry="18" fill="#000000" stroke="#1C1C1C" stroke-width="2"/>
+      <!-- Neck -->
+      <ellipse cx="25" cy="-8" rx="12" ry="8" fill="#000000" stroke="#1C1C1C" stroke-width="2" transform="rotate(-20 25 -8)"/>
+      <!-- Head -->
+      <ellipse cx="35" cy="-15" rx="10" ry="8" fill="#000000" stroke="#1C1C1C" stroke-width="2"/>
+      <!-- Ears -->
+      <polygon points="30,-22 32,-28 34,-22" fill="#000000"/>
+      <polygon points="38,-22 40,-28 42,-22" fill="#000000"/>
+      <!-- Eye -->
+      <circle cx="38" cy="-16" r="1.5" fill="#FF0000"/>
+      <!-- Nostrils -->
+      <circle cx="43" cy="-15" r="1" fill="#000000"/>
+      <!-- Mane -->
+      <path d="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" stroke="#1C1C1C" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25; M 25,-15 Q 22,-28 18,-22 Q 12,-32 8,-28; M 25,-15 Q 20,-25 15,-20 Q 10,-30 5,-25" dur="0.38s" repeatCount="indefinite"/>
+      </path>
+      <!-- Tail -->
+      <path d="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" stroke="#1C1C1C" stroke-width="4" fill="none" stroke-linecap="round">
+        <animate attributeName="d" values="M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40; M -35,0 Q -48,-12 -42,-22 Q -52,-32 -48,-42; M -35,0 Q -45,-10 -40,-20 Q -50,-30 -45,-40" dur="0.28s" repeatCount="indefinite"/>
+      </path>
+      
+      <!-- Legs -->
+      <g>
+        <line x1="15" y1="10" x2="20" y2="30" stroke="#000000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-30 15 10; 20 15 10; -30 15 10" dur="0.28s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="22" cy="32" rx="4" ry="6" fill="#000000">
+          <animateTransform attributeName="transform" type="rotate" values="-30 22 32; 20 22 32; -30 22 32" dur="0.28s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="25" y1="10" x2="30" y2="30" stroke="#000000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="20 25 10; -30 25 10; 20 25 10" dur="0.28s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="32" cy="32" rx="4" ry="6" fill="#000000">
+          <animateTransform attributeName="transform" type="rotate" values="20 32 32; -30 32 32; 20 32 32" dur="0.28s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="-15" y1="10" x2="-20" y2="30" stroke="#000000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="25 -15 10; -25 -15 10; 25 -15 10" dur="0.28s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-22" cy="32" rx="4" ry="6" fill="#000000">
+          <animateTransform attributeName="transform" type="rotate" values="25 -22 32; -25 -22 32; 25 -22 32" dur="0.28s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      <g>
+        <line x1="-5" y1="10" x2="-10" y2="30" stroke="#000000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -5 10; 25 -5 10; -25 -5 10" dur="0.28s" repeatCount="indefinite"/>
+        </line>
+        <ellipse cx="-12" cy="32" rx="4" ry="6" fill="#000000">
+          <animateTransform attributeName="transform" type="rotate" values="-25 -12 32; 25 -12 32; -25 -12 32" dur="0.28s" repeatCount="indefinite"/>
+        </ellipse>
+      </g>
+      
+      <!-- Saddle -->
+      <rect x="-5" y="-2" width="15" height="6" rx="2" fill="#800080" stroke="#4B0082" stroke-width="1"/>
+      <text x="2.5" y="3" font-family="Arial, sans-serif" font-size="6" fill="#FFD700" text-anchor="middle" font-weight="bold">4</text>
+      
+      <!-- Jockey 4 (purple/yellow silks) -->
+      <g>
+        <ellipse cx="2.5" cy="-12" rx="8" ry="10" fill="#800080"/>
+        <circle cx="2.5" cy="-20" r="6" fill="#F4A460"/>
+        <ellipse cx="2.5" cy="-22" rx="6" ry="4" fill="#4B0082"/>
+        <rect x="-2.5" y="-22" width="10" height="2" fill="#FFD700"/>
+        <line x1="-3" y1="-10" x2="-8" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="8" y1="-10" x2="13" y2="-5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <path d="M -3,-10 Q -15,-5 -25,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <path d="M 8,-10 Q 20,-5 30,-15" stroke="#654321" stroke-width="2" fill="none"/>
+        <line x1="0" y1="-2" x2="-2" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <line x1="5" y1="-2" x2="7" y2="5" stroke="#F4A460" stroke-width="3" stroke-linecap="round"/>
+        <ellipse cx="-2.5" cy="6" rx="2" ry="3" fill="#000000"/>
+        <ellipse cx="7.5" cy="6" rx="2" ry="3" fill="#000000"/>
+      </g>
+    </g>
+  </g>
+  
+</svg>

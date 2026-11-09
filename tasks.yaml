@@ -1,0 +1,21 @@
+# SVG benchmark task registry.
+#
+# Each task is one self-contained prompt file. The runner gives every model the
+# same prompt, in a fresh empty directory, and collects the `output.svg` the
+# model produces.
+#
+# To add a task: write prompts/<id>.txt, add an entry here, and re-run with
+#   ./run.sh --tasks <id>
+
+tasks:
+  - id: sloth-excavator
+    prompt: prompts/sloth-excavator.txt
+    blurb: >-
+      Cartoon sloth in hard hat and hi-vis vest calmly operating a yellow
+      tracked excavator, digging/filling a dirt pile, several animated elements.
+
+  - id: horse-racing
+    prompt: prompts/horse-racing.txt
+    blurb: >-
+      Full-gallop horse race, 4+ horses with silks-clad jockeys, grandstand,
+      tote board, track rails, several animated elements.

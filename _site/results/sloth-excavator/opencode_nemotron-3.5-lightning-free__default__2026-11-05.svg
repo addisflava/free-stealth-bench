@@ -1,0 +1,363 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Definitions with gradients and animations -->
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#87CEFA"/>
+      <stop offset="100%" stop-color="#E0F7FA"/>
+    </linearGradient>
+    
+    <!-- Ground gradient -->
+    <linearGradient id="groundGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#D2B48C"/>
+      <stop offset="50%" stop-color="#F5DEB3"/>
+      <stop offset="100%" stop-color="#D2B48C"/>
+    </linearGradient>
+    
+    <!-- Dirt pile gradient -->
+    <linearGradient id="dirtGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="40%" stop-color="#A0522D"/>
+      <stop offset="100%" stop-color="#6B3103"/>
+    </linearGradient>
+    
+    <!-- Sun gradient -->
+    <radialGradient id="sunGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFA500"/>
+    </radialGradient>
+    
+    <!-- Hard hat gradient -->
+    <linearGradient id="hardHatGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#FF6B6B"/>
+      <stop offset="50%" stop-color="#FF8C42"/>
+      <stop offset="100%" stop-color="#FF6B6B"/>
+    </linearGradient>
+    
+    <!-- High-vis vest gradient -->
+    <linearGradient id="vestGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#FF00FF"/>
+      <stop offset="50%" stop-color="#FF1493"/>
+      <stop offset="100%" stop-color="#FF00FF"/>
+    </linearGradient>
+    
+    <!-- Cone gradient -->
+    <linearGradient id="coneGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#FF4500"/>
+      <stop offset="100%" stop-color="#FF6347"/>
+    </linearGradient>
+    
+    <!-- Rock gradient -->
+    <linearGradient id="rockGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#8B6914"/>
+      <stop offset="50%" stop-color="#B8860B"/>
+      <stop offset="100%" stop-color="#8B6914"/>
+    </linearGradient>
+    
+    <!-- Bucket gradient -->
+    <linearGradient id="bucketGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#CD5C5C"/>
+      <stop offset="50%" stop-color="#F08080"/>
+      <stop offset="100%" stop-color="#CD5C5C"/>
+    </linearGradient>
+    
+    <!-- Cab window gradient -->
+    <linearGradient id="windowGradient" x1="0" y1="0" x2="0" y="100%">
+      <stop offset="0%" stop-color="#1E90FF"/>
+      <stop offset="100%" stop-color="#4682B4"/>
+    </linearGradient>
+    
+    <!-- Sloth fur gradient -->
+    <linearGradient id="slothFur" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#F5F5F5"/>
+      <stop offset="50%" stop-color="#E8E8E8"/>
+      <stop offset="100%" stop-color="#F5F5F5"/>
+    </linearGradient>
+    
+    <!-- Eye gradient -->
+    <radialGradient id="eyeGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#4169E1"/>
+      <stop offset="100%" stop-color="#191970"/>
+    </radialGradient>
+    
+    <!-- Animation keyframes for SMIL -->
+    <animateTransform name="boomRotate" type="rotate" dur="4s" 
+      from="0 600 400" to="30 600 400" repeatCount="indefinite"/>
+    
+    <animateTransform name="stickRotate" type="rotate" dur="4s" 
+      from="0 600 450" to="-20 600 450" repeatCount="indefinite"/>
+    
+    <animateTransform name="bucketRotate" type="rotate" dur="4s" 
+      from="0 610 500" to="15 610 500" repeatCount="indefinite"/>
+    
+    <animateTransform name="wheelRotate" type="rotate" dur="2s" 
+      from="0 650 550" to="360 650 550" repeatCount="indefinite"/>
+    
+    <animateTransform name="steeringRotate" type="rotate" dur="8s" 
+      from="0" to="30" repeatCount="indefinite"/>
+    
+    <set name="blink" attributeName="d" dur="4s" repeatCount="indefinite"
+      to="M 650 420 L 650 420 L 650 420 Z M 650 420 L 650 420 L 650 420"/>
+    <set name="blink2" attributeName="d" dur="5s" repeatCount="indefinite"
+      to="M 680 425 L 680 425 L 680 425 Z M 680 425 L 680 425 L 680 425"/>
+    
+    <!-- Zzz floating animation -->
+    <set attributeName="dy" begin="0s" dur="3s" to="20" repeatCount="indefinite"/>
+  </defs>
+  
+  <!-- Background sky -->
+  <rect width="1200" height="800" fill="url(#skyGradient)"/>
+  
+  <!-- Sun -->
+  <circle cx="1050" cy="100" r="80" fill="url(#sunGradient)"/>
+  <circle cx="1050" cy="100" r="40" fill="#fff" opacity="0.3"/>
+  
+  <!-- Clouds -->
+  <g fill="#fff">
+    <circle cx="200" cy="150" r="35"/>
+    <circle cx="230" cy="140" r="30"/>
+    <circle cx="260" cy="150" r="35"/>
+    <circle cx="300" cy="145" r="25"/>
+    <circle cx="330" cy="155" r="30"/>
+    <circle cx="900" cy="120" r="40"/>
+    <circle cx="930" cy="110" r="35"/>
+    <circle cx="960" cy="120" r="40"/>
+    <circle cx="990" cy="115" r="30"/>
+  </g>
+  
+  <!-- Ground -->
+  <rect width="1200" height="200" fill="url(#groundGradient)" y="600"/>
+  
+  <!-- Dirt pile -->
+  <g fill="url(#dirtGradient)">
+    <path d="M 200 600 Q 300 550 400 600 Q 500 580 600 600 Q 700 560 800 600 Q 900 570 1000 600 L 1000 800 L 200 800 Z"/>
+  </g>
+  
+  <!-- Construction caution stripe -->
+  <g fill="#F00">
+    <rect x="300" y="600" width="100" height="40"/>
+    <rect x="420" y="600" width="100" height="40"/>
+    <rect x="540" y="600" width="100" height="40"/>
+    <rect x="660" y="600" width="100" height="40"/>
+    <rect x="780" y="600" width="100" height="40"/>
+  </g>
+  
+  <!-- Rocks -->
+  <g fill="url(#rockGradient)">
+    <path d="M 100 580 Q 150 560 200 580 Q 250 550 300 580"/>
+    <path d="M 500 590 Q 550 570 600 590 Q 650 570 700 590"/>
+    <path d="M 800 580 Q 850 560 900 580 Q 950 550 1000 580"/>
+  </g>
+  
+  <!-- Cones -->
+  <g fill="url(#coneGradient)">
+    <polygon points="350 560 400 560 375 520 325 520"/>
+    <polygon points="650 560 700 560 675 520 625 520"/>
+    <polygon points="950 560 1000 560 975 520 925 520"/>
+  </g>
+  
+  <!-- Excavator tracks -->
+  <g fill="#333">
+    <!-- Left track -->
+    <rect x="350" y="580" width="80" height="300" rx="10" ry="10"/>
+    <circle cx="390" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 390 580" to="360 390 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="430" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 430 580" to="360 430 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="470" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 470 580" to="360 470 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="510" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 510 580" to="360 510 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="390" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 390 650" to="360 390 650" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="430" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 430 650" to="360 430 650" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="470" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 470 650" to="360 470 650" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="510" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 510 650" to="360 510 650" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Right track -->
+    <rect x="700" y="580" width="80" height="300" rx="10" ry="10"/>
+    <circle cx="740" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 740 580" to="360 740 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="780" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 780 580" to="360 780 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="820" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 820 580" to="360 820 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="860" cy="580" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 860 580" to="360 860 580" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="740" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 740 650" to="360 740 650" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="780" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 780 650" to="360 780 650" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="820" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 820 650" to="360 820 650" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="860" cy="650" r="15" fill="#222">
+      <animateTransform attributeName="transform" type="rotate" dur="2s" 
+        from="0 860 650" to="360 860 650" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Excavator body (rotating) -->
+  <g id="excavatorBody" transform="translate(600, 400) rotate(-10) translate(-600, -400)">
+    <path d="M 600 400 L 1000 400 L 1000 500 L 600 500 Z" fill="#708090"/>
+    <path d="M 600 400 L 620 350 L 980 350 L 1000 400 Z" fill="#5F7F9F"/>
+    <!-- Cab -->
+    <rect x="750" y="320" width="120" height="180" rx="20" ry="20" fill="url(#windowGradient)"/>
+    <rect x="770" y="340" width="80" height="50" rx="10" ry="10" fill="#fff"/>
+    <!-- Steering wheel -->
+    <circle cx="810" cy="430" r="20" fill="#654321"/>
+    <!-- Arm - boom -->
+    <path d="M 800 400 Q 850 300 900 250" stroke="#8B4513" stroke-width="20" fill="none"/>
+    <animateTransform name="boomRotate" type="rotate" dur="4s" 
+      from="0 800 400" to="30 800 400" repeatCount="indefinite"/>
+    <!-- Arm - stick -->
+    <path d="M 900 250 Q 950 150 1000 100" stroke="#8B4513" stroke-width="15" fill="none"/>
+    <animateTransform name="stickRotate" type="rotate" dur="4s" 
+      from="0 900 250" to="-20 900 250" repeatCount="indefinite"/>
+    <!-- Bucket -->
+    <path d="M 1000 100 Q 1050 50 1100 20" stroke="#8B4513" stroke-width="15" fill="url(#bucketGradient)"/>
+    <animateTransform name="bucketRotate" type="rotate" dur="4s" 
+      from="0 1100 20" to="15 1100 20" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Exhaust pipe -->
+  <g fill="#8B4513">
+    <path d="M 1050 350 Q 1100 300 1150 300"/>
+    <circle cx="1150" cy="300" r="15" fill="#6B3102"/>
+    <!-- Exhaust puffs (SMIL animation) -->
+    <circle cx="1160" cy="280" r="10" fill="#B7410E">
+      <animate attributeName="opacity" dur="2s" values="1;0;1" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1170" cy="290" r="8" fill="#B7410E">
+      <animate attributeName="opacity" dur="2.5s" values="1;0;1" repeatCount="indefinite" begin="0.5s"/>
+    </circle>
+    <circle cx="1180" cy="270" r="12" fill="#B7410E">
+      <animate attributeName="opacity" dur="3s" values="1;0;1" repeatCount="indefinite" begin="1s"/>
+    </circle>
+  </g>
+  
+  <!-- Bird -->
+  <g fill="#000">
+    <path d="M 500 120 Q 520 110 540 120 Q 560 110 580 120"/>
+    <circle cx="510" cy="115" r="3" fill="#000"/>
+    <circle cx="550" cy="115" r="3" fill="#000"/>
+    <!-- Wing -->
+    <path d="M 500 120 Q 480 130 470 120 Q 490 110 500 120" fill="none" stroke="#000" stroke-width="2"/>
+  </g>
+  <animateTransform attributeName="transform" type="translate" 
+    begin="0s" dur="10s" 
+    from="500 120" to="1100 120" 
+    repeatCount="indefinite"/>
+  
+  <!-- Sloth in cab -->
+  <g id="sloth" transform="translate(770 380)">
+    <!-- Hard hat -->
+    <g fill="url(#hardHatGradient)">
+      <!-- Hat base -->
+      <path d="M 750 300 Q 800 250 850 300 Q 900 250 950 300 Q 900 350 850 350 Q 800 350 750 300 Z"/>
+      <!-- Hat top -->
+      <path d="M 800 220 Q 800 180 780 190 Q 760 195 760 210 Q 770 220 780 220 Z"/>
+      <!-- Hat brim -->
+      <rect x="740" y="300" width="100" height="20" rx="5" ry="5"/>
+    </g>
+    <!-- High-vis vest -->
+    <g fill="url(#vestGradient)">
+      <rect x="750" y="380" width="100" height="120" rx="10" ry="10"/>
+      <rect x="750" y="440" width="40" height="10" rx="3" ry="3"/>
+      <rect x="790" y="440" width="40" height="10" rx="3" ry="3"/>
+      <rect x="750" y="500" width="100" height="10" rx="3" ry="3"/>
+      <rect x="750" y="550" width="40" height="10" rx="3" ry="3"/>
+      <rect x="790" y="550" width="40" height="10" rx="3" ry="3"/>
+    </g>
+    <!-- Face -->
+    <g fill="#F5F5F5">
+      <!-- Eye patches -->
+      <ellipse cx="785" cy="350" rx="25" ry="35" fill="#2F4F4F"/>
+      <ellipse cx="805" cy="355" rx="25" ry="35" fill="#2F4F4F"/>
+      <!-- Half-closed eyes -->
+      <path d="M 770 360 Q 780 370 790 360 Q 800 370 810 360" fill="none" stroke="#4169E1" stroke-width="2"/>
+      <path d="M 790 360 Q 800 370 810 360 Q 820 370 830 360" fill="none" stroke="#4169E1" stroke-width="2"/>
+      <!-- Smaller inner eyes - content half-closed -->
+      <ellipse cx="785" cy="355" rx="8" ry="6" fill="url(#eyeGradient)"/>
+      <ellipse cx="805" cy="360" rx="8" ry="6" fill="url(#eyeGradient)"/>
+      <!-- Nose -->
+      <circle cx="795" cy="380" r="4" fill="#D2691E"/>
+      <!-- Sleepy smile -->
+      <path d="M 775 390 Q 790 400 805 390" fill="none" stroke="#D2691E" stroke-width="2"/>
+      <!-- Fur texture on head -->
+      <path d="M 750 320 Q 770 330 790 320 Q 810 330 830 320" fill="none" stroke="#D3D3D3" stroke-width="1"/>
+    </g>
+    <!-- Arm reaching for steering wheel -->
+    <g fill="#F5F5F5">
+      <!-- Upper arm -->
+      <path d="M 830 400 Q 850 430 870 420"/>
+      <!-- Lower arm -->
+      <path d="M 870 420 Q 890 460 910 450"/>
+      <!-- Hand/claws -->
+      <path d="M 910 450 Q 930 470 950 460 Q 970 470 990 450"/>
+      <!-- Claw marks -->
+      <path d="M 920 455 Q 925 465 930 455" fill="none" stroke="#000" stroke-width="1"/>
+      <path d="M 935 455 Q 940 465 945 455" fill="none" stroke="#000" stroke-width="1"/>
+      <path d="M 950 455 Q 955 465 960 455" fill="none" stroke="#000" stroke-width="1"/>
+    </g>
+    <!-- Blinking animation - SMIL -->
+    <set name="blink" attributeName="d" begin="0s" dur="6s" repeatCount="indefinite"
+      to="M 770 360 Q 780 370 790 360 Q 800 370 810 360 M 790 360 Q 800 370 810 360 Q 820 370 830 360"/>
+    <set name="blink2" attributeName="d" begin="1s" dur="6s" repeatCount="indefinite"
+      to="M 775 365 Q 785 375 795 365 Q 805 375 815 365 M 795 365 Q 805 375 815 365 Q 825 375 835 365"/>
+    
+    <!-- Zzz floating upward -->
+    <text x="800" y="300" font-family="sans-serif" font-size="20" fill="#4169E1" 
+          transform="translate(770 380)">
+      Zzz
+      <set attributeName="y" begin="0s" dur="4s" to="250" repeatCount="indefinite"/>
+    </text>
+  </g>
+  
+  <!-- Additional dirt mounds for realism -->
+  <g fill="url(#dirtGradient)">
+    <path d="M 400 620 Q 450 610 500 620 Q 550 600 600 620 Q 650 610 700 620"/>
+    <path d="M 1100 610 Q 1120 590 1140 610 Q 1160 600 1180 610"/>
+  </g>
+  
+  <!-- More clouds -->
+  <g fill="#fff" opacity="0.8">
+    <ellipse cx="400" cy="80" rx="50" ry="30"/>
+    <ellipse cx="460" cy="60" rx="40" ry="25"/>
+    <ellipse cx="520" cy="90" rx="55" ry="35"/>
+    <ellipse cx="1100" cy="90" rx="45" ry="28"/>
+    <ellipse cx="1050" cy="70" rx="40" ry="25"/>
+  </g>
+</svg>

@@ -1,0 +1,58 @@
+name: Deploy svg-bench to GitHub Pages
+
+# Use this workflow when svg-bench lives in its own repository (so this file is
+# at the repo root). The monorepo workflow at the repository root deploys this
+# page under /svg-bench/ instead.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      SUPABASE_URL: ${{ vars.SUPABASE_URL || secrets.SUPABASE_URL }}
+      SUPABASE_ANON_KEY: ${{ vars.SUPABASE_ANON_KEY || secrets.SUPABASE_ANON_KEY }}
+      SUPABASE_REVIEWS_TABLE: ${{ vars.SUPABASE_REVIEWS_TABLE || secrets.SUPABASE_REVIEWS_TABLE }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install build dependency
+        run: python3 -m pip install --quiet pyyaml
+
+      - name: Build static site
+        run: |
+          set -euo pipefail
+          python3 build_site.py --out _site
+          test -f _site/index.html
+          test -f _site/data.json
+          found="$(find _site/results -name '*.svg' -print -quit)"
+          test -n "$found" || { echo "::error::no SVG artifacts were published"; exit 1; }
+          echo "deployed artifact count: $(find _site/results -name '*.svg' | wc -l)"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>free-stealth-bench</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='18' r='13' fill='%23f57f17'/%3E%3Ccircle cx='16' cy='18' r='7' fill='%23ffd54f'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 48 48" role="img" aria-label="svg-bench mark">
+      <rect x="2" y="34" width="44" height="9" rx="4.5" fill="#37474f"/>
+      <rect x="6" y="37" width="6" height="3" rx="1.5" fill="#90a4ae"/><rect x="18" y="37" width="6" height="3" rx="1.5" fill="#90a4ae"/><rect x="30" y="37" width="6" height="3" rx="1.5" fill="#90a4ae"/>
+      <rect x="10" y="20" width="28" height="15" rx="2" fill="#f57f17"/>
+      <rect x="29" y="24" width="7" height="11" rx="1.5" fill="#ffd54f"/>
+      <rect x="13" y="23" width="9" height="8" rx="1.5" fill="#b3e5fc" opacity="0.9"/>
+      <path d="M14 21 L6 6 L11 4 L18 20 Z" fill="#ffd54f" stroke="#bf360c" stroke-width="1.4" stroke-linejoin="round"/>
+      <circle cx="23" cy="15" r="4.6" fill="#6d4c41"/><circle cx="23" cy="14" r="2.6" fill="#a1887f"/>
+    </svg>
+    <div>
+      <h1>free-stealth-bench</h1>
+      
+    </div>
+  </div>
+  <div class="top-actions">
+    <span class="live-badge" title="This page polls for new results every 10s"><span class="live-dot"></span>live</span>
+    <span id="chips" class="chips"></span>
+    <button type="button" id="btn-export" class="btn ghost" title="Download your ratings as JSON">Export ratings</button>
+    <button type="button" id="btn-import" class="btn ghost" title="Merge a ratings JSON into this browser">Import</button>
+    <input type="file" id="import-file" accept="application/json,.json" hidden>
+    <button type="button" id="btn-reset" class="btn ghost danger" title="Clear ratings stored in this browser">Reset</button>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Views and model scope">
+  <button class="tab active" role="tab" aria-selected="true" data-scope="available" title="Only free models present in the latest discovery snapshot">current models</button>
+  <button class="tab" role="tab" aria-selected="false" data-scope="all" title="Every model ever tested, including paid, delisted or region-blocked ones">all models</button>
+  <button class="tab" role="tab" aria-selected="false" data-scope="new" title="Models first seen within the last 7 days" hidden>new</button>
+  <button class="tab tab-view" role="tab" aria-selected="false" data-view="ranking" title="Scored ranking — automated blind judge, out of 100">Ranking</button>
+</nav>
+
+<main>
+  <!-- ══════════ Runs view — the same matrix for both scopes ══════════ -->
+  <section id="view-runs" class="view active" role="tabpanel">
+    <div class="toolbar">
+      <label class="field"><span>Task</span>
+        <select id="f-task"><option value="all">All tasks</option></select>
+      </label>
+      <label class="field"><span>Status</span>
+        <select id="f-status">
+          <option value="all">All statuses</option>
+          <option value="ok">ok</option>
+          <option value="invalid_svg">invalid_svg</option>
+          <option value="timeout">timeout</option>
+          <option value="no_output">no_output</option>
+        </select>
+      </label>
+      <label class="field"><span>Provider</span>
+        <select id="f-provider"><option value="all">All providers</option></select>
+      </label>
+      <label class="field grow"><span>Search</span>
+        <input id="f-search" type="search" placeholder="model name… (e.g. glm)" autocomplete="off">
+      </label>
+      <label class="check"><input type="checkbox" id="f-unrated"> unrated only</label>
+      <span class="rerun-group" id="rerun-group" hidden>
+        <button type="button" id="btn-rerun-failed" class="btn small ghost rerun" title="Admin only: re-run the failed model+task pairs in this tab, with --force">↻ Re-run failed</button>
+        <button type="button" id="btn-rerun-all" class="btn small ghost rerun" title="Admin only: re-run every model in this tab on every task, with --force">↻ Re-run all</button>
+      </span>
+      <span id="admin-badge" class="admin-badge" hidden title="Admin controls unlocked for this local server session">admin</span>
+      <span id="shown-count" class="shown"></span>
+    </div>
+
+    <div class="split">
+      <div class="table-wrap matrix-wrap">
+        <table id="runs-matrix" class="matrix">
+          <thead id="matrix-head"></thead>
+          <tbody></tbody>
+        </table>
+        <p id="empty" class="empty" hidden>No runs match those filters.</p>
+      </div>
+
+      <aside id="preview" class="preview" role="dialog" aria-label="Full animation preview">
+        <div class="preview-head">
+          <span class="preview-title">Live preview</span>
+          <span id="preview-name" class="preview-name"></span>
+          <span id="preview-status" class="pill st-ok">ok</span>
+        </div>
+        <div class="preview-frame">
+          <img id="preview-img" alt="Full SVG animation as generated by the model">
+          <div id="preview-empty" class="preview-empty" style="display:none"></div>
+          <a id="preview-open" class="preview-corner" target="_blank" rel="noopener" title="Open raw SVG in new window">↗</a>
+        </div>
+        <div id="preview-chips" class="preview-chips"></div>
+        <div id="preview-rating" class="preview-rating"></div>
+        <section id="preview-judge" class="preview-judge" aria-label="Automated judge scores"></section>
+        <div id="preview-note" class="preview-note" hidden><textarea placeholder="Your private notes for this run… (saved in this browser)"></textarea></div>
+        <section id="public-reviews" class="public-reviews" aria-label="Public user reviews">
+          <div class="reviews-head">
+            <h2>Public reviews</h2>
+            <span id="reviews-count" class="reviews-count">0</span>
+          </div>
+          <div id="reviews-list" class="reviews-list"></div>
+          <div id="review-form-wrap" class="review-form-wrap"></div>
+        </section>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ══════════ Judge ranking view — automated blind LLM scoring ══════════ -->
+  <section id="view-ranking" class="view" role="tabpanel" aria-label="Automated judge ranking">
+    <div id="ranking-body" class="ranking-body"></div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span>opencode bench · static GitHub Pages edition · evidence, not vibes</span>
+  <span><span id="foot-updated"></span> · <span id="foot-generated"></span></span>
+</footer>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="runbar" class="runbar" hidden aria-live="polite">
+  <span class="runbar-dot"></span><span id="runbar-text">benchmark running…</span>
+</div>
+<script src="config.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

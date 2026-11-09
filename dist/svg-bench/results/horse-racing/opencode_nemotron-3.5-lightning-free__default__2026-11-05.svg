@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#1E3A8A"/>
+    </linearGradient>
+    
+    <!-- Turf gradient -->
+    <linearGradient id="turfGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#7CFC00"/>
+      <stop offset="100%" stop-color="#32CD32"/>
+    </linearGradient>
+    
+    <!-- Horse 1: Bay -->
+    <linearGradient id="horse1Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#CD853F"/>
+      <stop offset="50%" stop-color="#A0522D"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+    
+    <!-- Horse 2: Gray -->
+    <linearGradient id="horse2Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FFE4B5"/>
+      <stop offset="50%" stop-color="#FFDAB3"/>
+      <stop offset="100%" stop-color="#F5C39B"/>
+    </linearGradient>
+    
+    <!-- Horse 3: White/dapple -->
+    <linearGradient id="horse3Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#D3D3D3"/>
+      <stop offset="50%" stop-color="#A9A9A9"/>
+      <stop offset="100%" stop-color="#808080"/>
+    </linearGradient>
+    
+    <!-- Horse 4: Purple -->
+    <linearGradient id="horse4Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FF69B4"/>
+      <stop offset="50%" stop-color="#DA70D6"/>
+      <stop offset="100%" stop-color="#DA70D6"/>
+    </linearGradient>
+    
+    <!-- Silks: Red -->
+    <linearGradient id="silks1Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FF0000"/>
+      <stop offset="100%" stop-color="#FF4500"/>
+    </linearGradient>
+    
+    <!-- Silks: Blue -->
+    <linearGradient id="silks2Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#1E90FF"/>
+    </linearGradient>
+    
+    <!-- Silks: Yellow -->
+    <linearGradient id="silks3Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FFFF00"/>
+      <stop offset="100%" stop-color="#ADFF2F"/>
+    </linearGradient>
+    
+    <!-- Silks: Purple -->
+    <linearGradient id="silks4Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#8A2BE2"/>
+      <stop offset="100%" stop-color="#9370DB"/>
+    </linearGradient>
+    
+    <!-- Finish line gradient -->
+    <linearGradient id="finishGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#FFEC8B"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </linearGradient>
+    
+    <!-- Grandstand gradient -->
+    <linearGradient id="grandstandGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#A0522D"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background sky -->
+  <rect x="0" y="0" width="1200" height="800" fill="url(#skyGrad)"/>
+  
+  <!-- Sun -->
+  <circle cx="1050" cy="100" r="60" fill="#FFD700"/>
+  <circle cx="1050" cy="100" r="45" fill="#FFA500"/>
+  <!-- Sun rays -->
+  <g>
+    <line x1="1050" y1="40" x2="1050" y2="10" stroke="#FFD700" stroke-width="8"/>
+    <line x1="1050" y1="40" x2="1130" y2="40" stroke="#FFD700" stroke-width="8"/>
+    <line x1="1050" y1="40" x2="1070" y2="10" stroke="#FFD700" stroke-width="8"/>
+    <line x1="1050" y1="90" x2="1090" y2="90" stroke="#FFD700" stroke-width="8"/>
+    <line x1="1050" y1="90" x2="1050" y2="100" stroke="#FFD700" stroke-width="8"/>
+    <line x1="1050" y1="90" x2="1010" y2="90" stroke="#FFD700" stroke-width="8"/>
+  </g>
+  
+  <!-- Moving clouds -->
+  <g id="clouds">
+    <g>
+      <path d="M20 150 Q40 130 Q60 150 Q80 170 Q100 150 Z" fill="white" opacity="0.9">
+        <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="20s"
+          values="0; -100; 0" calcMode="linear"/>
+      </path>
+    </g>
+    <g transform="translate(150, 80)">
+      <path d="M30 120 Q50 100 Q70 120 Q90 140 Q110 120 Z" fill="white" opacity="0.9">
+        <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="25s"
+          values="0; -120; 0" calcMode="linear"/>
+      </path>
+    </g>
+    <g transform="translate(300, 120)">
+      <path d="M10 160 Q30 140 Q50 160 Q70 180 Q90 160 Z" fill="white" opacity="0.9">
+        <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="30s"
+          values="0; -150; 0" calcMode="linear"/>
+      </path>
+    </g>
+  </g>
+  
+  <!-- Turf track area -->
+  <g id="track">
+    <!-- Main track area -->
+    <path d="M100 500 Q500 450 Q900 500 L900 600 L100 600 Z" fill="url(#turfGrad)"/>
+    
+    <!-- Inner turf line -->
+    <path d="M100 500 Q500 495 Q900 500" stroke="#32CD32" stroke-width="8" fill="none"/>
+    
+    <!-- Outer track rail -->
+    <path d="M100 600 Q500 580 Q900 600" stroke="#8B4513" stroke-width="12" fill="none" stroke-linecap="round"/>
+    
+    <!-- Inner rail -->
+    <path d="M100 500 Q500 510 Q900 500" stroke="#228B22" stroke-width="4" fill="none"/>
+    
+    <!-- Finish line -->
+    <g id="finishLine">
+      <line x1="1050" y1="440" x2="1050" y2="560" stroke="url(#finishGrad)" stroke-width="4" stroke-dasharray="20 10"/>
+      <!-- Finish post -->
+      <rect x="1055" y="430" width="8" height="130" fill="#CD853F"/>
+      <!-- Winning post ribbon -->
+      <line x1="1050" y1="430" x2="1050" y2="400" stroke="#FFFFFF" stroke-width="3" stroke-dasharray="5 3"/>
+    </g>
+    
+    <!-- Tote board -->
+    <g id="toteBoard" transform="translate(1080, 520)">
+      <rect x="0" y="0" width="120" height="80" fill="url(#grandstandGrad)" rx="5"/>
+      <rect x="5" y="5" width="110" height="70" fill="#2F4F4F"/>
+      <!-- Numbers -->
+      <text x="60" y="40" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#FFD700">POST</text>
+      <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="4s"
+        values="1080; 1050; 1080" calcMode="linear"/>
+    </g>
+    
+    <!-- Leaderboard -->
+    <g id="leaderboard" transform="translate(200, 460)">
+      <rect x="0" y="0" width="200" height="60" fill="url(#grandstandGrad)" rx="3"/>
+      <text x="50" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#FFD700">1st</text>
+      <text x="120" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#FFD700">2nd</text>
+      <text x="170" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" fill="#FFD700">3rd</text>
+    </g>
+  </g>
+  
+  <!-- Grass beyond rail -->
+  <g id="grass">
+    <path d="M100 600 Q500 700 Q900 600 L900 800 L100 800 Z" fill="#228B22"/>
+    <!-- Grass blades -->
+    <g fill="#32CD32" opacity="0.6">
+      <line x1="110" y1="600" x2="110" y2="590" transform="rotate(15 110 600)"/>
+      <line x1="130" y1="610" x2="130" y2="595" transform="rotate(-10 130 610)"/>
+      <line x1="150" y1="620" x2="150" y2="610" transform="rotate(20 150 620)"/>
+      <line x1="170" y1="615" x2="170" y2="605" transform="rotate(-15 170 615)"/>
+      <line x1="190" y1="625" x2="190" y2="615" transform="rotate(25 190 625)"/>
+    </g>
+  </g>
+  
+  <!-- Horse 1: Bay/jockey red silks -->
+  <g id="horse1" transform="translate(150, 470)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="80" ry="45" fill="url(#horse1Grad)"/>
+    <!-- Head -->
+    <polygon points="-30,-15 -5,-25 10,-15 15 0" fill="url(#horse1Grad)"/>
+    <!-- Mane -->
+    <path d="M-15,-10 Q-25,-20 Q-35,-10 Q-25,0 Q-15,-10" fill="#8B0000" opacity="0.8"/>
+    <!-- Tail -->
+    <path d="M30,0 Q40,-20 Q50,0 Q40,20 Q30,0" fill="#8B0000" opacity="0.8"/>
+    <!-- Jockey -->
+    <g fill="#FFFFFF">
+      <!-- Saddle area -->
+      <rect x="-25" y="-30" width="50" height="35" fill="url(#silks1Grad)"/>
+      <!-- Jockey body -->
+      <circle cx="-10" cy="-10" r="12" fill="#8B0000"/>
+      <!-- Legs -->
+      <g id="legs1">
+        <line x1="-25" y1="0" x2="-40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 -25 0; 30 -25 0; 0 -25 0" dur="0.6s" repeatCount="indefinite"/>
+        </line>
+        <line x1="25" y1="0" x2="40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 25 0; -30 25 0; 0 25 0" dur="0.6s" repeatCount="indefinite"/>
+        </line>
+      </g>
+      <!-- Numbers -->
+      <text x="-20" y="-25" text-anchor="middle" font-family="Arial" font-size="12" fill="#000">1</text>
+    </g>
+    <!-- Cap -->
+    <polygon points="-15,-25 -5,-35 15,-25 5,-15" fill="url(#silks1Grad)"/>
+    
+    <!-- Horse motion path -->
+    <animateMotion path="M150 470 L500 470 L900 470" begin="indefinite" repeatCount="indefinite" dur="12s">
+      <animateTransform attributeName="rotate" from="0" to="360" dur="12s" repeatCount="indefinite"/>
+    </animateMotion>
+  </g>
+  
+  <!-- Horse 2: Gray/jockey blue silks -->
+  <g id="horse2" transform="translate(280, 460)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="80" ry="45" fill="url(#horse2Grad)"/>
+    <!-- Head -->
+    <polygon points="-30,-15 -5,-25 10,-15 15 0" fill="url(#horse2Grad)"/>
+    <!-- Mane -->
+    <path d="M-15,-10 Q-20,-25 Q-30,-15 Q-20,-5 Q-15,-10" fill="#A9A9A9" opacity="0.8"/>
+    <!-- Tail -->
+    <path d="M30,0 Q40,-20 Q50,0 Q40,20 Q30,0" fill="#A9A9A9" opacity="0.8"/>
+    <!-- Jockey -->
+    <g fill="#FFFFFF">
+      <rect x="-25" y="-30" width="50" height="35" fill="url(#silks2Grad)"/>
+      <circle cx="-10" cy="-10" r="12" fill="#A9A9A9"/>
+      <!-- Legs -->
+      <g id="legs2">
+        <line x1="-25" y1="0" x2="-40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 -25 0; 30 -25 0; 0 -25 0" dur="0.7s" repeatCount="indefinite"/>
+        </line>
+        <line x1="25" y1="0" x2="40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 25 0; -30 25 0; 0 25 0" dur="0.7s" repeatCount="indefinite"/>
+        </line>
+      </g>
+      <text x="-20" y="-25" text-anchor="middle" font-family="Arial" font-size="12" fill="#000">2</text>
+    </g>
+    <polygon points="-15,-25 -5,-35 15,-25 5,-15" fill="url(#silks2Grad)"/>
+    
+    <!-- Horse motion path -->
+    <animateMotion path="M280 460 L600 460 L950 460" begin="1s" repeatCount="indefinite" dur="14s">
+      <animateTransform attributeName="rotate" from="0" to="360" dur="14s" repeatCount="indefinite"/>
+    </animateMotion>
+  </g>
+  
+  <!-- Horse 3: White/jockey yellow silks -->
+  <g id="horse3" transform="translate(420, 480)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="80" ry="45" fill="url(#horse3Grad)"/>
+    <!-- Head -->
+    <polygon points="-30,-15 -5,-25 10,-15 15 0" fill="url(#horse3Grad)"/>
+    <!-- Mane -->
+    <path d="M-15,-10 Q-25,-15 Q-35,-25 Q-25,-10 Q-15,-10" fill="#FFFFFF" opacity="0.9"/>
+    <!-- Tail -->
+    <path d="M30,0 Q40,-15 Q50,0 Q40,15 Q30,0" fill="#FFFFFF" opacity="0.9"/>
+    <!-- Jockey -->
+    <g fill="#FFFFFF">
+      <rect x="-25" y="-30" width="50" height="35" fill="url(#silks3Grad)"/>
+      <circle cx="-10" cy="-10" r="12" fill="#D3D3D3"/>
+      <!-- Legs -->
+      <g id="legs3">
+        <line x1="-25" y1="0" x2="-40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 -25 0; 30 -25 0; 0 -25 0" dur="0.8s" repeatCount="indefinite"/>
+        </line>
+        <line x1="25" y1="0" x2="40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 25 0; -30 25 0; 0 25 0" dur="0.8s" repeatCount="indefinite"/>
+        </line>
+      </g>
+      <text x="-20" y="-25" text-anchor="middle" font-family="Arial" font-size="12" fill="#000">3</text>
+    </g>
+    <polygon points="-15,-25 -5,-35 15,-25 5,-15" fill="url(#silks3Grad)"/>
+    
+    <!-- Horse motion path -->
+    <animateMotion path="M420 480 L700 480 L1000 480" begin="2s" repeatCount="indefinite" dur="16s">
+      <animateTransform attributeName="rotate" from="0" to="360" dur="16s" repeatCount="indefinite"/>
+    </animateMotion>
+  </g>
+  
+  <!-- Horse 4: Purple/jockey purple silks -->
+  <g id="horse4" transform="translate(550, 450)">
+    <!-- Body -->
+    <ellipse cx="0" cy="0" rx="80" ry="45" fill="url(#horse4Grad)"/>
+    <!-- Head -->
+    <polygon points="-30,-15 -5,-25 10,-15 15 0" fill="url(#horse4Grad)"/>
+    <!-- Mane -->
+    <path d="M-15,-10 Q-20,-30 Q-30,-20 Q-20,-10 Q-15,-10" fill="#DA70D6" opacity="0.9"/>
+    <!-- Tail -->
+    <path d="M30,0 Q40,-25 Q50,0 Q40,25 Q30,0" fill="#DA70D6" opacity="0.9"/>
+    <!-- Jockey -->
+    <g fill="#FFFFFF">
+      <rect x="-25" y="-30" width="50" height="35" fill="url(#silks4Grad)"/>
+      <circle cx="-10" cy="-10" r="12" fill="#D6C1FF"/>
+      <!-- Legs -->
+      <g id="legs4">
+        <line x1="-25" y1="0" x2="-40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 -25 0; 30 -25 0; 0 -25 0" dur="0.9s" repeatCount="indefinite"/>
+        </line>
+        <line x1="25" y1="0" x2="40" y2="25" stroke="#000" stroke-width="6" stroke-linecap="round">
+          <animateTransform attributeName="transform" type="rotate" values="0 25 0; -30 25 0; 0 25 0" dur="0.9s" repeatCount="indefinite"/>
+        </line>
+      </g>
+      <text x="-20" y="-25" text-anchor="middle" font-family="Arial" font-size="12" fill="#000">4</text>
+    </g>
+    <polygon points="-15,-25 -5,-35 15,-25 5,-15" fill="url(#silks4Grad)"/>
+    
+    <!-- Horse motion path -->
+    <animateMotion path="M550 450 L800 450 L1100 450" begin="3s" repeatCount="indefinite" dur="18s">
+      <animateTransform attributeName="rotate" from="0" to="360" dur="18s" repeatCount="indefinite"/>
+    </animateMotion>
+  </g>
+  
+  <!-- Dust puffs from hooves -->
+  <g id="dust" begin="indefinite" repeatCount="indefinite">
+    <g id="dust1" transform="translate(80, 25)">
+      <circle cx="0" cy="0" r="8" fill="rgba(128,128,128,0.8)"/>
+      <animate attributeName="opacity" dur="0.5s" values="1;0" repeatCount="indefinite"/>
+      <animate attributeName="transform" type="translate" dur="0.5s" values="0,0; 10,5; 0,0" repeatCount="indefinite"/>
+    </g>
+    <g id="dust2" transform="translate(35, 20)">
+      <circle cx="0" cy="0" r="6" fill="rgba(128,128,128,0.8)"/>
+      <animate attributeName="opacity" dur="0.4s" values="1;0" repeatCount="indefinite"/>
+    </g>
+    <g id="dust3" transform="translate(65, 30)">
+      <circle cx="0" cy="0" r="5" fill="rgba(128,128,128,0.8)"/>
+      <animate attributeName="opacity" dur="0.6s" values="1;0" repeatCount="indefinite"/>
+    </g>
+  </g>
+  
+  <!-- Grandstand -->
+  <g id="grandstand" transform="translate(800, 200)">
+    <!-- Roof -->
+    <polygon points="0,0 200,0 180,-20 20,-20" fill="#8B0000"/>
+    <!-- Grandstand structure -->
+    <rect x="0" y="0" width="200" height="300" fill="url(#grandstandGrad)" rx="5"/>
+    <!-- Crowd -->
+    <g fill="#FFFFFF" opacity="0.8">
+      <circle cx="30" cy="100" r="3"/>
+      <circle cx="50" cy="80" r="3"/>
+      <circle cx="70" cy="120" r="3"/>
+      <circle cx="90" cy="90" r="3"/>
+      <circle cx="110" cy="110" r="3"/>
+      <circle cx="35" cy="60" r="3"/>
+      <circle cx="60" cy="40" r="3"/>
+      <circle cx="85" cy="70" r="3"/>
+      <circle cx="115" cy="50" r="3"/>
+      <!-- More crowd rows -->
+      <circle cx="20" cy="200" r="3"/>
+      <circle cx="40" cy="180" r="3"/>
+      <circle cx="60" cy="160" r="3"/>
+      <circle cx="80" cy="140" r="3"/>
+      <circle cx="100" cy="120" r="3"/>
+      <circle cx="120" cy="100" r="3"/>
+      <circle cx="180" cy="80" r="3"/>
+      <circle cx="160" cy="120" r="3"/>
+      <circle cx="140" cy="160" r="3"/>
+      <circle cx="120" cy="200" r="3"/>
+    </g>
+    <!-- Flags with waving animation -->
+    <g transform="translate(50, 50)" id="flags">
+      <rect x="0" y="0" width="20" height="30" fill="red" opacity="0.8"/>
+      <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="1.2s"
+        values="0; 20; 0" repeatCount="indefinite"/>
+      <rect x="40" y="0" width="20" height="30" fill="blue" opacity="0.8"/>
+      <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="1.4s"
+        values="0; 20; 0" repeatCount="indefinite"/>
+      <rect x="80" y="0" width="20" height="30" fill="yellow" opacity="0.8"/>
+      <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="1.6s"
+        values="0; 20; 0" repeatCount="indefinite"/>
+      <rect x="120" y="0" width="20" height="30" fill="green" opacity="0.8"/>
+      <animate attributeName="x" begin="indefinite" repeatCount="indefinite" dur="1.8s"
+        values="0; 20; 0" repeatCount="indefinite"/>
+    </g>
+    <!-- Scoreboard/Tote -->
+    <text x="100" y="250" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#FFD700">ODDS</text>
+    <text x="100" y="280" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#FFD700">10-1</text>
+  </g>
+  
+  <!-- Photo-finish beam -->
+  <g id="photoBeam" transform="translate(1050, 440)">
+    <line x1="0" y1="-30" x2="0" y2="30" stroke="#FF0000" stroke-width="2" stroke-dasharray="5 3"/>
+    <animateTransform attributeName="transform" type="translate" values="0 0; 5 0; 0 0" dur="0.5s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Winning post -->
+  <g id="winningPost" transform="translate(1060, 420)">
+    <rect x="0" y="0" width="20" height="150" fill="#CD853F"/>
+    <polygon points="10,0 20,75 10,150 0,75" fill="#CD853F"/>
+    <line x1="0" y1="75" x2="20" y2="75" stroke="#FFD700" stroke-width="2"/>
+  </g>
+</svg>

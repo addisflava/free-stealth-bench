@@ -1,0 +1,18 @@
+Create a single, standalone, animated SVG illustration and save it as `output.svg` in the current working directory.
+
+Subject: A thrilling horse race at full gallop. Several racehorses with jockeys in colourful silks race head-to-head on a turf track, seen from a slightly elevated side angle. Race-day atmosphere: a grandstand full of spectators, waving flags, a big screen or tote board, maybe a photo-finish moment. The scene must look ALIVE: the horses are genuinely moving down the track, not statically posed.
+
+Hard requirements (all of them):
+- ONE self-contained `.svg` file named `output.svg`. No external assets of any kind: no linked images, fonts, stylesheets or scripts. Everything must be inline. SMIL or CSS animations are both fine. No JavaScript.
+- Valid XML that renders standalone in a browser.
+- Landscape canvas, roughly 1200x800 (any nearby viewBox is fine).
+- Work only from this empty directory. Do not look for, read or reproduce any existing artwork, image or reference file.
+
+The scene must include at minimum:
+- Sky with a sun and clouds; a turf racetrack with rails, track markings and a finish-line area; grass beyond the rail.
+- At least FOUR distinct horses with jockeys: each horse a different coat colour, each jockey in different coloured silks and cap; visible saddles/numbers; varied galloping leg poses; manes and tails flowing.
+- A grandstand with a crowd (dots or figures), a roof and flags; a tote board, leaderboard or finish-beam camera.
+- MOTION is mandatory, not optional: every horse must actually translate horizontally across the track (e.g. animateMotion or animateTransform translate), at different speeds, with the horses' positions progressing toward the finish line across the loop — not merely bobbing in place. Legs must cycle through gallop poses; hooves kick up dust; manes and tails flow.
+- At least FOUR additional continuously animated elements, for example: bobbing bodies; the crowd waving; flags waving; parallax clouds drifting; dust puffing behind the hooves; the tote board changing; the photo-finish flash popping.
+
+Make it lively and detailed: layered shapes, gradients, shading. A rich scene is part of the test.
