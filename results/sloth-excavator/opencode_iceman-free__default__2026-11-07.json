@@ -17,7 +17,6 @@
   "svg_file": "/mnt/e/opencode-bench/svg-bench/results/sloth-excavator/opencode_iceman-free__default__2026-11-07.svg",
   "raw_log": "/mnt/e/opencode-bench/svg-bench/logs/sloth-excavator__opencode_iceman-free__default__2026-11-07.ndjson",
   "validation": {
-    "file": "/mnt/e/opencode-bench/svg-bench/results/sloth-excavator/opencode_iceman-free__default__2026-11-07.svg",
     "exists": true,
     "size_bytes": 21923,
     "sha256": "3fb3db48f54b1aca123813130825000f4063213f839a16e8c15ae03e1e65aad7",
@@ -58,7 +57,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": false,
+    "canvas_offcanvas": false,
+    "root_transform_note": null
   },
   "tokens": {
     "input": 7392,

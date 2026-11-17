@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "horse-racing",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/hy4-flash-free",
+  "model": "opencode/hy4-flash-free",
+  "model_id": "hy4-flash-free",
+  "effort": "high",
+  "effort_requested": "high",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-16T12:39:01+00:00",
+  "wall_seconds": 104,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 31336,
+    "output": 15274,
+    "reasoning": 7387,
+    "cache_read": 129024,
+    "total": 46610
+  },
+  "steps": 6,
+  "session_id": "ses_e1ba3645bffeR42dCM8BabS0m5",
+  "events": 22,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false
+}

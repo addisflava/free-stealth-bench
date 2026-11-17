@@ -17,7 +17,6 @@
   "svg_file": "/mnt/e/opencode-bench/svg-bench/results/horse-racing/opencode_nemotron-3.5-super-vl-free__high__2026-11-07.svg",
   "raw_log": "/mnt/e/opencode-bench/svg-bench/logs/horse-racing__opencode_nemotron-3.5-super-vl-free__high__2026-11-07.ndjson",
   "validation": {
-    "file": "/mnt/e/opencode-bench/svg-bench/results/horse-racing/opencode_nemotron-3.5-super-vl-free__high__2026-11-07.svg",
     "exists": true,
     "size_bytes": 50792,
     "sha256": "36b9eaa74cdd0ec0761400a46629bd3e75adfea21ec34fa4e1faff98a3e07c52",
@@ -59,7 +58,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": false,
+    "canvas_offcanvas": false,
+    "root_transform_note": null
   },
   "tokens": {
     "input": 125869,

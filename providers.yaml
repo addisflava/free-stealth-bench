@@ -1,0 +1,191 @@
+# Provider registry.
+#
+# A provider is an endpoint that serves models. `harness` points at a block in
+# harnesses.yaml. Add a provider by copying one of these blocks — no code
+# changes needed. Add a CLI agent by adding a `command` harness and pointing a
+# provider at it.
+#
+# target syntax used by run.sh / runner.py:
+#   provider/model                  → provider's default harness
+#   harness@provider/model          → alternate harness (e.g. codex@openai/gpt-5.2)
+#
+# Fields:
+#   label              display name
+#   harness            default harness id from harnesses.yaml
+#   default_harness    overrides `harness` (optional)
+#   alternate_harnesses  additional harnesses selectable with `harness@...`
+#   enabled            true | false | auto   (auto = enabled when api_key_env is set)
+#   base_url           OpenAI/Anthropic-compatible base URL
+#   api_key_env        env var holding the API key ("" = keyless)
+#   headers            extra HTTP headers for API harnesses
+#   params             extra JSON body fields for API harnesses
+#   discover:
+#     type             command | openai-models | static | none
+#     command          argv for type=command
+#     models           list for type=static
+#     include/exclude  regex filters applied to discovered ids
+#   effort:
+#     default          benchmark effort when none is passed (default: high)
+#     unsupported_models  bare model ids that must run at "default"
+#
+# Cloud providers are `enabled: auto`: they join discovery as soon as their API
+# key is exported. Local endpoints are disabled by default (flip to true).
+#
+# Point the runner at another registry file with:
+#   PROVIDERS_FILE=/path/to/providers.yaml ./run.sh ...
+#   HARNESSES_FILE=/path/to/harnesses.yaml ./run.sh ...
+
+defaults:
+  timeout: 900
+  effort: high
+  output: output.svg
+
+providers:
+  # ── The original benchmark target (free tier) ──────────────────────────────
+  opencode:
+    label: OpenCode
+    harness: opencode
+    enabled: true
+    discover:
+      type: command
+      command: ["opencode", "models"]
+      # keep the free tier only; widen this if you want every opencode model
+      include: '^opencode/(?:[a-z0-9._-]+-free|big-pickle)$'
+    effort:
+      default: high
+      unsupported_models:
+        - big-pickle
+        - iceman-free
+        - longcat-2.5-free
+        - mimo-v2.6-flash-free
+        - nemotron-3.5-lightning-free
+
+  # ── Direct APIs (OpenAI-compatible) ────────────────────────────────────────
+  openai:
+    label: OpenAI API
+    harness: openai
+    alternate_harnesses: [codex]
+    enabled: auto
+    base_url: https://api.openai.com/v1
+    api_key_env: OPENAI_API_KEY
+    discover:
+      type: openai-models
+      exclude: 'embedding|tts|whisper|dall-e|image|moderation|realtime|audio|transcribe|search'
+    effort:
+      default: high
+
+  openrouter:
+    label: OpenRouter
+    harness: openai
+    enabled: auto
+    base_url: https://openrouter.ai/api/v1
+    api_key_env: OPENROUTER_API_KEY
+    headers:
+      HTTP-Referer: https://github.com/free-stealth-bench
+      X-Title: free-stealth-bench
+    discover:
+      type: openai-models
+      # free tier only; remove this line to include paid models
+      include: ':free$'
+    effort:
+      default: high
+
+  groq:
+    label: Groq
+    harness: openai
+    enabled: auto
+    base_url: https://api.groq.com/openai/v1
+    api_key_env: GROQ_API_KEY
+    discover:
+      type: openai-models
+      exclude: 'whisper|tts|guard|embedding'
+    effort:
+      default: default
+
+  deepseek:
+    label: DeepSeek
+    harness: openai
+    enabled: auto
+    base_url: https://api.deepseek.com/v1
+    api_key_env: DEEPSEEK_API_KEY
+    discover:
+      type: openai-models
+    effort:
+      default: default
+
+  google:
+    label: Google Gemini (OpenAI-compatible)
+    harness: openai
+    alternate_harnesses: [gemini-cli]
+    enabled: auto
+    base_url: https://generativelanguage.googleapis.com/v1beta/openai
+    api_key_env: GEMINI_API_KEY
+    discover:
+      type: openai-models
+      include: '^gemini-'
+      exclude: 'embedding|aqa|imagen|veo'
+    effort:
+      default: default
+
+  anthropic:
+    label: Anthropic API
+    harness: anthropic
+    alternate_harnesses: [claude-code]
+    enabled: auto
+    base_url: https://api.anthropic.com/v1
+    api_key_env: ANTHROPIC_API_KEY
+    discover:
+      type: static
+      models:
+        - claude-sonnet-4-5
+        - claude-opus-4-1
+        - claude-haiku-4-5
+    effort:
+      default: default
+
+  # ── Local endpoints (enable when you want them) ────────────────────────────
+  ollama:
+    label: Ollama (local)
+    harness: openai
+    enabled: false
+    base_url: http://127.0.0.1:11434/v1
+    api_key_env: ""
+    discover:
+      type: openai-models
+    effort:
+      default: default
+
+  lmstudio:
+    label: LM Studio (local)
+    harness: openai
+    enabled: false
+    base_url: http://127.0.0.1:1234/v1
+    api_key_env: ""
+    discover:
+      type: openai-models
+    effort:
+      default: default
+
+  # ── Example: a CLI agent with a static model list ──────────────────────────
+  # (uses the codex harness from harnesses.yaml; Codex handles its own auth)
+  codex-cli:
+    label: Codex CLI
+    harness: codex
+    enabled: false
+    discover:
+      type: static
+      models:
+        - gpt-5.2-codex
+    effort:
+      default: default
+
+  # ── Example: an arbitrary OpenAI-compatible endpoint ───────────────────────
+  # my-provider:
+  #   label: My Provider
+  #   harness: openai
+  #   enabled: auto
+  #   base_url: https://api.example.com/v1
+  #   api_key_env: MY_PROVIDER_API_KEY
+  #   discover:
+  #     type: openai-models
+  #     include: 'my-model-prefix'

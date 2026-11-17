@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate svg-bench/site/data.json from the sidecars in results/.
+"""Generate free-stealth-bench/site/data.json from the sidecars in results/.
 
 The page itself (site/index.html etc.) is static — this script is the only
 "build step". Re-run it any time results change:
@@ -53,7 +53,7 @@ def load_public_reviews():
             stars = int(r.get('stars') or 0)
         except (TypeError, ValueError):
             stars = 0
-        if not r.get('run_id') or not (1 <= stars <= 5):
+        if not r.get('run_id') or not (-5 <= stars <= 5) or stars == 0:
             continue
         out.append({
             'id': str(r.get('id') or f"seed-{len(out)}"),
@@ -138,7 +138,14 @@ def load_tasks_blurbs():
 
 def load_discovery():
     """Latest free-model discovery snapshot (written by run.sh), plus models
-    first seen within the last 7 days."""
+    that genuinely first appeared within the last 7 days.
+
+    A model is "new" only if it never existed before — its earliest appearance
+    across ALL discovery snapshots (not just the last week) is what counts. A
+    model that was present long ago, dropped out (e.g. it failed), and later
+    came back is therefore NOT badged new: the older snapshots are deliberately
+    included when computing the first-seen date.
+    """
     snap_dir = os.path.join(ROOT, 'logs')
     files = sorted(glob.glob(os.path.join(snap_dir, 'models-snapshot-*.txt')))
     # pick newest non-empty snapshot
@@ -149,38 +156,45 @@ def load_discovery():
             break
     if not chosen:
         return None
-    try:
-        latest_models = [ln.strip() for ln in open(chosen, encoding='utf-8') if ln.strip()]
-    except OSError:
-        return None
-    base = os.path.basename(chosen)
-    m = re.search(r'models-snapshot-(\d{4}-\d{2}-\d{2})\.txt', base)
-    latest_date = datetime.strptime(m.group(1), '%Y-%m-%d').date() if m else datetime.fromtimestamp(
-        os.path.getmtime(chosen), timezone.utc).date()
-    cutoff = latest_date - timedelta(days=7)
-    # models present in any snapshot dated within the last 7 days (but before latest)
-    older_models = set()
-    for c in files:
-        mm = re.search(r'models-snapshot-(\d{4}-\d{2}-\d{2})\.txt', os.path.basename(c))
-        if not mm:
-            continue
-        d = datetime.strptime(mm.group(1), '%Y-%m-%d').date()
-        if d >= latest_date or d < cutoff:
-            continue
+
+    def snapshot_date(path):
+        m = re.search(r'models-snapshot-(\d{4}-\d{2}-\d{2})\.txt',
+                      os.path.basename(path))
+        if m:
+            return datetime.strptime(m.group(1), '%Y-%m-%d').date()
+        return datetime.fromtimestamp(os.path.getmtime(path), timezone.utc).date()
+
+    def read_models(path):
         try:
-            for ln in open(c, encoding='utf-8'):
-                ln = ln.strip()
-                if ln:
-                    older_models.add(ln)
+            with open(path, encoding='utf-8') as fh:
+                return [ln.strip() for ln in fh if ln.strip()]
         except OSError:
-            continue
-    new_models = [m for m in latest_models if m not in older_models]
+            return []
+
+    latest_models = read_models(chosen)
+    if not latest_models:
+        return None
+    latest_date = snapshot_date(chosen)
+    cutoff = (latest_date - timedelta(days=7)).isoformat()
+
+    # Earliest snapshot date in which each model EVER appeared (full history).
+    # ISO date strings compare lexicographically, so the minimum is the oldest.
+    first_seen = {}
+    for c in files:
+        d = snapshot_date(c).isoformat()
+        for name in read_models(c):
+            if name not in first_seen or d < first_seen[name]:
+                first_seen[name] = d
+
+    # Genuinely new: first seen within the last 7 days and still listed.
+    new_models = [m for m in latest_models if first_seen.get(m, '') >= cutoff]
     return {
-        'source': 'opencode models',
+        'source': 'provider discovery',
         'snapshot_date': latest_date.isoformat(),
         'snapshot_file': os.path.relpath(chosen, ROOT).replace(os.sep, '/'),
         'available': latest_models,
         'new': new_models,
+        'first_seen': first_seen,
     }
 
 
@@ -203,7 +217,10 @@ def main():
         has_svg = os.path.isfile(svg_path)
         v = r.get('validation') or {}
         model = r.get('model') or ''
-        provider, _, model_id = model.partition('/')
+        provider = str(r.get('provider') or (model.partition('/')[0] if '/' in model else 'unknown'))
+        model_id = str(r.get('model_id') or (model.partition('/')[2] if '/' in model else model))
+        harness = str(r.get('harness') or provider)
+        target = str(r.get('target') or (f'{harness}@{model}' if harness != provider else model))
         run_id = f"{task}__{base[:-5]}"  # task-prefixed: unique across tasks
         runs.append({
             'id': run_id,
@@ -211,6 +228,8 @@ def main():
             'model': model,
             'provider': provider or 'unknown',
             'model_id': model_id or model,
+            'harness': harness,
+            'target': target,
             'variant': r.get('variant'),
             'effort': r.get('effort'),
             'effort_requested': r.get('effort_requested'),
@@ -218,6 +237,7 @@ def main():
             'timed_out': bool(r.get('timed_out')),
             'date_utc': r.get('date_utc'),
             'opencode_version': r.get('opencode_version'),
+            'agent_version': r.get('agent_version') or r.get('opencode_version'),
             'prompt_sha256': r.get('prompt_sha256'),
             'prompt_file': r.get('prompt_file'),
             'wall_seconds': r.get('wall_seconds'),
@@ -235,6 +255,8 @@ def main():
             'external_refs': v.get('external_refs'),
             'script_blocks': v.get('script_blocks'),
             'viewBox': v.get('viewBox'),
+            'canvas_offcanvas': bool(v.get('canvas_offcanvas')),
+            'root_transform_note': v.get('root_transform_note'),
         })
     runs.sort(key=lambda r: (r['task'], r['model'], r['effort'] or ''))
 
@@ -251,7 +273,7 @@ def main():
     public_reviews = load_public_reviews()
     judge = load_judgments()
     data = {
-        'benchmark': 'svg-bench',
+        'benchmark': 'free-stealth-bench',
         'generated_utc': datetime.now(timezone.utc).isoformat(timespec='seconds'),
         'tasks': tasks,
         'discovery': discovery,
@@ -261,7 +283,7 @@ def main():
             'runs': len(runs),
             'ok': ok,
             'failed': len(runs) - ok,
-            'models': len({r['model'] for r in runs}),
+            'models': len({(r.get('harness') or '', r['model']) for r in runs}),
             'tasks': sorted({r['task'] for r in runs}),
             'reviews': len(public_reviews),
             'judged': judge['meta']['n_judged'] if judge else 0,

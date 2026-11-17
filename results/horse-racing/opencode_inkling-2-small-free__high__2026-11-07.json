@@ -17,7 +17,6 @@
   "svg_file": "/mnt/e/opencode-bench/svg-bench/results/horse-racing/opencode_inkling-2-small-free__high__2026-11-07.svg",
   "raw_log": "/mnt/e/opencode-bench/svg-bench/logs/horse-racing__opencode_inkling-2-small-free__high__2026-11-07.ndjson",
   "validation": {
-    "file": "/mnt/e/opencode-bench/svg-bench/results/horse-racing/opencode_inkling-2-small-free__high__2026-11-07.svg",
     "exists": true,
     "size_bytes": 54750,
     "sha256": "92b2fdcbcf0712164e91cdfd48eaa3c75e5515506565ea4f64b2bcd72078067c",
@@ -53,7 +52,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": false,
+    "canvas_offcanvas": false,
+    "root_transform_note": null
   },
   "tokens": {
     "input": 65488,

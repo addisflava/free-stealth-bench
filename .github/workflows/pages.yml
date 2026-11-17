@@ -1,4 +1,4 @@
-name: Deploy svg-bench to GitHub Pages
+name: Deploy free-stealth-bench to GitHub Pages
 
 # Use this workflow when svg-bench lives in its own repository (so this file is
 # at the repo root). The monorepo workflow at the repository root deploys this

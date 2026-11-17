@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="800">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#E0F7FA"/>
+    </linearGradient>
+    
+    <!-- Turf gradient -->
+    <linearGradient id="turfGrad" x1="0" y1="400" x2="0" y2="400">
+      <stop offset="0%" stop-color="#7CFC00"/>
+      <stop offset="50%" stop-color="#32CD32"/>
+      <stop offset="100%" stop-color="#228B22"/>
+    </linearGradient>
+    
+    <!-- Horse chestnut gradient -->
+    <linearGradient id="horse1Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#A0522D"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+    
+    <!-- Bay gradient -->
+    <linearGradient id="horse2Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#DEB887"/>
+      <stop offset="100%" stop-color="#BC8F8F"/>
+    </linearGradient>
+    
+    <!-- Black gradient -->
+    <linearGradient id="horse3Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="100%" stop-color="#000000"/>
+    </linearGradient>
+    
+    <!-- White gradient -->
+    <linearGradient id="horse4Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#E0E0E0"/>
+    </linearGradient>
+    
+    <!-- Jock silk gradients -->
+    <linearGradient id="silk1Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FF0000"/>
+      <stop offset="100%" stop-color="#CC0000"/>
+    </linearGradient>
+    <linearGradient id="silk2Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#0000FF"/>
+      <stop offset="100%" stop-color="#00008B"/>
+    </linearGradient>
+    <linearGradient id="silk3Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#00FF00"/>
+      <stop offset="100%" stop-color="#008B00"/>
+    </linearGradient>
+    <linearGradient id="silk4Grad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FFFF00"/>
+      <stop offset="100%" stop-color="#8B8B00"/>
+    </linearGradient>
+    
+    <!-- Grandstand roof gradient -->
+    <linearGradient id="roofGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#A0522D"/>
+    </linearGradient>
+    
+    <!-- Finish line glow -->
+    <linearGradient id="finishGrad" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="50%" stop-color="#FFA500"/>
+      <stop offset="100%" stop-color="#FFD700"/>
+    </linearGradient>
+    
+    <!-- Dust puff -->
+    <radialGradient id="dustGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#F5DEB3"/>
+      <stop offset="100%" stop-color="#CD853F"/>
+    </radialGradient>
+    
+    <!-- Cloud filter -->
+    <filter id="cloudShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.1"/>
+    </filter>
+    
+    <!-- Horse leg filter -->
+    <filter id="legShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="1" dy="3" stdDeviation="2" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="1200" height="800" fill="url(#skyGrad)"/>
+  
+  <!-- Sun -->
+  <circle cx="1050" cy="80" r="55" fill="#FFD700"/>
+  <circle cx="1050" cy="80" r="40" fill="none" stroke="#FFD700" stroke-width="8"/>
+  <!-- Sun rays -->
+  <g stroke="#FFD700" stroke-width="8" line-cap="round">
+    <line x1="1050" y1="20" x2="1080" y2="-10" />
+    <line x1="1050" y1="20" x2="1080" y2="110" />
+    <line x1="1050" y1="140" x2="1020" y2="100" />
+    <line x1="1050" y1="140" x2="1080" y2="180" />
+    <line x1="1050" y1="60" x2="1010" y2="20" />
+    <line x1="1050" y1="60" x2="1080" y2="140" />
+    <line x1="1050" y1="100" x2="970" y2="80" />
+    <line x1="1050" y1="100" x2="1080" y2="120" />
+  </g>
+  
+  <!-- Clouds -->
+  <g fill="#FFFFFF" filter="url(#cloudShadow)">
+    <ellipse cx="300" cy="120" rx="80" ry="40"/>
+    <ellipse cx="350" cy="100" rx="60" ry="30"/>
+    <ellipse cx="410" cy="120" rx="70" ry="35"/>
+    <ellipse cx="250" cy="180" rx="50" ry="25"/>
+    <ellipse cx="300" cy="200" rx="65" ry="30"/>
+    <ellipse cx="400" cy="180" rx="55" ry="28"/>
+    <ellipse cx="700" cy="100" rx="80" ry="40"/>
+    <ellipse cx="750" cy="80" rx="60" ry="30"/>
+    <ellipse cx="820" cy="110" rx="75" ry="35"/>
+    <ellipse cx="650" cy="160" rx="65" ry="30"/>
+    <ellipse cx="550" cy="120" rx="50" ry="25"/>
+    <ellipse cx="950" cy="140" rx="70" ry="35"/>
+    <ellipse cx="1000" cy="100" rx="55" ry="25"/>
+    <ellipse cx="1100" cy="150" rx="65" ry="30"/>
+  </g>
+  
+  <!-- Parallax clouds moving -->
+  <g id="cloudsAnim" fill="#FFFFFF">
+    <ellipse cx="1200" cy="120" rx="80" ry="40">
+      <animate attributeName="cx" from="1200" to="-200" dur="20s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="100" rx="60" ry="30">
+      <animate attributeName="cx" from="1200" to="-200" dur="25s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="140" rx="70" ry="35">
+      <animate attributeName="cx" from="1200" to="-200" dur="18s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="200" rx="65" ry="30">
+      <animate attributeName="cx" from="1200" to="-200" dur="22s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="180" rx="55" ry="25">
+      <animate attributeName="cx" from="1200" to="-200" dur="30s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="110" rx="80" ry="40">
+      <animate attributeName="cx" from="1200" to="-200" dur="15s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="80" rx="60" ry="30">
+      <animate attributeName="cx" from="1200" to="-200" dur="28s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="160" rx="75" ry="35">
+      <animate attributeName="cx" from="1200" to="-200" dur="26s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="120" rx="50" ry="25">
+      <animate attributeName="cx" from="1200" to="-200" dur="35s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+    <ellipse cx="1200" cy="150" rx="65" ry="30">
+      <animate attributeName="cx" from="1200" to="-200" dur="12s" repeatCount="indefinite" additive="sum"/>
+    </ellipse>
+  </g>
+  
+  <!-- Track area -->
+  <g id="trackArea">
+    <!-- Turf -->
+    <rect x="50" y="350" width="1100" height="250" fill="url(#turfGrad)"/>
+    
+    <!-- Inner track grass -->
+    <path d="M50 350 Q600 330 1150 350 L1150 500 L50 500 Z" fill="#3CB371"/>
+    
+    <!-- Outer grass -->
+    <path d="M50 500 Q300 550 700 530 1150 500 L1150 800 L50 800 Z" fill="#228B22"/>
+    
+    <!-- Outer grass texture -->
+    <path d="M50 500 Q300 550 700 530" stroke="#1E8449" stroke-width="3" fill="none"/>
+    
+    <!-- Rail -->
+    <path d="M50 350 L1150 350" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round"/>
+    <path d="M50 350 L1150 350" stroke="#F0E68C" stroke-width="4" stroke-linecap="round"/>
+    
+    <!-- Inner rail -->
+    <path d="M50 350 L1150 350" stroke="#CD853F" stroke-width="2" stroke-linecap="round"/>
+    
+    <!-- Track markings - dash lines -->
+    <g stroke="#FFFFFF" stroke-width="3" fill="none">
+      <!-- Start/finish area markings -->
+      <line x1="600" y1="350" x2="620" y2="350"/>
+      <line x1="600" y1="355" x2="620" y2="355"/>
+      <line x1="600" y1="360" x2="620" y2="360"/>
+      <line x1="600" y1="365" x2="620" y2="365"/>
+      <line x1="600" y1="370" x2="620" y2="370"/>
+      
+      <!-- Center line dashes -->
+      <line x1="350" y1="450" x2="370" y2="450"/>
+      <line x1="330" y1="455" x2="350" y2="455"/>
+      <line x1="310" y1="460" x2="330" y2="460"/>
+      <line x1="290" y1="465" x2="310" y2="465"/>
+      <line x1="270" y1="470" x2="290" y2="470"/>
+      
+      <line x1="850" y1="450" x2="870" y2="450"/>
+      <line x1="830" y1="455" x2="850" y2="455"/>
+      <line x1="810" y1="460" x2="830" y2="460"/>
+      <line x1="790" y1="465" x2="810" y2="465"/>
+      <line x1="770" y1="470" x2="790" y2="470"/>
+    </g>
+    
+    <!-- Finish line area -->
+    <g id="finishArea">
+      <!-- Finish pole -->
+      <rect x="970" y="340" width="30" height="80" fill="#CD853F"/>
+      <line x1="970" y1="340" x2="970" y2="280" stroke="#FFFFFF" stroke-width="6"/>
+      <line x1="970" y1="340" x2="970" y2="280" stroke="#CD853F" stroke-width="4"/>
+      
+      <!-- Finish line -->
+      <line x1="1000" y1="300" x2="1100" y2="300" stroke="url(#finishGrad)" stroke-width="4"/>
+      <line x1="1000" y1="300" x2="1100" y2="300" stroke="#FFFFFF" stroke-width="2"/>
+      
+      <!-- Finish line post -->
+      <circle cx="1100" cy="300" r="15" fill="#CD853F"/>
+      <line x1="1100" y1="285" x2="1100" y2="260" stroke="#FFFFFF" stroke-width="4"/>
+      
+      <!-- Tote board -->
+      <g id="toteBoard" transform="translate(950, 200)">
+        <!-- Board base -->
+        <rect width="180" height="120" rx="10" fill="#8B4513" stroke="#FFFFFF" stroke-width="3"/>
+        <rect x="20" y="20" width="140" height="80" rx="8" fill="#A0522D" stroke="#FFFFFF" stroke-width="2"/>
+        
+        <!-- Numbers - changing -->
+        <text x="25" y="55" font-family="Georgia" font-size="24" fill="#FFFFFF" id="num1">0</text>
+        <text x="50" y="55" font-family="Georgia" font-size="24" fill="#FFFFFF" id="num2">0</text>
+        <text x="75" y="55" font-family="Georgia" font-size="24" fill="#FFFFFF" id="num3">0</text>
+        <text x="100" y="55" font-family="Georgia" font-size="24" fill="#FFFFFF" id="num4">0</text>
+        <text x="125" y="55" font-family="Georgia" font-size="24" fill="#FFFFFF" id="num5">0</text>
+        
+        <!-- Label -->
+        <text x="70" y="95" font-family="Georgia" font-size="14" fill="#FFFFFF" text-anchor="middle">POOL</text>
+      </g>
+      
+      <!-- Photo finish flash (animated) -->
+      <g id="photoFinishFlash" opacity="0">
+        <rect x="990" y="290" width="120" height="20" fill="url(#finishGrad)" rx="5"/>
+        <line x1="990" y1="290" x2="1110" y2="290" stroke="#FFFFFF" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+  
+  <!-- Horse 1 - Chestnut -->
+  <g id="horse1" transform="translate(150, 300)">
+    <!-- Tail -->
+    <g transform="rotate(-30, 20, 50)">
+      <path d="M20,5 Q10,15 0,5 Q-10,15 -20,5" fill="url(#horse1Grad)"/>
+      <animateMotion path="M20,5 Q10,15 0,5 Q-10,15 -20,5" dur="1.5s" repeatCount="indefinite"/>
+    </g>
+    
+    <!-- Body -->
+    <ellipse cx="40" cy="50" rx="50" ry="30" fill="url(#horse1Grad)"/>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="150 300" to="1150 300" dur="12s" 
+                      repeatCount="indefinite" additive="translate"/>
+    
+    <!-- Legs - galloping poses -->
+    <!-- Front left leg -->
+    <g id="horse1-leg-fl" transform="translate(30, 55)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#8B4513">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-45 15 7.5" dur="0.3s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Front right leg -->
+    <g id="horse1-leg-fr" transform="translate(60, 55)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#8B4513">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="45 15 7.5" dur="0.3s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Hind left leg -->
+    <g id="horse1-leg-hl" transform="translate(45, 80)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#8B4513">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="45 15 7.5" dur="0.3s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Hind right leg -->
+    <g id="horse1-leg-hr" transform="translate(75, 80)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#8B4513">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-45 15 7.5" dur="0.3s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Head -->
+    <circle cx="80" cy="40" r="18" fill="url(#horse1Grad)"/>
+    <!-- Ear -->
+    <polygon points="85,20 95,15 88,25" fill="url(#horse1Grad)"/>
+    <!-- Eye -->
+    <circle cx="85" cy="38" r="3" fill="#000"/>
+    <!-- Mane -->
+    <path d="M70,45 Q50,30 40,50 Q60,70 70,60 Q55,80 65,75" fill="url(#horse1Grad)"/>
+    <!-- Snout -->
+    <polygon points="95,45 105,40 100,50 95,50" fill="#FFDEAD"/>
+    <!-- Nostril -->
+    <circle cx="102" cy="42" r="1.5" fill="#000"/>
+    
+    <!-- Jockey -->
+    <g transform="translate(55, 20)">
+      <!-- Jock body -->
+      <ellipse cx="0" cy="0" rx="12" ry="15" fill="#FFFFFF" opacity="0.9"/>
+      <!-- Silk - red -->
+      <path d="M-15,-10 L15,-10 L15,10 L-15,10 Z" fill="url(#silk1Grad)"/>
+      <!-- Cap -->
+      <path d="M-10,-15 L10,-15 L10,5 L-10,5 Z" fill="url(#silk1Grad)"/>
+      <!-- Number 1 -->
+      <text x="0" y="2" font-family="Georgia" font-size="8" fill="#000" text-anchor="middle">1</text>
+    </g>
+  </g>
+  
+  <!-- Horse 2 - Bay -->
+  <g id="horse2" transform="translate(280, 320)">
+    <!-- Tail -->
+    <path d="M70,5 Q60,15 50,5 Q40,15 30,5" fill="url(#horse2Grad)"/>
+    <animateMotion path="M70,5 Q60,15 50,5 Q40,15 30,5" dur="13s" repeatCount="indefinite" additive="sum"/>
+    
+    <!-- Body -->
+    <ellipse cx="50" cy="55" rx="55" ry="35" fill="url(#horse2Grad)"/>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="280 320" to="1150 320" dur="13s" 
+                      repeatCount="indefinite" additive="translate"/>
+    
+    <!-- Legs -->
+    <g id="horse2-leg-fl" transform="translate(35, 65)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#DEB887">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-50 15 7.5" dur="0.35s" 
+                          repeatCount="indefinite" keyTimes="0;0.35;0.65;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse2-leg-fr" transform="translate(70, 65)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#DEB887">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="50 15 7.5" dur="0.35s" 
+                          repeatCount="indefinite" keyTimes="0;0.35;0.65;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse2-leg-hl" transform="translate(50, 90)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#DEB887">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="50 15 7.5" dur="0.35s" 
+                          repeatCount="indefinite" keyTimes="0;0.35;0.65;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse2-leg-hr" transform="translate(85, 90)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#DEB887">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-50 15 7.5" dur="0.35s" 
+                          repeatCount="indefinite" keyTimes="0;0.35;0.65;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Head -->
+    <circle cx="90" cy="45" r="20" fill="url(#horse2Grad)"/>
+    <polygon points="95,25 105,20 100,30 95,30" fill="url(#horse2Grad)"/>
+    <circle cx="95" cy="43" r="3" fill="#000"/>
+    <path d="M80,50 Q60,30 50,55 Q70,80 80,70" fill="url(#horse2Grad)"/>
+    <polygon points="110,40 120,35 115,45 110,45" fill="#DEB887"/>
+    <circle cx="112" cy="40" r="1.5" fill="#000"/>
+    
+    <!-- Jockey -->
+    <g transform="translate(65, 25)">
+      <ellipse cx="0" cy="0" rx="12" ry="15" fill="#FFFFFF" opacity="0.9"/>
+      <path d="M-15,-10 L15,-10 L15,10 L-15,10 Z" fill="url(#silk2Grad)"/>
+      <path d="M-10,-15 L10,-15 L10,5 L-10,5 Z" fill="url(#silk2Grad)"/>
+      <text x="0" y="2" font-family="Georgia" font-size="8" fill="#000" text-anchor="middle">2</text>
+    </g>
+  </g>
+  
+  <!-- Horse 3 - Black -->
+  <g id="horse3" transform="translate(420, 310)">
+    <!-- Tail -->
+    <path d="M60,5 Q50,15 40,5 Q30,15 20,5" fill="url(#horse3Grad)"/>
+    <animateMotion path="M60,5 Q50,15 40,5 Q30,15 20,5" dur="11s" repeatCount="indefinite" additive="sum"/>
+    
+    <!-- Body -->
+    <ellipse cx="50" cy="50" rx="50" ry="32" fill="url(#horse3Grad)"/>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="420 310" to="1150 310" dur="11s" 
+                      repeatCount="indefinite" additive="translate"/>
+    
+    <!-- Legs -->
+    <g id="horse3-leg-fl" transform="translate(30, 55)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#1a1a1a">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-40 15 7.5" dur="0.28s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse3-leg-fr" transform="translate(65, 55)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#1a1a1a">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="40 15 7.5" dur="0.28s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse3-leg-hl" transform="translate(45, 80)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#1a1a1a">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="40 15 7.5" dur="0.28s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse3-leg-hr" transform="translate(80, 80)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#1a1a1a">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-40 15 7.5" dur="0.28s" 
+                          repeatCount="indefinite" keyTimes="0;0.4;0.6;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Head -->
+    <circle cx="85" cy="40" r="18" fill="url(#horse3Grad)"/>
+    <polygon points="90,20 100,15 93,25 88,25" fill="url(#horse3Grad)"/>
+    <circle cx="90" cy="38" r="3" fill="#FFF"/>
+    <path d="M75,45 Q55,30 45,55 Q65,80 75,70" fill="url(#horse3Grad)"/>
+    <polygon points="100,35 110,30 105,40 100,40" fill="#1a1a1a"/>
+    <circle cx="102" cy="37" r="1.5" fill="#FFF"/>
+    
+    <!-- Jockey -->
+    <g transform="translate(55, 20)">
+      <ellipse cx="0" cy="0" rx="12" ry="15" fill="#FFFFFF" opacity="0.9"/>
+      <path d="M-15,-10 L15,-10 L15,10 L-15,10 Z" fill="url(#silk3Grad)"/>
+      <path d="M-10,-15 L10,-15 L10,5 L-10,5 Z" fill="url(#silk3Grad)"/>
+      <text x="0" y="2" font-family="Georgia" font-size="8" fill="#FFF" text-anchor="middle">3</text>
+    </g>
+  </g>
+  
+  <!-- Horse 4 - White -->
+  <g id="horse4" transform="translate(560, 330)">
+    <!-- Tail -->
+    <path d="M70,5 Q60,15 50,5 Q40,15 30,5" fill="url(#horse4Grad)"/>
+    <animateMotion path="M70,5 Q60,15 50,5 Q40,15 30,5" dur="14s" repeatCount="indefinite" additive="sum"/>
+    
+    <!-- Body -->
+    <ellipse cx="50" cy="55" rx="55" ry="35" fill="url(#horse4Grad)"/>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="560 330" to="1150 330" dur="14s" 
+                      repeatCount="indefinite" additive="translate"/>
+    
+    <!-- Legs -->
+    <g id="horse4-leg-fl" transform="translate(35, 65)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#FFFFFF">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-55 15 7.5" dur="0.4s" 
+                          repeatCount="indefinite" keyTimes="0;0.45;0.55;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse4-leg-fr" transform="translate(75, 65)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#FFFFFF">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="55 15 7.5" dur="0.4s" 
+                          repeatCount="indefinite" keyTimes="0;0.45;0.55;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse4-leg-hl" transform="translate(50, 90)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#FFFFFF">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="55 15 7.5" dur="0.4s" 
+                          repeatCount="indefinite" keyTimes="0;0.45;0.55;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <g id="horse4-leg-hr" transform="translate(90, 90)" filter="url(#legShadow)">
+      <path d="M0,0 L20-5 L30,10 L10,15 Z" fill="#FFFFFF">
+        <animateTransform attributeName="transform" type="rotate" 
+                          from="0 15 7.5" to="-55 15 7.5" dur="0.4s" 
+                          repeatCount="indefinite" keyTimes="0;0.45;0.55;1" 
+                          keySplits="0;1;1;0"/>
+      </path>
+    </g>
+    
+    <!-- Head -->
+    <circle cx="90" cy="45" r="18" fill="url(#horse4Grad)"/>
+    <polygon points="95,25 105,20 100,30 95,30" fill="url(#horse4Grad)"/>
+    <circle cx="95" cy="43" r="3" fill="#000"/>
+    <path d="M80,50 Q55,30 48,55 Q68,80 78,72" fill="url(#horse4Grad)"/>
+    <polygon points="110,40 120,35 115,45 110,45" fill="#F0F0F0"/>
+    <circle cx="112" cy="40" r="1.5" fill="#000"/>
+    
+    <!-- Jockey -->
+    <g transform="translate(65, 25)">
+      <ellipse cx="0" cy="0" rx="12" ry="15" fill="#FFFFFF" opacity="0.9"/>
+      <path d="M-15,-10 L15,-10 L15,10 L-15,10 Z" fill="url(#silk4Grad)"/>
+      <path d="M-10,-15 L10,-15 L10,5 L-10,5 Z" fill="url(#silk4Grad)"/>
+      <text x="0" y="2" font-family="Georgia" font-size="8" fill="#000" text-anchor="middle">4</text>
+    </g>
+  </g>
+  
+  <!-- Dust puffs behind hooves (animated) -->
+  <g id="dustPuffs">
+    <g id="dust1" opacity="0">
+      <circle cx="0" cy="80" r="8" fill="url(#dustGrad)"/>
+      <animate attributeName="opacity" from="0" to="1" dur="0.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" from="80" to="70" dur="0.5s" repeatCount="indefinite" additive="sum"/>
+    </g>
+    <g id="dust2" opacity="0" transform="translate(200, 0)">
+      <circle cx="0" cy="85" r="6" fill="url(#dustGrad)"/>
+      <animate attributeName="opacity" from="0" to="1" dur="0.6s" repeatCount="indefinite"/>
+      <animate attributeName="cy" from="85" to="75" dur="0.6s" repeatCount="indefinite" additive="sum"/>
+    </g>
+    <g id="dust3" opacity="0" transform="translate(400, 0)">
+      <circle cx="0" cy="82" r="7" fill="url(#dustGrad)"/>
+      <animate attributeName="opacity" from="0" to="1" dur="0.4s" repeatCount="indefinite"/>
+      <animate attributeName="cy" from="82" to="72" dur="0.4s" repeatCount="indefinite" additive="sum"/>
+    </g>
+    <g id="dust4" opacity="0" transform="translate(600, 0)">
+      <circle cx="0" cy="88" r="5" fill="url(#dustGrad)"/>
+      <animate attributeName="opacity" from="0" to="1" dur="0.7s" repeatCount="indefinite"/>
+      <animate attributeName="cy" from="88" to="78" dur="0.7s" repeatCount="indefinite" additive="sum"/>
+    </g>
+    <g id="dust5" opacity="0" transform="translate(800, 0)">
+      <circle cx="0" cy="78" r="8" fill="url(#dustGrad)"/>
+      <animate attributeName="opacity" from="0" to="1" dur="0.5s" repeatCount="indefinite"/>
+      <animate attributeName="cy" from="78" to="68" dur="0.5s" repeatCount="indefinite" additive="sum"/>
+    </g>
+    <g id="dust6" opacity="0" transform="translate(1000, 0)">
+      <circle cx="0" cy="83" r="6" fill="url(#dustGrad)"/>
+      <animate attributeName="opacity" from="0" to="1" dur="0.6s" repeatCount="indefinite"/>
+      <animate attributeName="cy" from="83" to="73" dur="0.6s" repeatCount="indefinite" additive="sum"/>
+    </g>
+  </g>
+  
+  <!-- Flags along the grandstand -->
+  <g id="flags" transform="translate(850, 200)">
+    <g id="flag1">
+      <rect width="30" height="50" fill="#FF0000" rx="3"/>
+      <line x1="15" y1="0" x2="15" y2="55" stroke="#FFFFFF" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="15" dur="0.5s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g id="flag2" transform="translate(40, 0)">
+      <rect width="30" height="50" fill="#0000FF" rx="3"/>
+      <line x1="15" y1="0" x2="15" y2="55" stroke="#FFFFFF" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="-15" dur="0.7s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g id="flag3" transform="translate(80, 0)">
+      <rect width="30" height="50" fill="#00FF00" rx="3"/>
+      <line x1="15" y1="0" x2="15" y2="55" stroke="#FFFFFF" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="12" dur="0.6s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g id="flag4" transform="translate(120, 0)">
+      <rect width="30" height="50" fill="#FFFF00" rx="3"/>
+      <line x1="15" y1="0" x2="15" y2="55" stroke="#FFFFFF" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="-12" dur="0.8s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g id="flag5" transform="translate(160, 0)">
+      <rect width="30" height="50" fill="#FF0000" rx="3"/>
+      <line x1="15" y1="0" x2="15" y2="55" stroke="#FFFFFF" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="18" dur="0.4s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g id="flag6" transform="translate(200, 0)">
+      <rect width="30" height="50" fill="#0000FF" rx="3"/>
+      <line x1="15" y1="0" x2="15" y2="55" stroke="#FFFFFF" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="-18" dur="0.9s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+  </g>
+  
+  <!-- Grandstand -->
+  <g id="grandstand" transform="translate(900, 150)">
+    <!-- Roof -->
+    <path d="M0 0 L0 80 L120 80 L120 0 Z" fill="url(#roofGrad)" stroke="#FFFFFF" stroke-width="1"/>
+    <path d="M0 0 L120 0" stroke="#FFFFFF" stroke-width="2"/>
+    
+    <!-- Tier sections -->
+    <g fill="#CD853F" opacity="0.8">
+      <rect x="0" y="20" width="120" height="25" rx="5"/>
+      <rect x="0" y="50" width="120" height="25" rx="5"/>
+    </g>
+    
+    <!-- Window-like details -->
+    <g stroke="#FFFFFF" stroke-width="1" fill="none">
+      <line x1="10" y1="25" x2="110" y2="25"/>
+      <line x1="10" y1="55" x2="110" y2="55"/>
+      <line x1="20" y1="20" x2="20" y2="70"/>
+      <line x1="40" y1="20" x2="40" y2="70"/>
+      <line x1="60" y1="20" x2="60" y2="70"/>
+      <line x1="80" y1="20" x2="80" y2="70"/>
+      <line x1="100" y1="20" x2="100" y2="70"/>
+    </g>
+    
+    <!-- Flags on grandstand roof -->
+    <g transform="translate(20, 10)">
+      <rect width="20" height="30" fill="#FF0000" rx="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="20" dur="0.3s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g transform="translate(50, 10)">
+      <rect width="20" height="30" fill="#0000FF" rx="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="-15" dur="0.4s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g transform="translate(80, 10)">
+      <rect width="20" height="30" fill="#00FF00" rx="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="15" dur="0.5s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+    <g transform="translate(110, 10)">
+      <rect width="20" height="30" fill="#FFFF00" rx="2"/>
+      <animateTransform attributeName="transform" type="rotate" 
+                        from="0" to="-10" dur="0.6s" 
+                        repeatCount="indefinite" 
+                        keyTimes="0;0.5" keySplits="0;1"/>
+    </g>
+  </g>
+  
+  <!-- Crowd in grandstand -->
+  <g id="crowd" transform="translate(950, 300)">
+    <g fill="#FFFFFF" opacity="0.8">
+      <circle cx="0" cy="0" r="2"/>
+      <circle cx="10" cy="0" r="2"/>
+      <circle cx="20" cy="0" r="2"/>
+      <circle cx="30" cy="0" r="2"/>
+      <circle cx="40" cy="0" r="2"/>
+      <circle cx="50" cy="0" r="2"/>
+      <circle cx="60" cy="0" r="2"/>
+      <circle cx="70" cy="0" r="2"/>
+      <circle cx="80" cy="0" r="2"/>
+      <circle cx="90" cy="0" r="2"/>
+      <circle cx="100" cy="0" r="2"/>
+    </g>
+    <g fill="#FF0000" opacity="0.8">
+      <circle cx="0" cy="-25" r="2"/>
+      <circle cx="10" cy="-25" r="2"/>
+      <circle cx="20" cy="-25" r="2"/>
+      <circle cx="30" cy="-25" r="2"/>
+      <circle cx="40" cy="-25" r="2"/>
+      <circle cx="50" cy="-25" r="2"/>
+      <circle cx="60" cy="-25" r="2"/>
+      <circle cx="70" cy="-25" r="2"/>
+      <circle cx="80" cy="-25" r="2"/>
+    </g>
+    <g fill="#0000FF" opacity="0.8">
+      <circle cx="0" cy="-50" r="2"/>
+      <circle cx="10" cy="-50" r="2"/>
+      <circle cx="20" cy="-50" r="2"/>
+      <circle cx="30" cy="-50" r="2"/>
+      <circle cx="40" cy="-50" r="2"/>
+      <circle cx="50" cy="-50" r="2"/>
+    </g>
+    <g fill="#00FF00" opacity="0.8">
+      <circle cx="0" cy="-75" r="2"/>
+      <circle cx="10" cy="-75" r="2"/>
+      <circle cx="20" cy="-75" r="2"/>
+      <circle cx="30" cy="-75" r="2"/>
+    </g>
+  </g>
+  
+  <!-- Parallax ground effect lines -->
+  <g id="groundLines" fill="#FFFFFF">
+    <line x1="50" y1="350" x2="1150" y2="350" stroke-width="2"/>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="0 0" to="-1200 0" dur="30s" 
+                      repeatCount="indefinite" additive="sum"/>
+  </g>
+  
+  <!-- Moving horse shadow -->
+  <g id="horseShadows">
+    <ellipse cx="100" cy="355" rx="60" ry="3" fill="#000000" opacity="0.1"/>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="0 0" to="1200 0" dur="12s" 
+                      repeatCount="indefinite" additive="sum"/>
+  </g>
+  
+  <!-- Animated mane/tail flow for each horse -->
+  <!-- Horse 1 mane flow -->
+  <g id="mane1" transform="translate(55, 45)">
+    <path d="M70,45 Q50,30 40,50 Q60,70 70,60 Q55,80 65,75" stroke="#A0522D" stroke-width="5" fill="none" stroke-linecap="round">
+      <animateMotion dur="0.8s" repeatCount="indefinite" additive="sum">
+        <from>M70,45 Q50,30 40,50 Q60,70 70,60 Q55,80 65,75</from>
+        <to>M80,45 Q60,30 50,50 Q70,70 80,60 Q65,80 75,75</to>
+      </animateMotion>
+    </path>
+  </g>
+  
+  <!-- Hoof prints dust trail -->
+  <g id="hoofPrints">
+    <g fill="#8B4513" opacity="0.5">
+      <circle cx="0" cy="80" r="3"/>
+      <circle cx="150" cy="80" r="3"/>
+      <circle cx="300" cy="80" r="3"/>
+      <circle cx="450" cy="80" r="3"/>
+      <circle cx="600" cy="80" r="3"/>
+      <circle cx="750" cy="80" r="3"/>
+      <circle cx="900" cy="80" r="3"/>
+      <circle cx="1050" cy="80" r="3"/>
+    </g>
+    <animateTransform attributeName="transform" type="translate" 
+                      from="0 0" to="1200 0" dur="15s" 
+                      repeatCount="indefinite" additive="sum"/>
+  </g>
+  
+  <!-- Leaderboard / scoreboard animation -->
+  <g id="leaderboard" transform="translate(1050, 50)">
+    <rect width="120" height="60" rx="8" fill="#8B4513" stroke="#FFFFFF" stroke-width="2"/>
+    <text x="10" y="35" font-family="Georgia" font-size="18" fill="#FFFFFF" text-anchor="middle">POST</text>
+    <text x="10" y="55" font-family="Georgia" font-size="14" fill="#FFFFFF" text-anchor="middle">TIME</text>
+  </g>
+  <animateTransform attributeName="transform" type="translate" 
+                    from="1050 50" to="-100 50" dur="8s" 
+                    repeatCount="indefinite" additive="translate"/>
+  
+  <!-- Finish line camera beam flash -->
+  <g id="cameraFlash" opacity="0">
+    <line x1="1000" y1="300" x2="1100" y2="300" stroke="#FFFFFF" stroke-width="3"/>
+    <animate attributeName="opacity" from="0" to="1" dur="0.5s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Race title -->
+  <text x="600" y="780" font-family="Georgia" font-size="24" fill="#2F4F4F" text-anchor="middle" 
+        font-weight="bold">THRILLING HORSE RACE</text>
+</svg>

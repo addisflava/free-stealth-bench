@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "horse-racing",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/nemotron-3.5-lightning-free",
+  "model": "opencode/nemotron-3.5-lightning-free",
+  "model_id": "nemotron-3.5-lightning-free",
+  "effort": "default",
+  "effort_requested": "default",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-15T11:44:24+00:00",
+  "wall_seconds": 118,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 72254,
+    "output": 18832,
+    "reasoning": 3432,
+    "cache_read": 781440,
+    "total": 91086
+  },
+  "steps": 20,
+  "session_id": "ses_e20fbf5f8ffeZYTN3HBPmODKrV",
+  "events": 67,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false
+}

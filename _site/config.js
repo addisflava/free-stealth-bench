@@ -1,4 +1,4 @@
-/* Public runtime configuration for the static svg-bench leaderboard.
+/* Public runtime configuration for the static free-stealth-bench leaderboard.
  *
  * Fill in the Supabase project URL and the *anon* key to let every visitor read
  * and submit public reviews. The anon key is safe to publish: it is constrained

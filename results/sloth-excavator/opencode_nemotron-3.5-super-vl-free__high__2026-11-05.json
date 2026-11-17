@@ -61,7 +61,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": false,
+    "canvas_offcanvas": false,
+    "root_transform_note": null
   },
   "tokens": {
     "input": 22551,

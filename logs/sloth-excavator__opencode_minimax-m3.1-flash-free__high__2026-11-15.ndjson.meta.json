@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "sloth-excavator",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/minimax-m3.1-flash-free",
+  "model": "opencode/minimax-m3.1-flash-free",
+  "model_id": "minimax-m3.1-flash-free",
+  "effort": "high",
+  "effort_requested": "high",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-15T08:07:07+00:00",
+  "wall_seconds": 868,
+  "exit_code": 1,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 169710,
+    "output": 58931,
+    "reasoning": 85479,
+    "cache_read": 3167232,
+    "total": 228641
+  },
+  "steps": 35,
+  "session_id": "ses_e21ce5344ffeMzHQXB5JBtDfiV",
+  "events": 116,
+  "error_type": "provider.transport",
+  "error_message": "ECONNRESET: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+  "effort_rejected": false
+}

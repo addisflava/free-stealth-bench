@@ -51,7 +51,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": true,
+    "canvas_offcanvas": true,
+    "root_transform_note": "root <svg> has a animateTransform on \"transform\" translating the whole scene from (500,120) to (1100,120) \u2014 only 50% of the 1200\u00d7800 canvas shows artwork at the start, 50% at best"
   },
   "tokens": {
     "input": 53824,
@@ -65,5 +68,5 @@
   "events": 83,
   "error_type": "provider.internal",
   "error_message": "Streaming response failed: [504] Upstream idle timeout exceeded",
-  "result_status": "ok"
+  "result_status": "off_canvas"
 }

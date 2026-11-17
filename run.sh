@@ -1,15 +1,20 @@
 #!/usr/bin/env bash
-# Benchmark all currently-served opencode free models on the SVG tasks.
+# Benchmark models from any configured provider and agent harness on the SVG
+# tasks. Providers and harnesses live in providers.yaml / harnesses.yaml; adding
+# one needs no code changes.
 #
 # Every model gets the SAME prompt, in a FRESH EMPTY directory. No reference
 # artwork exists or is passed in. The harness only collects the file the model
 # writes and runs deterministic validity checks on it.
 #
 # Usage:
-#   ./run.sh                          # all discovered free models, all tasks in tasks.yaml
+#   ./run.sh                          # all discovered targets, all tasks in tasks.yaml
 #   ./run.sh --tasks sloth-excavator  # one task
 #   ./run.sh --models opencode/beam-free,opencode/glm-5.3-flash-free
-#   ./run.sh --effort high            # effort for effort-capable models (default: high)
+#   ./run.sh --models codex@openai/gpt-5.2-codex   # alternate agent harness
+#   ./run.sh --provider openrouter    # discovery limited to one provider
+#   ./run.sh --all-harnesses          # default + alternate harness per provider
+#   ./run.sh --effort high            # override the per-provider effort default
 #   ./run.sh --timeout 1200           # per-run wall-clock seconds (default: 900)
 #   ./run.sh --force                  # re-run even if today's output exists
 #   ./run.sh --prompt "Draw a fox" [--task-id fox]   # ad-hoc task from the command line
@@ -19,17 +24,18 @@
 #   ./run.sh --dry-run                # show the plan, spend nothing
 #   ./run.sh result [port]            # refresh leaderboard data and open/serve the results web page
 #   ./run.sh --result [port]          # same as `result`
-#   ./run.sh judge [judge.py flags]   # automated blind LLM judging + ranking (no benchmark runs)
-#   ./run.sh --judge                  # run the benchmark, then judge the results
+#   ./run.sh judge [judge.py flags]   # re-run judging/ranking only (no benchmark runs)
 #     judge flags: --probe | --limit N | --dry-run | --force | --report | --judge-model M
 #
-# Resume semantics: a result file for (task, model, effort) is skipped unless
-# --force is given. With --new-only, any (task, model, effort) that has a sidecar
-# recorded under results/ (any date) is skipped — so models newly appeared in the
-# live free list get benchmarked while already-recorded runs are not re-done.
+# New outputs are judged automatically after the run and the ranking is refreshed.
+# Use --no-judge to benchmark without judging.
 #
-# Resume semantics: a same-day result file for (task, model, effort) is skipped
-# unless --force is given.
+# Resume semantics: a (task, model, effort) whose newest sidecar says
+# result_status=ok is skipped. Failed, invalid, timed-out or missing-output runs
+# are re-run on the next invocation. --force re-runs everything. With
+# --new-only, any (task, model, effort) that has a sidecar recorded under
+# results/ (any date) is skipped — so models newly appeared in the live list get
+# benchmarked while recorded runs are not re-done.
 
 set -uo pipefail
 cd "$(dirname "$0")"
@@ -83,7 +89,7 @@ case "${1:-}" in
     ;;
 esac
 
-EFFORT="high"
+EFFORT=""   # empty = use each provider's default (providers.yaml)
 TIMEOUT=900
 ONLY_MODELS=""
 ONLY_TASKS=""
@@ -91,16 +97,20 @@ PROMPT_TEXT=""
 ADHOC_ID=""
 NEW_ONLY=0
 PAIRS=""
+ONLY_PROVIDER=""
+ALL_HARNESSES=0
 DRY_RUN=0
 FORCE=0
-DO_JUDGE=0
+NO_JUDGE=0
 ADHOC_PROMPT_FILE=""
 ADHOC_PROMPT_MARKER=""
 
 while [ "$#" -gt 0 ]; do
   case "$1" in
-    --models)  ONLY_MODELS="$2"; shift 2 ;;
+    --models|--targets) ONLY_MODELS="$2"; shift 2 ;;
     --tasks)   ONLY_TASKS="$2"; shift 2 ;;
+    --provider) ONLY_PROVIDER="$2"; shift 2 ;;
+    --all-harnesses) ALL_HARNESSES=1; shift ;;
     --effort)  EFFORT="$2"; shift 2 ;;
     --timeout) TIMEOUT="$2"; shift 2 ;;
     --force)   FORCE=1; shift ;;
@@ -115,14 +125,20 @@ while [ "$#" -gt 0 ]; do
       case "$PORT" in --*) PORT=8000 ;; esac
       open_result_page "$PORT"
       ;;
-    --judge) DO_JUDGE=1; shift ;;
+    --judge) NO_JUDGE=0; shift ;;   # kept for compatibility; judging is the default
+    --no-judge) NO_JUDGE=1; shift ;;
     -h|--help) sed -n '2,/^set -uo pipefail/p' "$0" | sed '$d'; exit 0 ;;
     *) echo "unknown argument: $1" >&2; exit 2 ;;
   esac
 done
 
-command -v opencode >/dev/null || { echo "opencode not found in PATH" >&2; exit 1; }
-command -v python3  >/dev/null || { echo "python3 not found" >&2; exit 1; }
+command -v python3 >/dev/null || { echo "python3 not found" >&2; exit 1; }
+if ! python3 -c 'import yaml' 2>/dev/null; then
+  echo "PyYAML is required: pip install pyyaml" >&2; exit 1
+fi
+if ! command -v opencode >/dev/null 2>&1; then
+  echo "note: opencode is not in PATH; only non-opencode targets can run" >&2
+fi
 
 OC_VERSION="$(opencode --version 2>/dev/null | awk '{print $NF}')"
 TODAY="$(date -u +%Y-%m-%d)"
@@ -136,16 +152,21 @@ if [ -n "$ONLY_MODELS" ]; then
   IFS=',' read -ra MODELS <<<"$ONLY_MODELS"
 else
   MODELS=()
+  DISCOVER_ARGS=(discover)
+  [ -n "$ONLY_PROVIDER" ] && DISCOVER_ARGS+=(--provider "$ONLY_PROVIDER")
+  [ "$ALL_HARNESSES" -eq 1 ] && DISCOVER_ARGS+=(--all-harnesses)
   for attempt in 1 2 3 4 5; do
-    mapfile -t MODELS < <(opencode models 2>/dev/null | grep -E '^opencode/[a-z0-9._-]*(-free|_free)$|^opencode/big-pickle$' | sort -u)
+    mapfile -t MODELS < <(python3 "$ROOT/runner.py" "${DISCOVER_ARGS[@]}" 2>/dev/null | sort -u)
     [ "${#MODELS[@]}" -gt 0 ] && break
     echo "  discovery attempt ${attempt} returned nothing; retrying in 2s..." >&2
     sleep 2
   done
-  if [ "${#MODELS[@]}" -gt 0 ]; then
+  # Only unfiltered discovery is authoritative for the public "available" list.
+  if [ "${#MODELS[@]}" -gt 0 ] && [ -z "$ONLY_PROVIDER" ] && [ "$ALL_HARNESSES" -eq 0 ]; then
     printf '%s\n' "${MODELS[@]}" > "logs/models-snapshot-${TODAY}.txt.tmp"
     mv "logs/models-snapshot-${TODAY}.txt.tmp" "logs/models-snapshot-${TODAY}.txt"
-  else
+  fi
+  if [ "${#MODELS[@]}" -eq 0 ] && [ -z "$ONLY_PROVIDER" ] && [ "$ALL_HARNESSES" -eq 0 ]; then
     fallback="$(ls -t logs/models-snapshot-*.txt 2>/dev/null | while read -r f; do [ -s "$f" ] && { echo "$f"; break; }; done)"
     if [ -n "$fallback" ]; then
       mapfile -t MODELS < "$fallback"
@@ -194,29 +215,46 @@ PY
 fi
 [ "${#TASKS[@]}" -gt 0 ] || { echo "no tasks found" >&2; exit 1; }
 
-# ── Effort policy: one effort for effort-capable models; "default" (no variant)
-#    for models that have no effort knob and for any model whose effort support
-#    is unverified. Known effort-less models: big-pickle, mimo-v2.6-flash-free,
-#    nemotron-3.5-lightning-free. Known to accept #high: beam, flint-40b,
-#    glm-5.3-flash, deepseek-v4.1-flash, nemotron-3.5-super-vl, pulse-alpha.
-#    Unknown to this machine: crouton-alpha-free (region-blocked here anyway).
+# ── Effort policy comes from providers.yaml: effort-capable harnesses get
+#    --effort; models listed as unsupported (and harnesses without an effort
+#    knob) run at "default".
 effort_for() {
-  case "$1" in
-    opencode/big-pickle|opencode/mimo-v2.6-flash-free|opencode/nemotron-3.5-lightning-free)
-      echo "default" ;;
-    *)
-      echo "$EFFORT" ;;
-  esac
+  local resolved
+  if [ -n "$EFFORT" ]; then
+    resolved="$(python3 "$ROOT/runner.py" effort --target "$1" --requested "$EFFORT" 2>/dev/null)"
+  else
+    resolved="$(python3 "$ROOT/runner.py" effort --target "$1" 2>/dev/null)"
+  fi
+  printf '%s' "${resolved:-default}"
 }
 
-model_slug() { printf '%s' "$1" | tr '/' '_'; }
+model_slug() { printf '%s' "$1" | tr '/@' '__'; }
 
 existing_record() {  # $1=task $2=slug $3=effort -> 0 if a sidecar for that combo exists (any date)
   [ -n "$(find "results/$1" -maxdepth 1 -name "${2}__${3}__*.json" -print -quit 2>/dev/null)" ]
 }
 
+latest_status() {  # $1=task $2=slug $3=effort -> status of the newest sidecar
+  local latest
+  latest="$(find "results/$1" -maxdepth 1 -name "${2}__${3}__*.json" -print 2>/dev/null | sort | tail -1)"
+  [ -n "$latest" ] || { echo "none"; return; }
+  python3 -c 'import json,sys
+try:
+    print(json.load(open(sys.argv[1])).get("result_status") or "unknown")
+except Exception:
+    print("unknown")' "$latest" 2>/dev/null || echo "unknown"
+}
+
+record_ok() {  # $1=task $2=slug $3=effort -> 0 when the newest run is ok and its SVG exists
+  local status latest
+  status="$(latest_status "$1" "$2" "$3")"
+  [ "$status" = "ok" ] || return 1
+  latest="$(find "results/$1" -maxdepth 1 -name "${2}__${3}__*.json" -print 2>/dev/null | sort | tail -1)"
+  [ -f "${latest%.json}.svg" ]
+}
+
 mode=""; [ "$NEW_ONLY" -eq 1 ] && mode=" | new-only"
-echo "opencode ${OC_VERSION} | effort=${EFFORT} | timeout=${TIMEOUT}s | ${#MODELS[@]} model(s) x ${#TASKS[@]} task(s)${mode}"
+echo "free-stealth-bench | effort=${EFFORT:-per-provider} | timeout=${TIMEOUT}s | ${#MODELS[@]} target(s) x ${#TASKS[@]} task(s)${mode}"
 echo
 
 # ── Build the execution sequence (pairs mode or cartesian product) ──
@@ -247,7 +285,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
     if [ "$FORCE" -eq 0 ]; then
       if [ "$NEW_ONLY" -eq 1 ]; then
         existing_record "$task" "$(model_slug "$model")" "$eff" && skip=1
-      elif ls results/"${task}"/"$(model_slug "$model")"__"${eff}"__*.svg >/dev/null 2>&1; then
+      elif record_ok "$task" "$(model_slug "$model")" "$eff"; then
         skip=1
       fi
     fi
@@ -263,7 +301,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
     task="${entry%%$'\t'*}"; prompt="${entry##*$'\t'}"
     printf '  %s  %s  %s\n' "$(sha256sum "$prompt" | cut -c1-12)" "$task" "$(sha256sum "$prompt" | cut -d' ' -f1)"
   done
-  [ "$DO_JUDGE" -eq 1 ] && echo "(dry-run: automated judging skipped — nothing was scored)"
+  echo "(dry-run: automated judging skipped — nothing was scored)"
   exit 0
 fi
 
@@ -283,50 +321,74 @@ run_one() {  # $1=task $2=prompt_file $3=model
         echo "SKIP  ${task}  ${model} (new-only: already recorded)"
         return 0
       fi
-    elif ls results/"${task}"/"${slug}"__"${eff}"__*.svg >/dev/null 2>&1; then
-      echo "SKIP  ${task}  ${model} (${eff}; existing output; --force to redo)"
+    elif record_ok "$task" "$slug" "$eff"; then
+      echo "SKIP  ${task}  ${model} (${eff}; latest run ok; --force to redo)"
       return 0
     fi
   fi
 
-  local prompt_sha prompt start end wall_seconds exit_code timed_out workdir
+  local prompt_sha start end wall_seconds exit_code timed_out runner_code
   prompt_sha="$(sha256sum "$prompt_file" | cut -d' ' -f1)"
-  prompt="$(cat "$prompt_file")"
 
-  attempt() {  # $1=model-with-optional-variant $2=logfile ; sets globals
-    local wd
-    wd="$(mktemp -d /tmp/svgbench.XXXXXX)"
+  attempt() {  # $1=target $2=logfile $3=effort ; sets globals
+    local target="$1" logfile="$2" effort_used="$3"
+    local meta_path="$ROOT/$logfile.meta.json"
     start="$(date +%s)"
-    ( cd "$wd" && timeout --signal=TERM "$TIMEOUT" opencode run --format json --auto \
-        -m "$1" "$prompt" >"$ROOT/$2" 2>&1 )
-    exit_code=$?
+    python3 "$ROOT/runner.py" run --target "$target" --task "$task" \
+        --prompt-file "$prompt_file" --effort "$effort_used" --timeout "$TIMEOUT" \
+        --out "$ROOT/$out" --log "$ROOT/$logfile" --meta "$meta_path" >/dev/null 2>&1
+    runner_code=$?
     end="$(date +%s)"
     wall_seconds=$(( end - start ))
-    timed_out=0; [ "$exit_code" -eq 124 ] && timed_out=1
-    # collect artifact
-    if [ -s "$wd/output.svg" ]; then
-      cp "$wd/output.svg" "$ROOT/$out"; method="output.svg"
-    elif python3 "$ROOT/extract_svg.py" "$ROOT/$2" "$ROOT/$out"; then
-      method="extracted"
-    else
-      method="missing"
+    timed_out=0; [ "$runner_code" -eq 124 ] && timed_out=1
+    method="missing"
+    if [ -f "$meta_path" ]; then
+      read -r method timed_out wall_seconds exit_code < <(python3 - "$meta_path" <<'PY'
+import json, sys
+try:
+    m = json.load(open(sys.argv[1]))
+except Exception:
+    m = {}
+print(m.get('collection_method') or 'missing',
+      1 if m.get('timed_out') else 0,
+      int(m.get('wall_seconds') or 0),
+      int(m.get('exit_code') or 0))
+PY
+)
     fi
-    rm -rf "$wd"
   }
 
+  printf 'RUN   %-15s %-40s effort=%-8s timeout=%ss\n' "$task" "$model" "$eff" "$TIMEOUT"
+  printf '      log: %s\n' "$log"
+
+  # Heartbeat so a slow model does not look like a hung process.
+  local hb_pid hb_start
+  hb_start="$(date +%s)"
+  (
+    while sleep 60; do
+      printf '  ..  %-15s %-40s still running (%ss)\n' \
+        "$task" "$model" "$(( $(date +%s) - hb_start ))"
+    done
+  ) &
+  hb_pid=$!
+
   method=""
-  attempt "${model}${variant_suffix}" "$log"
+  runner_code=0
+  attempt "$model" "$log" "$eff"
 
   # ── Effort fallback: provider rejected the variant -> one retry with default ──
   local effort_fallback=0
-  if [ "$method" = "missing" ] && [ "$eff" != "default" ] && grep -qiE 'variant|effort|reasoning.level|unknown option' "$ROOT/$log"; then
+  if [ "$method" = "missing" ] && [ "$eff" != "default" ] && { [ "$runner_code" -eq 3 ] || grep -qiE 'variant|effort|reasoning.level|unknown option|unsupported' "$ROOT/$log" 2>/dev/null; }; then
     echo "  .. variant '${eff}' rejected by provider; retrying once with default"
     eff="default"; variant_suffix=""
     effort_fallback=1
     out="results/${task}/${slug}__default__${TODAY}.svg"
     log="logs/${task}__${slug}__default__${TODAY}.ndjson"
-    attempt "$model" "$log"
+    attempt "$model" "$log" "$eff"
   fi
+
+  kill "$hb_pid" 2>/dev/null
+  wait "$hb_pid" 2>/dev/null
 
   # ── Validate (best effort) ──
   local validation_file="-"
@@ -345,6 +407,7 @@ run_one() {  # $1=task $2=prompt_file $3=model
   EFFORT_REQUESTED="$EFFORT" EFFORT_FALLBACK="$effort_fallback" \
   OPENCODE_VERSION="$OC_VERSION" PROMPT_FILE="$prompt_file_env" PROMPT_SHA256="$prompt_sha" \
   WALL_SECONDS="$wall_seconds" EXIT_CODE="$exit_code" TIMED_OUT="$timed_out" METHOD="$method" \
+  RUN_META="$ROOT/$log.meta.json" \
     python3 record_run.py "$ROOT/$out" "$ROOT/$log" "$validation_file"
   [ "$validation_file" = "-" ] || rm -f "$validation_file"
 
@@ -385,6 +448,8 @@ for p in sorted(glob.glob(os.path.join(root, 'results', '*', '*__*.json'))):
     rows.append({
         'task': r.get('task'),
         'model': r.get('model'),
+        'provider': r.get('provider'),
+        'harness': r.get('harness'),
         'effort': r.get('effort'),
         'effort_fallback': r.get('effort_fallback'),
         'date_utc': r.get('date_utc'),
@@ -401,16 +466,27 @@ for p in sorted(glob.glob(os.path.join(root, 'results', '*', '*__*.json'))):
     })
 out = os.path.join(root, 'results', f'summary-{today}.json')
 with open(out, 'w', encoding='utf-8') as fh:
-    json.dump({'benchmark': 'svg-bench', 'date_utc': today, 'runs': rows}, fh, indent=2)
+    json.dump({'benchmark': 'free-stealth-bench', 'date_utc': today, 'runs': rows}, fh, indent=2)
 print(f"\nsummary written: {os.path.relpath(out, root)}")
 ok = sum(1 for r in rows if r['result_status'] == 'ok')
 print(f"runs recorded: {len(rows)} | ok: {ok} | other: {len(rows) - ok}")
 PY
 
-# ── Optional automated judging (free models only, no paid endpoints) ──
-if [ "$DO_JUDGE" -eq 1 ]; then
+# ── Automated judging (free models only, no paid endpoints) ──
+# New outputs are scored and the ranking is refreshed after every run. Judge
+# failures are reported but never abort a benchmark — the next run retries.
+if [ "$NO_JUDGE" -eq 0 ]; then
   echo
   echo "== automated judging =="
-  python3 "$ROOT/judge.py" || exit 1
-  python3 "$ROOT/leaderboard.py" || exit 1
+  python3 "$ROOT/judge.py" || echo "  .. judge failed (ranking not updated); run: ./run.sh judge"
+  python3 "$ROOT/leaderboard.py" || echo "  .. leaderboard refresh failed (run: python3 leaderboard.py)"
+
+  # ── Publish to the live webpage ──
+  # Discovery found the current model list and judging just finished, so commit
+  # and push the results to refresh the GitHub Pages leaderboard. Idempotent:
+  # skips when there is nothing new. Set NO_PUBLISH=1 to benchmark without
+  # touching the remote.
+  echo
+  echo "== publishing to GitHub Pages =="
+  bash "$ROOT/publish.sh" || echo "  .. publish failed (re-run with: ./publish.sh)"
 fi

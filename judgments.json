@@ -19,19 +19,19 @@
   "composition_aesthetics",
   "technical_validity"
  ],
- "judge_model": "opencode/nemotron-3.5-super-vl-free",
- "updated_utc": "2026-11-09T08:34:43+00:00",
+ "judge_model": "opencode/inkling-2-small-free",
+ "updated_utc": "2026-11-16T20:26:55+00:00",
  "meta": {
   "probe": {
-   "candidate": "opencode/nemotron-3.5-super-vl-free",
+   "candidate": "opencode/inkling-2-small-free",
    "image_ok": true,
    "mode": "image",
    "detail": "identified the attached red probe image"
   },
   "blind_note": "The judge sees only an anonymous \"Submission A\": task prompt, SVG source, objective source facts, and rendered frames. No model name, run id, date, path or sidecar identity is provided.",
   "judge_is_contestant_note": "The free judge model is also a contestant in this benchmark. Blind presentation mitigates but does not eliminate self-preference bias; the judge model is recorded per run and can be changed with --judge-model.",
-  "n_judged": 30,
-  "n_dnf": 9
+  "n_judged": 48,
+  "n_dnf": 19
  },
  "judgments": {
   "ca1cfa663cab89c7c2873d154a0239e72f80cf36bfde9bf893224bb820dceb71|v1|opencode/nemotron-3.5-super-vl-free|image": {
@@ -768,6 +768,356 @@
    "input_mode": "image",
    "judge_exit_code": 0,
    "judge_errors": []
+  },
+  "3817129eb8adab08f0129af73451062a8f5c4f7d8b2fb056b331014260870a4c|v1|opencode/flint-40b-free|text": {
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 4,
+    "creativity": 3,
+    "animation_fidelity": 3,
+    "richness_detail": 4,
+    "composition_aesthetics": 3,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Layered gradients, soft blur filters, and roughly 1500 paths indicate a detailed, polished scene; minor risk of clutter or small-detail legibility issues remains unverifiable from the truncated source.",
+    "instruction_following": "Self-contained with no external refs or scripts, correct 1200x800 viewBox; sky, track, finish line, five horses, grandstand and board appear present, with heavy animation usage.",
+    "creativity": "Classic horse-race brief; likely competent but generic composition with little inventive detail beyond standard race-day clich\u00e9s.",
+    "animation_fidelity": "Nearly 500 animation elements with 330 animateTransform units suggest real motion, but truncation prevents confirming horses translate toward the finish line rather than cycle in place.",
+    "richness_detail": "Very rich: 3929 elements, 24 gradients, 2 blurs, 1502 paths, layered backgrounds; complexity clearly exceeds the minimal bar, though density alone does not guarantee polish.",
+    "composition_aesthetics": "Framing and balance could not be fully assessed from the truncated source, so elevated-angle composition and visual harmony remain uncertain."
+   },
+   "summary": "A technically solid and richly animated SVG largely meets the brief, but motion fidelity and composition could not be fully verified from the truncated source.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 76.4,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-15T15:12:15+00:00",
+   "input_mode": "text",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "156a78170e7a20d019de464ce49949f64893ebe323dc9fa2fec4ab47667d2289|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 3,
+    "instruction_following": 3,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 4,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Clean, appealing cartoon rendering: crisp excavator, sunny sky, cones, barrier and shaded dirt pile all read well. However the requested protagonist is essentially invisible \u2014 the cab window shows only glass gradient and a steering wheel, with no discernible face, hard hat or vest in any frame.",
+    "instruction_following": "Standalone 1200x800 SVG, no external assets/scripts, and nearly every scene element is present: tracks with rollers, cab with window and wheel, boom+stick+toothed bucket, sun, clouds, dirt pile, cones, caution stripe, Zzz, exhaust, bird. But the mandatory sloth \u2014 face mask, eye patches, smile, stret",
+    "creativity": "The sleepy-operator concept is charming: floating Zzz letters, drifting bird, dedicated roller detail, caution-stripe barrier and dig-and-fill dirt pile show thoughtful invention beyond a generic excavator clipart scene, though the overall composition remains fairly conventional.",
+    "animation_fidelity": "The dig cycle genuinely works: boom raised in frame 1, dropping/bucket curl in frame 2, extended pass in frame 3 \u2014 a coherent excavation loop. Zzz rise and fade, exhaust puffs drift, bird traverses, clouds slide and sun rays rotate; motion reads as intentional, not just in-place bobbing.",
+    "richness_detail": "Layered construction: 10 gradients, drop shadow, caution-stripe pattern, window clip path, spoked track rollers, striped cones, speckled dirt pile with cast shadow, background hills, radial sun with rays and multi-ellipse clouds. Dense and detailed without being noisy.",
+    "composition_aesthetics": "Strong landscape balance: excavator anchored left-of-center, dirt pile counterweights on the right, sun top-right and barrier at far left frame the action; warm ground/cool sky harmony is pleasant. Minor dead space upper-middle and the visually empty cab window undercut the focal point."
+   },
+   "summary": "A polished, genuinely animated construction-site scene with a working dig cycle and rich detail, let down chiefly by the sloth itself being imperceptible inside the cab.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 74.6,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-15T15:15:20+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "447a538a18419e8056ea14bf440106c4238ce3f2ff393ebc599d34fc9b4b5a2f|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 2,
+    "instruction_following": 3,
+    "creativity": 3,
+    "animation_fidelity": 2,
+    "richness_detail": 2,
+    "composition_aesthetics": 1,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Visible fragments (clouds, turf band, one brown horse with a red-capped jockey, rail lines) are competently drawn flat shapes, but the render is mostly empty white canvas with the scene shoved against/off the right edge; frames are blank, clipped and visually broken rather than a complete illustrati",
+    "instruction_following": "Source shows the required ingredients: 1200x800 viewBox, valid standalone XML, no external refs or JS, sky/sun/clouds, turf, rails, four horse gradients plus four silk gradients, grandstand/roof, leaderboard/tote, camera flash, 60+ animation elements. But content renders off-canvas/clipped, so key '",
+    "creativity": "Nice touches exist: 'THRILLING HORSE RACE' caption, a POST TIME tote board, a photo-finish flash beam, drifting hoof-print dust trail. Otherwise it is a fairly generic template with literal gradients; nothing especially inventive in the visible result.",
+    "animation_fidelity": "Motion is present but broken in effect: the whole scene appears to slide right-to-left across frames (blue edge moves from ~x440 to ~x260), the lone visible horse is half-clipped at the right border in the last frame and no horse is visible at all earlier, so horses are not legibly racing toward a f",
+    "richness_detail": "The source is element-heavy (gradients, filters, layers), but what actually renders is sparse: empty white expanses, a thin turf strip, two clouds and a partial horse. Depth, crowd, sun, grandstand and finish-line detail simply do not show in the captured frames.",
+    "composition_aesthetics": "The canvas is dominated by blank white space; all meaningful content is crammed at the right edge and cut off, framing is unbalanced, nothing is legible as a composed scene, and the three captured moments all look broken rather than polished."
+   },
+   "summary": "A richly populated source file undermined by a catastrophic layout/animation offset that leaves the render mostly blank with the race clipped off-screen.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 52.8,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-15T17:24:05+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "c9c62a36974caf208c24db07c3deff7d3099e58e7395b1db27699764a34e661d|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 5,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 5,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Appealing, competent cartoon rendering: recognizable tracked excavator, expressive sloth face with hard hat, toothed bucket in the pile, clean shapes, gradients and shading. Minor flaws: sloth face reads small/cramped inside the cab, and arm/bucket linkage is slightly hard to parse at this scale. No",
+    "instruction_following": "All hard requirements appear met: standalone 1200x800 landscape SVG, no external assets/scripts, sun+clouds sky, warm ground, dirt pile, cones, caution-striped barricade, rocks, DIG SITE sign; tracked excavator with rollers, rotating body, cab+window+steering, boom+stick+toothed bucket; sloth with m",
+    "creativity": "Cohesive sleepy-sloth-on-the-job concept with charming touches: floating Zzz's, 'DIG SITE' wooden sign, striped barricade, distant skyline and crane silhouette, glowing sun, birds, digging into a lumpy pile. Not radically inventive, but more personality and narrative than a template excavator scene.",
+    "animation_fidelity": "Across t=400/1500/3000ms the bucket and arm shift through a genuine dig cycle into the pile, Zzz's drift upward, birds change position (one near the sun by t=3000ms), sun rays rotate and glow pulses. Motion is real but the dig amplitude is subtle and track/wheel rolling is imperceptible between fram",
+    "richness_detail": "Dense, layered scene: gradient sky, sun-glow, multiple clouds, skyline and power-line crane backdrop, textured ground with pebbles/grass tufts, shadowed props, striped hazard barricade, cones, pile with teeth marks, 12 gradients and many distinct elements. Depth and shading throughout; nothing feels",
+    "composition_aesthetics": "Balanced landscape framing: sun top-left, excavator centered, pile right, sign and barricade left; warm earth vs cool sky harmony, good legibility of the subject. Slightly empty upper-middle-right sky and small focal details, but overall polished, warm and cohesive."
+   },
+   "summary": "A charming, rich, fully self-contained animated SVG that nails the brief, with genuinely working motion and only minor scale/subtlety flaws.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 89.0,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-15T17:30:00+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "222542b44dce9d53ebb6674ad6770f89013b04d090634615e99222e9ac3e6651|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 5,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 5,
+    "composition_aesthetics": 5,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Cohesive, appealing cartoon style: expressive half-closed sloth face, readable yellow excavator with rollers, toothed bucket, hard hat and hi-vis vest. Gradients and shading render cleanly; nothing blank or malformed. Minor nits: bucket/pile contact is slightly ambiguous and bottom-right fence is a ",
+    "instruction_following": "Every hard requirement is met: single standalone SVG, 1200x800 landscape, no external refs/scripts, sun and clouds, dirt pile, cones, rocks, caution stripe/tape, barrier with warning sign. Tracked excavator with boom+stick+bucket, cab with window and steering wheel, sloth with mask, eye patches, nos",
+    "creativity": "Charming touches beyond the brief: floating Zzz's, a crossing bird, drifting dust motes, exhaust puffs, warning diamond sign, caution tape strung on posts, grass tufts and a softly glowing sun. Inventive small details, though the overall layout is a fairly conventional sunny-site scene rather than a",
+    "animation_fidelity": "Frames confirm a genuine digging cycle: bucket raised at 400ms, plunging into the pile by 1500ms, lifted again at 3000ms. Zzz's rise by the cab, a bird crosses the sky, puffs and motes drift. Wheel/track rolling and any upper-body rotation are not evident across the stills, preventing full marks.",
+    "richness_detail": "Dense, layered scene: gradient sky, glowing sun with rays, three clouds, far and near hills, textured pile with lit face, tracks with multiple rollers, cab interior with wheel, barrier, sign, cones, tape, fence, grass, dust. 27 gradient defs and heavy use of paths/ellipses yield real depth.",
+    "composition_aesthetics": "Well balanced frame: excavator mass anchors left, dirt pile and digging action balance right, sun top-right, barrier bottom-left leads the eye inward. Warm sandy palette against blue sky is harmonious, shapes are legible, and the sloth's face is a clear, adorable focal point."
+   },
+   "summary": "A polished, charming, requirement-complete animated sloth excavator illustration with a working digging cycle, rich detail and strong composition, docked slightly only for unverifiable wheel/body motion and minor constructional nits.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 91.2,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-15T17:31:16+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "f006430b04a7fd9de5b38daf47e6e2da4982ab929e80a5dc2e4e258c39ac0c74|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 4,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 4,
+    "composition_aesthetics": 3,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Tidy, recognizable flat-vector cartoon: grandstand with dot crowd, glowing sun, checkered finish post, leaderboard, and four legible horses with crouched jockeys. Anatomy is stiff (stick legs, slug-like necks) and rendering is flat, but nothing is blank, broken or malformed; edge-clipped horses are ",
+    "instruction_following": "Nearly everything required is present: standalone 1200x800 SVG, no external refs/JS, sun, rails, lane dashes, finish checker column, four distinct coats/silks with numbered saddles, grandstand with roof/flags/crowd, leaderboard, PHOTO camera. Missing/invisible: clouds in the sky in all three frames,",
+    "creativity": "Charming specific touches elevate it beyond template: a LEADERBOARD board listing THUNDER BAY / COPPER COMET / MIDNIGHT STAR / IVORY DASH with odds and 'TURF 2400m', a PHOTO finish camera on the post, roof flags, and foreground grass blades. Composition itself is fairly conventional.",
+    "animation_fidelity": "Horses genuinely translate left-to-right at different speeds (positions clearly progress between the 400/1500/3800ms captures), legs cycle through gallop phases, tails/manes whip, bodies bob. Flaws: early loop shows no horses at all, right-edge teleport wrap is abrupt, and dust kick-up is not appare",
+    "richness_detail": "Layered gradients (sky, grass, track, stand, roof), sun with rays, ~40 colored crowd dots, multi-line tote text, double rails with posts, dashed lane markings, drop shadow and foreground grass. Rich in the top band, though the vast track expanse and blank sky are thinly filled.",
+    "composition_aesthetics": "Balanced header band (stand left, board center, sun/post right) and harmonious bright palette, but two-thirds of the canvas is empty track with tiny horses bunched bottom-left by t=3800ms, frame 2 clips horses at the left edge, and the flat front view ignores the elevated-angle brief."
+   },
+   "summary": "A charming, technically solid animated race scene with real galloping translation and strong tote/grandstand detail, held back by invisible clouds, missing dust, empty track space and a flat frontal angle.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 80.8,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-15T17:34:26+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "2d9c52caa07e9c90de97b4956d029ba08c97bd1630b7b05bf3a30d15c1756a97|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 3,
+    "instruction_following": 4,
+    "creativity": 3,
+    "animation_fidelity": 3,
+    "richness_detail": 3,
+    "composition_aesthetics": 3,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Recognizable cartoon horses, grandstand and sun, but the drawing is crude: oval bodies, stick legs, horses overlapping into a muddy clump, one sun ray extends as a stray line across the whole sky, and the horizon gradient fades to a murky near-navy that fights the bright sun.",
+    "instruction_following": "Self-contained valid SVG at 1200x800 with sky/sun/clouds, railed turf track, finish glow, four distinct coat colors, numbered saddle cloths, grandstand with crowd dots, roof and flags, tote board reading ODDS 5.2, plus dust, bobs and drifting clouds. Deductions: progress toward the finish is minimal",
+    "creativity": "Pleasant touches: betting-odds board with changing number, photo-finish glow and beam, parallax cloud layers, hoof dust and sun rays. But it reads as generic clip-art racing; closed-loop cloud paths and oscillating dust undercut the 'living race-day' ambition.",
+    "animation_fidelity": "Horses genuinely translate rightward and leg poses differ between frames with slight spacing compression (different speeds), but the pack advances only ~100px over 2.6s and never nears the wire; clouds oscillate in closed loops rather than drift; dust shuttles in place; the beam sweep is a no-op.",
+    "richness_detail": "11 gradients, a drop-shadow filter, dotted grandstand crowd, flags, tote text, rails, lane markings and layered clouds give real density, yet the entire lower half of the canvas is one flat empty green expanse and the dark horizon blunts depth.",
+    "composition_aesthetics": "Legible side-angle framing with sensible layering sky-stand-track, but all content is squeezed into a thin central band, jockeys and numbers are cramped and barely readable, a full-width stray ray crosses the sky, and the finish glow is clipped at the right edge."
+   },
+   "summary": "A well-stocked, genuinely animated cartoon race scene that ticks nearly every requirement, undermined by crude overlapping horses, a stray full-width sun ray, an empty flat foreground and motion that drifts rather than drives toward the finish line.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 70.0,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-16T11:50:07+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "094d7a810a52eee01f65441d7d64157afc81fa06f3c9c1e6a186e211eaf799d3|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 2,
+    "instruction_following": 3,
+    "creativity": 3,
+    "animation_fidelity": 2,
+    "richness_detail": 3,
+    "composition_aesthetics": 2,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Crude, murky rendering: the excavator reads as a giant dark navy monolith rather than a machine, the sloth's face is a tiny scribble with a magenta blob (vest/hat indistinguishable), and the mid-loop capture renders almost the entire scene blank white. Recognizable construction story, but sloppy and",
+    "instruction_following": "ViewBox 1200x800, standalone, no scripts/external refs, 4+ animated elements, sky/sun/clouds, dirt mounds, cone, caution stripe, toothed bucket and boom/stick present. But the high-vis vest is magenta, tracks/rollers merge into the dark body, hard hat illegible, and excavator barely reads as tracked",
+    "creativity": "Ambitious touches: crossing bird, rising exhaust puffs, sleepy 'Zzz', warning triangle, tree, warning stripe, dirt mounds. Charm is undercut by generic shapes and puzzling choices (magenta vest, caution stripe doubling as a floating red bar, clipped corner block) rather than polished invention.",
+    "animation_fidelity": "Frames show the arm swinging, clouds drifting and puffs rising, so SMIL runs, but at t=1500ms the whole backdrop/sun/ground/body fade to near-invisible white and only faint traces remain. Motion demonstrably breaks mid-loop instead of cycling cleanly; elements effectively vanish rather than animate ",
+    "richness_detail": "11 gradient defs, sun rays, layered cloud clusters, cone, rocks, arcs, tree, triangle and dirt mounds give decent layer density, but the right half is mostly empty, the ground is a flat brown wash, and the excavator is one huge flat dark shape lacking shading or mechanical detail.",
+    "composition_aesthetics": "Unbalanced: heavy dark mass crammed left, barren right third, sun and clouds okay but the dig action is cramped; a clipped dark bar sits in the top-left corner, clashing magenta accents, and the white-out frame destroys any sense of framing or polish."
+   },
+   "summary": "An ambitious but badly flawed animated sloth excavator: requirements are attempted and motion technically runs, yet the mid-loop frame collapses to near-blank and the drawing lacks readability, balance and polish.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 57.0,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-16T11:51:03+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "9074aa68b56ffe9b05ab4397b024025fccc426d0d9e727991ff8eed83a6522b2|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 4,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 5,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Competent flat-cartoon illustration: horses, jockeys, grandstand, tote board and checkered finish post all read clearly; gradients are clean and nothing is blank or malformed. Bodies are a bit crude and the gray/palomino pair collides awkwardly, but the drawing is appealing and deliberate.",
+    "instruction_following": "Nearly all hard requirements met: standalone 1200x800 SVG, no external assets/JS, four distinct coats/silks with visible numbers, animated legs/dust/manes/tails, grandstand with crowd dots, roof, three flags, tote board, finish post with beam camera, bunting. Misses literally: the track is brown dir",
+    "creativity": "Charming race-day flourishes beyond the generic: a TOTE // ODDS board with named runners (DAZZLER 4/1, COMET 7/2, SHADOW 11/1), 'RACE DAY' and 'PHOTO FINISH' bunting, a red-lit finish-beam camera post, foreground rail for depth, staggered loop speeds per horse.",
+    "animation_fidelity": "Motion genuinely works: across captures horses translate along the track at differing speeds (chestnut left to centre, bay closing on the wire), legs alternate gallop poses and dust puffs trail hooves. Loop is short (~3.5s), so the 3800ms frame snaps horses back before the finish, and they bunch/ove",
+    "richness_detail": "Genuinely dense layering: gradient sky with sun glow, three drifting clouds, hills/treeline, two-tier dotted crowd, red roof with flags, detailed tote board, dashed lane markings, double rails front and back, checker finish, bunting, plus gradients/pattern/clipPath. Background and depth cues everywh",
+    "composition_aesthetics": "Balanced framing \u2014 grandstand upper-left versus tote board and sun upper-right, horses strung across the lanes, bunting arc softening the top edge; harmonious blue/red/green/ochre palette. The thick checkered column dominates the middle-right and the finish-line pile-up slightly muddies legibility."
+   },
+   "summary": "A lively, well-layered, genuinely animated race-day scene that nails the brief's motion and detail demands, docked mainly for a dirt-brown 'turf' track, a short loop that visibly snaps horses back, and minor clutter at the finish.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 85.0,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-16T12:55:15+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
+  },
+  "5abd07f61f4e7758fd5d579c7419512d201644056cc0ac303932ee75641a55f4|v1|opencode/inkling-2-small-free|image": {
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 5,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 4,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Competent, appealing cartoon rendering: recognizable sloth face with mask, dark eye patches, orange hard hat, striped vest, detailed tracked excavator with toothed bucket over a dirt pile. Minor flaws: sloth reads slightly helmet-heavy and generic, bucket/arm are a touch stiff; nothing blank or malf",
+    "instruction_following": "All hard requirements met: standalone inline SVG, no external refs or JS, 1200x800 landscape, sky+sun+clouds, warm ground, dirt pile, cones and caution-striped barrier, tracked excavator with rollers, cab, window, steering wheel, boom+stick and toothed bucket, sloth with hat/vest, and well over four",
+    "creativity": "Charming inventive touches: floating Zzz, drifting bird, rotating sun rays, exhaust puffs, sloth dozing at the wheel. The overall side-view dig-site layout is somewhat conventional, but the personality and details lift it above template output.",
+    "animation_fidelity": "Frames confirm real motion: boom/stick/bucket reposition between frames into the pile, exhaust puffs rise, Zzz appears and floats, bird progresses across the sky, sun rays rotate. Dig cycle is gentle rather than a full scoop-lift-dump, and the body slew is subtle, but motion genuinely works.",
+    "richness_detail": "Layered gradients (sky, sun glow, ground, dirt, yellows), distant hills, spokes on track rollers, bucket teeth and linkages, cones, rocks, foreground pebbles, caution barrier. Rich overall; the big empty left field and fairly simple clouds keep it from maximal density.",
+    "composition_aesthetics": "Balanced layout: excavator centered, dirt pile right, barrier left, sun top-right, warm-vs-cool palette in harmony, good legibility and polish. Slightly sparse upper-left quadrant and a smallish subject prevent a perfect score."
+   },
+   "summary": "A polished, fully compliant animated sloth-excavator scene with genuinely working motion and rich cartoon detail, held back only by mild compositional sparseness and a gentle (rather than dramatic) digging cycle.",
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "composite": 87.0,
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "judged_utc": "2026-11-16T20:26:55+00:00",
+   "input_mode": "image",
+   "judge_exit_code": 0,
+   "judge_errors": []
   }
  },
  "runs": {
@@ -810,7 +1160,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/beam-free"
   },
   "horse-racing__opencode_big-pickle__default__2026-11-05": {
    "judged": true,
@@ -851,7 +1204,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/big-pickle"
   },
   "horse-racing__opencode_crouton-alpha-free__high__2026-11-05": {
    "judged": true,
@@ -884,7 +1240,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/crouton-alpha-free"
   },
   "horse-racing__opencode_crouton-alpha-free__high__2026-11-07": {
    "judged": true,
@@ -917,7 +1276,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/crouton-alpha-free"
   },
   "horse-racing__opencode_deepseek-v4.1-flash-free__high__2026-11-05": {
    "judged": true,
@@ -958,7 +1320,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/deepseek-v4.1-flash-free"
   },
   "horse-racing__opencode_flint-40b-free__high__2026-11-05": {
    "judged": true,
@@ -999,7 +1364,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/flint-40b-free"
   },
   "horse-racing__opencode_glm-5.3-flash-free__high__2026-11-05": {
    "judged": true,
@@ -1040,7 +1408,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/glm-5.3-flash-free"
   },
   "horse-racing__opencode_iceman-free__default__2026-11-07": {
    "judged": true,
@@ -1081,7 +1452,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free"
   },
   "horse-racing__opencode_inkling-2-small-free__high__2026-11-07": {
    "judged": true,
@@ -1122,7 +1496,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/inkling-2-small-free"
   },
   "horse-racing__opencode_mimo-v2.6-flash-free__default__2026-11-05": {
    "judged": true,
@@ -1163,7 +1540,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free"
   },
   "horse-racing__opencode_nemotron-3.5-lightning-free__default__2026-11-05": {
    "judged": true,
@@ -1196,7 +1576,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-lightning-free"
   },
   "horse-racing__opencode_nemotron-3.5-super-vl-free__high__2026-11-05": {
    "judged": true,
@@ -1229,7 +1612,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-super-vl-free"
   },
   "horse-racing__opencode_nemotron-3.5-super-vl-free__high__2026-11-07": {
    "judged": true,
@@ -1270,7 +1656,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-super-vl-free"
   },
   "horse-racing__opencode_pulse-alpha-free__high__2026-11-05": {
    "judged": true,
@@ -1303,7 +1692,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/pulse-alpha-free"
   },
   "horse-racing__openrouter_stealth_crouton-alpha__high__2026-11-05": {
    "judged": true,
@@ -1344,7 +1736,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "openrouter",
+   "harness": "openrouter",
+   "target": "openrouter/stealth/crouton-alpha"
   },
   "sloth-excavator__opencode_beam-free__high__2026-11-05": {
    "judged": true,
@@ -1385,7 +1780,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/beam-free"
   },
   "sloth-excavator__opencode_big-pickle__default__2026-11-05": {
    "judged": true,
@@ -1426,7 +1824,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/big-pickle"
   },
   "sloth-excavator__opencode_crouton-alpha-free__high__2026-11-05": {
    "judged": true,
@@ -1459,7 +1860,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/crouton-alpha-free"
   },
   "sloth-excavator__opencode_crouton-alpha-free__high__2026-11-07": {
    "judged": true,
@@ -1492,7 +1896,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/crouton-alpha-free"
   },
   "sloth-excavator__opencode_deepseek-v4.1-flash-free__high__2026-11-05": {
    "judged": true,
@@ -1533,7 +1940,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/deepseek-v4.1-flash-free"
   },
   "sloth-excavator__opencode_flint-40b-free__high__2026-11-05": {
    "judged": true,
@@ -1574,7 +1984,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/flint-40b-free"
   },
   "sloth-excavator__opencode_glm-5.3-flash-free__high__2026-11-05": {
    "judged": true,
@@ -1615,7 +2028,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/glm-5.3-flash-free"
   },
   "sloth-excavator__opencode_iceman-free__default__2026-11-07": {
    "judged": true,
@@ -1656,7 +2072,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free"
   },
   "sloth-excavator__opencode_inkling-2-small-free__high__2026-11-07": {
    "judged": true,
@@ -1697,7 +2116,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/inkling-2-small-free"
   },
   "sloth-excavator__opencode_mimo-v2.6-flash-free__default__2026-11-05": {
    "judged": true,
@@ -1730,7 +2152,10 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free"
   },
   "sloth-excavator__opencode_mimo-v2.6-flash-free__default__2026-11-07": {
    "judged": true,
@@ -1763,48 +2188,49 @@
    "input_mode": "none",
    "judge_model": null,
    "parse_ok": true,
-   "cache_key": null
+   "cache_key": null,
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free"
   },
   "sloth-excavator__opencode_nemotron-3.5-lightning-free__default__2026-11-05": {
    "judged": true,
-   "composite": 59.6,
+   "composite": 0.0,
    "task": "sloth-excavator",
    "model": "opencode/nemotron-3.5-lightning-free",
    "date_utc": "2026-11-05T20:10:03Z",
-   "result_status": "ok",
-   "dnf": false,
+   "result_status": "off_canvas",
+   "dnf": true,
    "svg_sha256": "2eb9795933186f532a21689b667cf671ce029a00dc5a0c3bf29f707c2278a7ba",
-   "cache_key": "2eb9795933186f532a21689b667cf671ce029a00dc5a0c3bf29f707c2278a7ba|v1|opencode/nemotron-3.5-super-vl-free|image",
+   "cache_key": null,
    "scores": {
-    "output_quality": 3,
-    "instruction_following": 2,
-    "creativity": 3,
-    "animation_fidelity": 2,
-    "richness_detail": 3,
-    "composition_aesthetics": 3,
-    "technical_validity": 5
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
    },
    "reasons": {
-    "output_quality": "Recognizable cartoon construction scene: sky, clouds, bird, dirt pile, excavator arm and wheels, caution cone. But the sloth operator is not clearly readable, forms are simple, and the excavator is cramped/clipped at the right edge.",
-    "instruction_following": "Single self-contained file, correct 1200x800 viewBox, no externals or JS, and scenery mostly present. But the sloth is illegible and nearly all SMIL animations sit unattached inside <defs>, so the digging cycle, steering, track rolling and blinking never run - fewer than four elements actually anima",
-    "creativity": "A charming concept (sleepy sloth in hard hat and hi-vis on an excavator, floating Zzz, sky bird), but it is executed generically with straightforward cartoon shapes and conventional composition; little inventive detail or unexpected motion.",
-    "animation_fidelity": "Clouds drift, the bird crosses, and the Zzz floats upward, but those are the only motions that work. The boom/stick/bucket dig, steering wheel, track rollers and sloth blink are defined in <defs> with no target, so they are inert; the core digging cycle does not cycle.",
-    "richness_detail": "Twelve gradients plus layered ground, dirt mounds, clouds, excavator, cones and a bird give some depth, yet the rendered scene reads flat and sparse; shading and detail do not translate into visual richness.",
-    "composition_aesthetics": "A clean sky-over-ground split with the excavator on the right, but the machine is crowded and clipped at the edge and the sloth is illegible; colors are harmonious but the layout lacks focus and polish."
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
    },
-   "technical_validity": 5,
-   "technical_checks": {
-    "valid_xml": true,
-    "declared_svg": true,
-    "self_contained": true,
-    "rendered": true
-   },
-   "input_mode": "image",
-   "judge_model": "opencode/nemotron-3.5-super-vl-free",
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-lightning-free"
   },
   "sloth-excavator__opencode_nemotron-3.5-super-vl-free__high__2026-11-05": {
    "judged": true,
@@ -1845,7 +2271,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-super-vl-free"
   },
   "sloth-excavator__opencode_pulse-alpha-free__high__2026-11-05": {
    "judged": true,
@@ -1886,7 +2315,10 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
-   "parse_note": ""
+   "parse_note": "",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/pulse-alpha-free"
   },
   "sloth-excavator__openrouter_stealth_crouton-alpha__high__2026-11-05": {
    "judged": true,
@@ -1927,13 +2359,763 @@
    "parse_ok": true,
    "frames": 3,
    "render_ok": true,
+   "parse_note": "",
+   "provider": "openrouter",
+   "harness": "openrouter",
+   "target": "openrouter/stealth/crouton-alpha"
+  },
+  "horse-racing__opencode_iceman-free__default__2026-11-15": {
+   "judged": true,
+   "composite": 80.8,
+   "task": "horse-racing",
+   "model": "opencode/iceman-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free",
+   "date_utc": "2026-11-15T10:18:43Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "f006430b04a7fd9de5b38daf47e6e2da4982ab929e80a5dc2e4e258c39ac0c74",
+   "cache_key": "f006430b04a7fd9de5b38daf47e6e2da4982ab929e80a5dc2e4e258c39ac0c74|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 4,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 4,
+    "composition_aesthetics": 3,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Tidy, recognizable flat-vector cartoon: grandstand with dot crowd, glowing sun, checkered finish post, leaderboard, and four legible horses with crouched jockeys. Anatomy is stiff (stick legs, slug-like necks) and rendering is flat, but nothing is blank, broken or malformed; edge-clipped horses are ",
+    "instruction_following": "Nearly everything required is present: standalone 1200x800 SVG, no external refs/JS, sun, rails, lane dashes, finish checker column, four distinct coats/silks with numbered saddles, grandstand with roof/flags/crowd, leaderboard, PHOTO camera. Missing/invisible: clouds in the sky in all three frames,",
+    "creativity": "Charming specific touches elevate it beyond template: a LEADERBOARD board listing THUNDER BAY / COPPER COMET / MIDNIGHT STAR / IVORY DASH with odds and 'TURF 2400m', a PHOTO finish camera on the post, roof flags, and foreground grass blades. Composition itself is fairly conventional.",
+    "animation_fidelity": "Horses genuinely translate left-to-right at different speeds (positions clearly progress between the 400/1500/3800ms captures), legs cycle through gallop phases, tails/manes whip, bodies bob. Flaws: early loop shows no horses at all, right-edge teleport wrap is abrupt, and dust kick-up is not appare",
+    "richness_detail": "Layered gradients (sky, grass, track, stand, roof), sun with rays, ~40 colored crowd dots, multi-line tote text, double rails with posts, dashed lane markings, drop shadow and foreground grass. Rich in the top band, though the vast track expanse and blank sky are thinly filled.",
+    "composition_aesthetics": "Balanced header band (stand left, board center, sun/post right) and harmonious bright palette, but two-thirds of the canvas is empty track with tiny horses bunched bottom-left by t=3800ms, frame 2 clips horses at the left edge, and the flat front view ignores the elevated-angle brief."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "frames": 3,
+   "render_ok": true
+  },
+  "horse-racing__opencode_iceman-free__high__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/iceman-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free",
+   "date_utc": "2026-11-15T00:07:22Z",
+   "result_status": "no_output",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "horse-racing__opencode_longcat-2.5-free__default__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "date_utc": "2026-11-15T12:15:21Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "horse-racing__opencode_longcat-2.5-free__high__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "date_utc": "2026-11-15T00:07:22Z",
+   "result_status": "no_output",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "horse-racing__opencode_minimax-m3.1-flash-free__high__2026-11-15": {
+   "judged": true,
+   "composite": 76.4,
+   "task": "horse-racing",
+   "model": "opencode/minimax-m3.1-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/minimax-m3.1-flash-free",
+   "date_utc": "2026-11-15T10:49:09Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "3817129eb8adab08f0129af73451062a8f5c4f7d8b2fb056b331014260870a4c",
+   "cache_key": "3817129eb8adab08f0129af73451062a8f5c4f7d8b2fb056b331014260870a4c|v1|opencode/flint-40b-free|text",
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "text",
+   "judge_model": "opencode/flint-40b-free",
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 4,
+    "creativity": 3,
+    "animation_fidelity": 3,
+    "richness_detail": 4,
+    "composition_aesthetics": 3,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Layered gradients, soft blur filters, and roughly 1500 paths indicate a detailed, polished scene; minor risk of clutter or small-detail legibility issues remains unverifiable from the truncated source.",
+    "instruction_following": "Self-contained with no external refs or scripts, correct 1200x800 viewBox; sky, track, finish line, five horses, grandstand and board appear present, with heavy animation usage.",
+    "creativity": "Classic horse-race brief; likely competent but generic composition with little inventive detail beyond standard race-day clich\u00e9s.",
+    "animation_fidelity": "Nearly 500 animation elements with 330 animateTransform units suggest real motion, but truncation prevents confirming horses translate toward the finish line rather than cycle in place.",
+    "richness_detail": "Very rich: 3929 elements, 24 gradients, 2 blurs, 1502 paths, layered backgrounds; complexity clearly exceeds the minimal bar, though density alone does not guarantee polish.",
+    "composition_aesthetics": "Framing and balance could not be fully assessed from the truncated source, so elevated-angle composition and visual harmony remain uncertain."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "frames": 3,
+   "render_ok": true
+  },
+  "horse-racing__opencode_nemotron-3.5-lightning-free__default__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/nemotron-3.5-lightning-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-lightning-free",
+   "date_utc": "2026-11-15T11:44:24Z",
+   "result_status": "off_canvas",
+   "dnf": true,
+   "svg_sha256": "447a538a18419e8056ea14bf440106c4238ce3f2ff393ebc599d34fc9b4b5a2f",
+   "cache_key": null,
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "none",
+   "judge_model": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "frames": 3,
+   "render_ok": true
+  },
+  "sloth-excavator__opencode_iceman-free__default__2026-11-15": {
+   "judged": true,
+   "composite": 74.6,
+   "task": "sloth-excavator",
+   "model": "opencode/iceman-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free",
+   "date_utc": "2026-11-15T09:11:49Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "156a78170e7a20d019de464ce49949f64893ebe323dc9fa2fec4ab47667d2289",
+   "cache_key": "156a78170e7a20d019de464ce49949f64893ebe323dc9fa2fec4ab47667d2289|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "scores": {
+    "output_quality": 3,
+    "instruction_following": 3,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 4,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Clean, appealing cartoon rendering: crisp excavator, sunny sky, cones, barrier and shaded dirt pile all read well. However the requested protagonist is essentially invisible \u2014 the cab window shows only glass gradient and a steering wheel, with no discernible face, hard hat or vest in any frame.",
+    "instruction_following": "Standalone 1200x800 SVG, no external assets/scripts, and nearly every scene element is present: tracks with rollers, cab with window and wheel, boom+stick+toothed bucket, sun, clouds, dirt pile, cones, caution stripe, Zzz, exhaust, bird. But the mandatory sloth \u2014 face mask, eye patches, smile, stret",
+    "creativity": "The sleepy-operator concept is charming: floating Zzz letters, drifting bird, dedicated roller detail, caution-stripe barrier and dig-and-fill dirt pile show thoughtful invention beyond a generic excavator clipart scene, though the overall composition remains fairly conventional.",
+    "animation_fidelity": "The dig cycle genuinely works: boom raised in frame 1, dropping/bucket curl in frame 2, extended pass in frame 3 \u2014 a coherent excavation loop. Zzz rise and fade, exhaust puffs drift, bird traverses, clouds slide and sun rays rotate; motion reads as intentional, not just in-place bobbing.",
+    "richness_detail": "Layered construction: 10 gradients, drop shadow, caution-stripe pattern, window clip path, spoked track rollers, striped cones, speckled dirt pile with cast shadow, background hills, radial sun with rays and multi-ellipse clouds. Dense and detailed without being noisy.",
+    "composition_aesthetics": "Strong landscape balance: excavator anchored left-of-center, dirt pile counterweights on the right, sun top-right and barrier at far left frame the action; warm ground/cool sky harmony is pleasant. Minor dead space upper-middle and the visually empty cab window undercut the focal point."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "frames": 3,
+   "render_ok": true
+  },
+  "sloth-excavator__opencode_iceman-free__high__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/iceman-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free",
+   "date_utc": "2026-11-15T00:07:19Z",
+   "result_status": "no_output",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_longcat-2.5-free__default__2026-11-15": {
+   "judged": true,
+   "composite": 89.0,
+   "task": "sloth-excavator",
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "date_utc": "2026-11-15T12:00:15Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "c9c62a36974caf208c24db07c3deff7d3099e58e7395b1db27699764a34e661d",
+   "cache_key": "c9c62a36974caf208c24db07c3deff7d3099e58e7395b1db27699764a34e661d|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 5,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 5,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Appealing, competent cartoon rendering: recognizable tracked excavator, expressive sloth face with hard hat, toothed bucket in the pile, clean shapes, gradients and shading. Minor flaws: sloth face reads small/cramped inside the cab, and arm/bucket linkage is slightly hard to parse at this scale. No",
+    "instruction_following": "All hard requirements appear met: standalone 1200x800 landscape SVG, no external assets/scripts, sun+clouds sky, warm ground, dirt pile, cones, caution-striped barricade, rocks, DIG SITE sign; tracked excavator with rollers, rotating body, cab+window+steering, boom+stick+toothed bucket; sloth with m",
+    "creativity": "Cohesive sleepy-sloth-on-the-job concept with charming touches: floating Zzz's, 'DIG SITE' wooden sign, striped barricade, distant skyline and crane silhouette, glowing sun, birds, digging into a lumpy pile. Not radically inventive, but more personality and narrative than a template excavator scene.",
+    "animation_fidelity": "Across t=400/1500/3000ms the bucket and arm shift through a genuine dig cycle into the pile, Zzz's drift upward, birds change position (one near the sun by t=3000ms), sun rays rotate and glow pulses. Motion is real but the dig amplitude is subtle and track/wheel rolling is imperceptible between fram",
+    "richness_detail": "Dense, layered scene: gradient sky, sun-glow, multiple clouds, skyline and power-line crane backdrop, textured ground with pebbles/grass tufts, shadowed props, striped hazard barricade, cones, pile with teeth marks, 12 gradients and many distinct elements. Depth and shading throughout; nothing feels",
+    "composition_aesthetics": "Balanced landscape framing: sun top-left, excavator centered, pile right, sign and barricade left; warm earth vs cool sky harmony, good legibility of the subject. Slightly empty upper-middle-right sky and small focal details, but overall polished, warm and cohesive."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "frames": 3,
+   "render_ok": true
+  },
+  "sloth-excavator__opencode_longcat-2.5-free__high__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "date_utc": "2026-11-15T00:07:20Z",
+   "result_status": "no_output",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_mimo-v2.6-flash-free__default__2026-11-15": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/mimo-v2.6-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free",
+   "date_utc": "2026-11-15T12:30:36Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_minimax-m3.1-flash-free__high__2026-11-15": {
+   "judged": true,
+   "composite": 91.2,
+   "task": "sloth-excavator",
+   "model": "opencode/minimax-m3.1-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/minimax-m3.1-flash-free",
+   "date_utc": "2026-11-15T08:07:07Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "222542b44dce9d53ebb6674ad6770f89013b04d090634615e99222e9ac3e6651",
+   "cache_key": "222542b44dce9d53ebb6674ad6770f89013b04d090634615e99222e9ac3e6651|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 5,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 5,
+    "composition_aesthetics": 5,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Cohesive, appealing cartoon style: expressive half-closed sloth face, readable yellow excavator with rollers, toothed bucket, hard hat and hi-vis vest. Gradients and shading render cleanly; nothing blank or malformed. Minor nits: bucket/pile contact is slightly ambiguous and bottom-right fence is a ",
+    "instruction_following": "Every hard requirement is met: single standalone SVG, 1200x800 landscape, no external refs/scripts, sun and clouds, dirt pile, cones, rocks, caution stripe/tape, barrier with warning sign. Tracked excavator with boom+stick+bucket, cab with window and steering wheel, sloth with mask, eye patches, nos",
+    "creativity": "Charming touches beyond the brief: floating Zzz's, a crossing bird, drifting dust motes, exhaust puffs, warning diamond sign, caution tape strung on posts, grass tufts and a softly glowing sun. Inventive small details, though the overall layout is a fairly conventional sunny-site scene rather than a",
+    "animation_fidelity": "Frames confirm a genuine digging cycle: bucket raised at 400ms, plunging into the pile by 1500ms, lifted again at 3000ms. Zzz's rise by the cab, a bird crosses the sky, puffs and motes drift. Wheel/track rolling and any upper-body rotation are not evident across the stills, preventing full marks.",
+    "richness_detail": "Dense, layered scene: gradient sky, glowing sun with rays, three clouds, far and near hills, textured pile with lit face, tracks with multiple rollers, cab interior with wheel, barrier, sign, cones, tape, fence, grass, dust. 27 gradient defs and heavy use of paths/ellipses yield real depth.",
+    "composition_aesthetics": "Well balanced frame: excavator mass anchors left, dirt pile and digging action balance right, sun top-right, barrier bottom-left leads the eye inward. Warm sandy palette against blue sky is harmonious, shapes are legible, and the sloth's face is a clear, adorable focal point."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "frames": 3,
+   "render_ok": true
+  },
+  "horse-racing__opencode_longcat-2.5-free__default__2026-11-16": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "date_utc": "2026-11-16T20:26:29Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "horse-racing__opencode_nemotron-3.5-lightning-free__default__2026-11-16": {
+   "judged": true,
+   "composite": 70.0,
+   "task": "horse-racing",
+   "model": "opencode/nemotron-3.5-lightning-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-lightning-free",
+   "date_utc": "2026-11-16T11:48:27Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "2d9c52caa07e9c90de97b4956d029ba08c97bd1630b7b05bf3a30d15c1756a97",
+   "cache_key": "2d9c52caa07e9c90de97b4956d029ba08c97bd1630b7b05bf3a30d15c1756a97|v1|opencode/inkling-2-small-free|image",
+   "scores": {
+    "output_quality": 3,
+    "instruction_following": 4,
+    "creativity": 3,
+    "animation_fidelity": 3,
+    "richness_detail": 3,
+    "composition_aesthetics": 3,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Recognizable cartoon horses, grandstand and sun, but the drawing is crude: oval bodies, stick legs, horses overlapping into a muddy clump, one sun ray extends as a stray line across the whole sky, and the horizon gradient fades to a murky near-navy that fights the bright sun.",
+    "instruction_following": "Self-contained valid SVG at 1200x800 with sky/sun/clouds, railed turf track, finish glow, four distinct coat colors, numbered saddle cloths, grandstand with crowd dots, roof and flags, tote board reading ODDS 5.2, plus dust, bobs and drifting clouds. Deductions: progress toward the finish is minimal",
+    "creativity": "Pleasant touches: betting-odds board with changing number, photo-finish glow and beam, parallax cloud layers, hoof dust and sun rays. But it reads as generic clip-art racing; closed-loop cloud paths and oscillating dust undercut the 'living race-day' ambition.",
+    "animation_fidelity": "Horses genuinely translate rightward and leg poses differ between frames with slight spacing compression (different speeds), but the pack advances only ~100px over 2.6s and never nears the wire; clouds oscillate in closed loops rather than drift; dust shuttles in place; the beam sweep is a no-op.",
+    "richness_detail": "11 gradients, a drop-shadow filter, dotted grandstand crowd, flags, tote text, rails, lane markings and layered clouds give real density, yet the entire lower half of the canvas is one flat empty green expanse and the dark horizon blunts depth.",
+    "composition_aesthetics": "Legible side-angle framing with sensible layering sky-stand-track, but all content is squeezed into a thin central band, jockeys and numbers are cramped and barely readable, a full-width stray ray crosses the sky, and the finish glow is clipped at the right edge."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
    "parse_note": ""
+  },
+  "sloth-excavator__opencode_mimo-v2.6-flash-free__default__2026-11-16": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/mimo-v2.6-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free",
+   "date_utc": "2026-11-16T20:11:28Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_nemotron-3.5-lightning-free__default__2026-11-16": {
+   "judged": true,
+   "composite": 57.0,
+   "task": "sloth-excavator",
+   "model": "opencode/nemotron-3.5-lightning-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-lightning-free",
+   "date_utc": "2026-11-16T11:26:39Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "094d7a810a52eee01f65441d7d64157afc81fa06f3c9c1e6a186e211eaf799d3",
+   "cache_key": "094d7a810a52eee01f65441d7d64157afc81fa06f3c9c1e6a186e211eaf799d3|v1|opencode/inkling-2-small-free|image",
+   "scores": {
+    "output_quality": 2,
+    "instruction_following": 3,
+    "creativity": 3,
+    "animation_fidelity": 2,
+    "richness_detail": 3,
+    "composition_aesthetics": 2,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Crude, murky rendering: the excavator reads as a giant dark navy monolith rather than a machine, the sloth's face is a tiny scribble with a magenta blob (vest/hat indistinguishable), and the mid-loop capture renders almost the entire scene blank white. Recognizable construction story, but sloppy and",
+    "instruction_following": "ViewBox 1200x800, standalone, no scripts/external refs, 4+ animated elements, sky/sun/clouds, dirt mounds, cone, caution stripe, toothed bucket and boom/stick present. But the high-vis vest is magenta, tracks/rollers merge into the dark body, hard hat illegible, and excavator barely reads as tracked",
+    "creativity": "Ambitious touches: crossing bird, rising exhaust puffs, sleepy 'Zzz', warning triangle, tree, warning stripe, dirt mounds. Charm is undercut by generic shapes and puzzling choices (magenta vest, caution stripe doubling as a floating red bar, clipped corner block) rather than polished invention.",
+    "animation_fidelity": "Frames show the arm swinging, clouds drifting and puffs rising, so SMIL runs, but at t=1500ms the whole backdrop/sun/ground/body fade to near-invisible white and only faint traces remain. Motion demonstrably breaks mid-loop instead of cycling cleanly; elements effectively vanish rather than animate ",
+    "richness_detail": "11 gradient defs, sun rays, layered cloud clusters, cone, rocks, arcs, tree, triangle and dirt mounds give decent layer density, but the right half is mostly empty, the ground is a flat brown wash, and the excavator is one huge flat dark shape lacking shading or mechanical detail.",
+    "composition_aesthetics": "Unbalanced: heavy dark mass crammed left, barren right third, sun and clouds okay but the dig action is cramped; a clipped dark bar sits in the top-left corner, clashing magenta accents, and the white-out frame destroys any sense of framing or polish."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "parse_note": ""
+  },
+  "horse-racing__opencode_hy4-flash-free__high__2026-11-16": {
+   "judged": true,
+   "composite": 85.0,
+   "task": "horse-racing",
+   "model": "opencode/hy4-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/hy4-flash-free",
+   "date_utc": "2026-11-16T12:39:01Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "9074aa68b56ffe9b05ab4397b024025fccc426d0d9e727991ff8eed83a6522b2",
+   "cache_key": "9074aa68b56ffe9b05ab4397b024025fccc426d0d9e727991ff8eed83a6522b2|v1|opencode/inkling-2-small-free|image",
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 4,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 5,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Competent flat-cartoon illustration: horses, jockeys, grandstand, tote board and checkered finish post all read clearly; gradients are clean and nothing is blank or malformed. Bodies are a bit crude and the gray/palomino pair collides awkwardly, but the drawing is appealing and deliberate.",
+    "instruction_following": "Nearly all hard requirements met: standalone 1200x800 SVG, no external assets/JS, four distinct coats/silks with visible numbers, animated legs/dust/manes/tails, grandstand with crowd dots, roof, three flags, tote board, finish post with beam camera, bunting. Misses literally: the track is brown dir",
+    "creativity": "Charming race-day flourishes beyond the generic: a TOTE // ODDS board with named runners (DAZZLER 4/1, COMET 7/2, SHADOW 11/1), 'RACE DAY' and 'PHOTO FINISH' bunting, a red-lit finish-beam camera post, foreground rail for depth, staggered loop speeds per horse.",
+    "animation_fidelity": "Motion genuinely works: across captures horses translate along the track at differing speeds (chestnut left to centre, bay closing on the wire), legs alternate gallop poses and dust puffs trail hooves. Loop is short (~3.5s), so the 3800ms frame snaps horses back before the finish, and they bunch/ove",
+    "richness_detail": "Genuinely dense layering: gradient sky with sun glow, three drifting clouds, hills/treeline, two-tier dotted crowd, red roof with flags, detailed tote board, dashed lane markings, double rails front and back, checker finish, bunting, plus gradients/pattern/clipPath. Background and depth cues everywh",
+    "composition_aesthetics": "Balanced framing \u2014 grandstand upper-left versus tote board and sun upper-right, horses strung across the lanes, bunting arc softening the top edge; harmonious blue/red/green/ochre palette. The thick checkered column dominates the middle-right and the finish-line pile-up slightly muddies legibility."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "parse_ok": true,
+   "frames": 3,
+   "render_ok": true,
+   "parse_note": ""
+  },
+  "sloth-excavator__opencode_hy4-flash-free__high__2026-11-16": {
+   "judged": true,
+   "composite": 87.0,
+   "task": "sloth-excavator",
+   "model": "opencode/hy4-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/hy4-flash-free",
+   "date_utc": "2026-11-16T12:37:13Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "5abd07f61f4e7758fd5d579c7419512d201644056cc0ac303932ee75641a55f4",
+   "cache_key": "5abd07f61f4e7758fd5d579c7419512d201644056cc0ac303932ee75641a55f4|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": true,
+   "parse_note": "",
+   "judge_errors": [
+    "Free usage limit reached. Free models work in OpenCode (https://opencode.ai); subscribe to OpenCode Go to keep going: https://opencode.ai/go"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free",
+   "scores": {
+    "output_quality": 4,
+    "instruction_following": 5,
+    "creativity": 4,
+    "animation_fidelity": 4,
+    "richness_detail": 4,
+    "composition_aesthetics": 4,
+    "technical_validity": 5
+   },
+   "reasons": {
+    "output_quality": "Competent, appealing cartoon rendering: recognizable sloth face with mask, dark eye patches, orange hard hat, striped vest, detailed tracked excavator with toothed bucket over a dirt pile. Minor flaws: sloth reads slightly helmet-heavy and generic, bucket/arm are a touch stiff; nothing blank or malf",
+    "instruction_following": "All hard requirements met: standalone inline SVG, no external refs or JS, 1200x800 landscape, sky+sun+clouds, warm ground, dirt pile, cones and caution-striped barrier, tracked excavator with rollers, cab, window, steering wheel, boom+stick and toothed bucket, sloth with hat/vest, and well over four",
+    "creativity": "Charming inventive touches: floating Zzz, drifting bird, rotating sun rays, exhaust puffs, sloth dozing at the wheel. The overall side-view dig-site layout is somewhat conventional, but the personality and details lift it above template output.",
+    "animation_fidelity": "Frames confirm real motion: boom/stick/bucket reposition between frames into the pile, exhaust puffs rise, Zzz appears and floats, bird progresses across the sky, sun rays rotate. Dig cycle is gentle rather than a full scoop-lift-dump, and the body slew is subtle, but motion genuinely works.",
+    "richness_detail": "Layered gradients (sky, sun glow, ground, dirt, yellows), distant hills, spokes on track rollers, bucket teeth and linkages, cones, rocks, foreground pebbles, caution barrier. Rich overall; the big empty left field and fairly simple clouds keep it from maximal density.",
+    "composition_aesthetics": "Balanced layout: excavator centered, dirt pile right, barrier left, sun top-right, warm-vs-cool palette in harmony, good legibility and polish. Slightly sparse upper-left quadrant and a smallish subject prevent a perfect score."
+   },
+   "technical_validity": 5,
+   "technical_checks": {
+    "valid_xml": true,
+    "declared_svg": true,
+    "self_contained": true,
+    "rendered": true
+   },
+   "frames": 3,
+   "render_ok": true
   }
  },
  "ranking": [
   {
    "rank": 1,
    "model": "opencode/deepseek-v4.1-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/deepseek-v4.1-flash-free",
    "mean_composite": 94.5,
    "n_runs": 2,
    "dnf": 0,
@@ -1978,6 +3160,9 @@
   {
    "rank": 2,
    "model": "opencode/glm-5.3-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/glm-5.3-flash-free",
    "mean_composite": 92.5,
    "n_runs": 2,
    "dnf": 0,
@@ -2021,51 +3206,10 @@
   },
   {
    "rank": 3,
-   "model": "opencode/iceman-free",
-   "mean_composite": 92.5,
-   "n_runs": 2,
-   "dnf": 0,
-   "dimensions": {
-    "output_quality": 4.5,
-    "instruction_following": 5.0,
-    "creativity": 4.0,
-    "animation_fidelity": 4.5,
-    "richness_detail": 4.5,
-    "composition_aesthetics": 4.5,
-    "technical_validity": 5.0
-   },
-   "per_task": {
-    "horse-racing": {
-     "composite": 87.0,
-     "scores": {
-      "output_quality": 4,
-      "instruction_following": 5,
-      "creativity": 4,
-      "animation_fidelity": 4,
-      "richness_detail": 4,
-      "composition_aesthetics": 4,
-      "technical_validity": 5
-     },
-     "dnf": false
-    },
-    "sloth-excavator": {
-     "composite": 98.0,
-     "scores": {
-      "output_quality": 5,
-      "instruction_following": 5,
-      "creativity": 4,
-      "animation_fidelity": 5,
-      "richness_detail": 5,
-      "composition_aesthetics": 5,
-      "technical_validity": 5
-     },
-     "dnf": false
-    }
-   }
-  },
-  {
-   "rank": 4,
    "model": "opencode/big-pickle",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/big-pickle",
    "mean_composite": 91.4,
    "n_runs": 2,
    "dnf": 0,
@@ -2108,8 +3252,11 @@
    }
   },
   {
-   "rank": 5,
+   "rank": 4,
    "model": "opencode/inkling-2-small-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/inkling-2-small-free",
    "mean_composite": 90.2,
    "n_runs": 2,
    "dnf": 0,
@@ -2152,8 +3299,11 @@
    }
   },
   {
-   "rank": 6,
+   "rank": 5,
    "model": "openrouter/stealth/crouton-alpha",
+   "provider": "openrouter",
+   "harness": "openrouter",
+   "target": "openrouter/stealth/crouton-alpha",
    "mean_composite": 89.0,
    "n_runs": 2,
    "dnf": 0,
@@ -2196,8 +3346,11 @@
    }
   },
   {
-   "rank": 7,
+   "rank": 6,
    "model": "opencode/nemotron-3.5-super-vl-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-super-vl-free",
    "mean_composite": 86.2,
    "n_runs": 2,
    "dnf": 0,
@@ -2240,8 +3393,58 @@
    }
   },
   {
+   "rank": 7,
+   "model": "opencode/hy4-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/hy4-flash-free",
+   "mean_composite": 86.0,
+   "n_runs": 2,
+   "dnf": 0,
+   "dimensions": {
+    "output_quality": 4.0,
+    "instruction_following": 4.5,
+    "creativity": 4.0,
+    "animation_fidelity": 4.0,
+    "richness_detail": 4.5,
+    "composition_aesthetics": 4.0,
+    "technical_validity": 5.0
+   },
+   "per_task": {
+    "horse-racing": {
+     "composite": 85.0,
+     "scores": {
+      "output_quality": 4,
+      "instruction_following": 4,
+      "creativity": 4,
+      "animation_fidelity": 4,
+      "richness_detail": 5,
+      "composition_aesthetics": 4,
+      "technical_validity": 5
+     },
+     "dnf": false
+    },
+    "sloth-excavator": {
+     "composite": 87.0,
+     "scores": {
+      "output_quality": 4,
+      "instruction_following": 5,
+      "creativity": 4,
+      "animation_fidelity": 4,
+      "richness_detail": 4,
+      "composition_aesthetics": 4,
+      "technical_validity": 5
+     },
+     "dnf": false
+    }
+   }
+  },
+  {
    "rank": 8,
    "model": "opencode/beam-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/beam-free",
    "mean_composite": 85.3,
    "n_runs": 2,
    "dnf": 0,
@@ -2285,7 +3488,104 @@
   },
   {
    "rank": 9,
+   "model": "opencode/minimax-m3.1-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/minimax-m3.1-flash-free",
+   "mean_composite": 83.8,
+   "n_runs": 2,
+   "dnf": 0,
+   "dimensions": {
+    "output_quality": 4.0,
+    "instruction_following": 4.5,
+    "creativity": 3.5,
+    "animation_fidelity": 3.5,
+    "richness_detail": 4.5,
+    "composition_aesthetics": 4.0,
+    "technical_validity": 5.0
+   },
+   "per_task": {
+    "horse-racing": {
+     "composite": 76.4,
+     "scores": {
+      "output_quality": 4,
+      "instruction_following": 4,
+      "creativity": 3,
+      "animation_fidelity": 3,
+      "richness_detail": 4,
+      "composition_aesthetics": 3,
+      "technical_validity": 5
+     },
+     "dnf": false
+    },
+    "sloth-excavator": {
+     "composite": 91.2,
+     "scores": {
+      "output_quality": 4,
+      "instruction_following": 5,
+      "creativity": 4,
+      "animation_fidelity": 4,
+      "richness_detail": 5,
+      "composition_aesthetics": 5,
+      "technical_validity": 5
+     },
+     "dnf": false
+    }
+   }
+  },
+  {
+   "rank": 10,
+   "model": "opencode/iceman-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/iceman-free",
+   "mean_composite": 77.7,
+   "n_runs": 2,
+   "dnf": 0,
+   "dimensions": {
+    "output_quality": 3.5,
+    "instruction_following": 3.5,
+    "creativity": 4.0,
+    "animation_fidelity": 4.0,
+    "richness_detail": 4.0,
+    "composition_aesthetics": 3.5,
+    "technical_validity": 5.0
+   },
+   "per_task": {
+    "horse-racing": {
+     "composite": 80.8,
+     "scores": {
+      "output_quality": 4,
+      "instruction_following": 4,
+      "creativity": 4,
+      "animation_fidelity": 4,
+      "richness_detail": 4,
+      "composition_aesthetics": 3,
+      "technical_validity": 5
+     },
+     "dnf": false
+    },
+    "sloth-excavator": {
+     "composite": 74.6,
+     "scores": {
+      "output_quality": 3,
+      "instruction_following": 3,
+      "creativity": 4,
+      "animation_fidelity": 4,
+      "richness_detail": 4,
+      "composition_aesthetics": 4,
+      "technical_validity": 5
+     },
+     "dnf": false
+    }
+   }
+  },
+  {
+   "rank": 11,
    "model": "opencode/flint-40b-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/flint-40b-free",
    "mean_composite": 73.3,
    "n_runs": 2,
    "dnf": 0,
@@ -2328,8 +3628,58 @@
    }
   },
   {
-   "rank": 10,
+   "rank": 12,
+   "model": "opencode/nemotron-3.5-lightning-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/nemotron-3.5-lightning-free",
+   "mean_composite": 63.5,
+   "n_runs": 2,
+   "dnf": 0,
+   "dimensions": {
+    "output_quality": 2.5,
+    "instruction_following": 3.5,
+    "creativity": 3.0,
+    "animation_fidelity": 2.5,
+    "richness_detail": 3.0,
+    "composition_aesthetics": 2.5,
+    "technical_validity": 5.0
+   },
+   "per_task": {
+    "horse-racing": {
+     "composite": 70.0,
+     "scores": {
+      "output_quality": 3,
+      "instruction_following": 4,
+      "creativity": 3,
+      "animation_fidelity": 3,
+      "richness_detail": 3,
+      "composition_aesthetics": 3,
+      "technical_validity": 5
+     },
+     "dnf": false
+    },
+    "sloth-excavator": {
+     "composite": 57.0,
+     "scores": {
+      "output_quality": 2,
+      "instruction_following": 3,
+      "creativity": 3,
+      "animation_fidelity": 2,
+      "richness_detail": 3,
+      "composition_aesthetics": 2,
+      "technical_validity": 5
+     },
+     "dnf": false
+    }
+   }
+  },
+  {
+   "rank": 13,
    "model": "opencode/mimo-v2.6-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free",
    "mean_composite": 45.7,
    "n_runs": 2,
    "dnf": 1,
@@ -2372,8 +3722,58 @@
    }
   },
   {
-   "rank": 11,
+   "rank": 14,
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "mean_composite": 44.5,
+   "n_runs": 2,
+   "dnf": 1,
+   "dimensions": {
+    "output_quality": 2.0,
+    "instruction_following": 2.5,
+    "creativity": 2.0,
+    "animation_fidelity": 2.0,
+    "richness_detail": 2.5,
+    "composition_aesthetics": 2.0,
+    "technical_validity": 2.5
+   },
+   "per_task": {
+    "horse-racing": {
+     "composite": 0.0,
+     "scores": {
+      "output_quality": 0,
+      "instruction_following": 0,
+      "creativity": 0,
+      "animation_fidelity": 0,
+      "richness_detail": 0,
+      "composition_aesthetics": 0,
+      "technical_validity": 0
+     },
+     "dnf": true
+    },
+    "sloth-excavator": {
+     "composite": 89.0,
+     "scores": {
+      "output_quality": 4,
+      "instruction_following": 5,
+      "creativity": 4,
+      "animation_fidelity": 4,
+      "richness_detail": 5,
+      "composition_aesthetics": 4,
+      "technical_validity": 5
+     },
+     "dnf": false
+    }
+   }
+  },
+  {
+   "rank": 15,
    "model": "opencode/pulse-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/pulse-alpha-free",
    "mean_composite": 43.5,
    "n_runs": 2,
    "dnf": 1,
@@ -2416,52 +3816,11 @@
    }
   },
   {
-   "rank": 12,
-   "model": "opencode/nemotron-3.5-lightning-free",
-   "mean_composite": 29.8,
-   "n_runs": 2,
-   "dnf": 1,
-   "dimensions": {
-    "output_quality": 1.5,
-    "instruction_following": 1.0,
-    "creativity": 1.5,
-    "animation_fidelity": 1.0,
-    "richness_detail": 1.5,
-    "composition_aesthetics": 1.5,
-    "technical_validity": 2.5
-   },
-   "per_task": {
-    "horse-racing": {
-     "composite": 0.0,
-     "scores": {
-      "output_quality": 0,
-      "instruction_following": 0,
-      "creativity": 0,
-      "animation_fidelity": 0,
-      "richness_detail": 0,
-      "composition_aesthetics": 0,
-      "technical_validity": 0
-     },
-     "dnf": true
-    },
-    "sloth-excavator": {
-     "composite": 59.6,
-     "scores": {
-      "output_quality": 3,
-      "instruction_following": 2,
-      "creativity": 3,
-      "animation_fidelity": 2,
-      "richness_detail": 3,
-      "composition_aesthetics": 3,
-      "technical_validity": 5
-     },
-     "dnf": false
-    }
-   }
-  },
-  {
-   "rank": 13,
+   "rank": 16,
    "model": "opencode/crouton-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/crouton-alpha-free",
    "mean_composite": 0.0,
    "n_runs": 2,
    "dnf": 2,

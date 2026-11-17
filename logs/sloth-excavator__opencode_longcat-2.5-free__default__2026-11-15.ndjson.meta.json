@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "sloth-excavator",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/longcat-2.5-free",
+  "model": "opencode/longcat-2.5-free",
+  "model_id": "longcat-2.5-free",
+  "effort": "default",
+  "effort_requested": "default",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-15T12:00:14+00:00",
+  "wall_seconds": 900,
+  "exit_code": 124,
+  "timed_out": true,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 69629,
+    "output": 15526,
+    "reasoning": 40924,
+    "cache_read": 494592,
+    "total": 85155
+  },
+  "steps": 10,
+  "session_id": "ses_e20f9633cffeaQ9uQn0410y1ZV",
+  "events": 37,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false
+}

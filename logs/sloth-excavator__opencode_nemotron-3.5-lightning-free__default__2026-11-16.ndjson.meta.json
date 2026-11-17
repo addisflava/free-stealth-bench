@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "sloth-excavator",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/nemotron-3.5-lightning-free",
+  "model": "opencode/nemotron-3.5-lightning-free",
+  "model_id": "nemotron-3.5-lightning-free",
+  "effort": "default",
+  "effort_requested": "default",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-16T11:26:39+00:00",
+  "wall_seconds": 430,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 83903,
+    "output": 33415,
+    "reasoning": 7362,
+    "cache_read": 2454144,
+    "total": 117318
+  },
+  "steps": 57,
+  "session_id": "ses_e1bea9f64ffeKZuTvQaXd8qIBK",
+  "events": 194,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false
+}

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Automated LLM-as-judge ranking for svg-bench.
+"""Automated LLM-as-judge ranking for free-stealth-bench.
 
 Scores every run on seven dimensions (six from a blind free-model judge, one
 computed deterministically), combines them into a weighted composite, and ranks
@@ -54,7 +54,10 @@ WEIGHTS = {
 }
 
 JUDGE_MODEL = 'opencode/nemotron-3.5-super-vl-free'
-CANDIDATES = (JUDGE_MODEL, 'opencode/glm-5.3-flash-free')
+# Free vision judges, tried in order when the default is unavailable.
+CANDIDATES = (JUDGE_MODEL, 'opencode/glm-5.3-flash-free',
+              'opencode/inkling-2-small-free', 'opencode/flint-40b-free',
+              'opencode/pulse-alpha-free')
 FRAME_BUDGETS = (400, 1500, 3000)   # Chrome --virtual-time-budget, milliseconds
 FRAME_WIDTH = 512
 SVG_CAP = 6000                      # chars of SVG source inlined into the prompt
@@ -174,10 +177,16 @@ def iter_sidecars():
             print(f"judge: skipping unreadable sidecar {p}", file=sys.stderr)
             continue
         task = sidecar.get('task') or os.path.basename(os.path.dirname(p))
+        model = sidecar.get('model') or ''
+        provider = sidecar.get('provider') or (model.split('/', 1)[0] if '/' in model else '')
+        harness = sidecar.get('harness') or provider
         yield {
             'run_id': f"{task}__{base[:-5]}",
             'task': task,
-            'model': sidecar.get('model') or '',
+            'model': model,
+            'provider': provider,
+            'harness': harness,
+            'target': sidecar.get('target') or (f'{harness}@{model}' if harness != provider else model),
             'date_utc': sidecar.get('date_utc'),
             'result_status': sidecar.get('result_status'),
             'validation': sidecar.get('validation') or {},
@@ -542,6 +551,9 @@ def sync_runs(store):
         entry.update({
             'task': run['task'],
             'model': run['model'],
+            'provider': run.get('provider') or '',
+            'harness': run.get('harness') or '',
+            'target': run.get('target') or '',
             'date_utc': run['date_utc'],
             'result_status': run['result_status'],
             'dnf': dnf,
@@ -662,13 +674,15 @@ def _apply_cached(entry, result, judge_model, input_mode):
 
 
 def recompute_ranking(store):
-    """One row per model, using its newest run per task (mirrors app.js)."""
+    """One row per (harness, model), using its newest run per task."""
     runs = store['runs']
-    latest = {}   # (model, task) -> run_id
+    latest = {}   # (harness, model, task) -> run_id
     for run_id, entry in runs.items():
         if not entry.get('judged'):
             continue
-        key = (entry['model'], entry['task'])
+        model = entry['model']
+        harness = entry.get('harness') or (model.split('/', 1)[0] if '/' in model else '')
+        key = (harness, model, entry['task'])
         prev = latest.get(key)
         if prev is None or str(entry.get('date_utc') or '') >= str(runs[prev].get('date_utc') or ''):
             latest[key] = run_id
@@ -676,10 +690,14 @@ def recompute_ranking(store):
     by_model = {}
     for run_id in latest.values():
         e = runs[run_id]
-        by_model.setdefault(e['model'], []).append((e['task'], e))
+        model = e['model']
+        harness = e.get('harness') or (model.split('/', 1)[0] if '/' in model else '')
+        by_model.setdefault((harness, model), []).append((e['task'], e))
 
     ranking = []
-    for model, pairs in by_model.items():
+    for (harness, model), pairs in by_model.items():
+        provider = next((e.get('provider') for _, e in pairs if e.get('provider')), '') \
+            or (model.split('/', 1)[0] if '/' in model else '')
         dims = {}
         for k in DIMENSIONS:
             vals = [e['scores'].get(k, 0) for _, e in pairs
@@ -693,6 +711,9 @@ def recompute_ranking(store):
         ranking.append({
             'rank': 0,
             'model': model,
+            'provider': provider,
+            'harness': harness,
+            'target': (f'{harness}@{model}' if harness and harness != provider else model),
             'mean_composite': round(sum(composites) / len(composites), 3),
             'n_runs': len(pairs),
             'dnf': sum(1 for _, e in pairs if e.get('dnf')),
@@ -703,7 +724,7 @@ def recompute_ranking(store):
                 for task, e in pairs
             },
         })
-    ranking.sort(key=lambda r: (-r['mean_composite'], r['model']))
+    ranking.sort(key=lambda r: (-r['mean_composite'], r['model'], r.get('harness') or ''))
     for i, row in enumerate(ranking, 1):
         row['rank'] = i
     store['ranking'] = ranking
@@ -721,10 +742,10 @@ def print_report(store):
     meta = store['meta']
     probe = meta.get('probe') or {}
     print()
-    print('svg-bench automated judge ranking  '
+    print('free-stealth-bench automated judge ranking  '
           f"(rubric {store.get('rubric_version')}, judge {short(store.get('judge_model') or '?')}, "
           f"mode {probe.get('mode') or 'unknown'})")
-    print(f"{len(ranking)} models · {meta.get('n_judged')} judged · "
+    print(f"{len(ranking)} model×harness entries · {meta.get('n_judged')} judged · "
           f"{meta.get('n_dnf')} DNF · updated {store.get('updated_utc')}")
     if not ranking:
         print('No judged runs yet. Run `python3 judge.py --limit 5` first.')
@@ -735,7 +756,7 @@ def print_report(store):
     for r in ranking:
         d = r['dimensions']
         lines.append(
-            f"{r['rank']:>3}  {short(r['model']):<38} {r['mean_composite']:>6.2f} "
+            f"{r['rank']:>3}  {(short(r['model']) + (('@' + r['harness']) if r.get('harness') and r.get('harness') != r.get('provider') else '')):<38} {r['mean_composite']:>6.2f} "
             f"{d.get('output_quality', 0):>5.1f} {d.get('instruction_following', 0):>5.1f} "
             f"{d.get('creativity', 0):>5.1f} {d.get('animation_fidelity', 0):>5.1f} "
             f"{d.get('richness_detail', 0):>5.1f} {d.get('composition_aesthetics', 0):>5.1f} "
@@ -744,7 +765,7 @@ def print_report(store):
     print(table)
 
     md = [
-        '# svg-bench automated judge ranking', '',
+        '# free-stealth-bench automated judge ranking', '',
         f"Rubric `{store.get('rubric_version')}` · judge "
         f"`{store.get('judge_model')}` · input mode `{probe.get('mode') or 'unknown'}` "
         f"· updated {store.get('updated_utc')}", '',
@@ -767,7 +788,7 @@ def write_report(md):
 
 
 def main():
-    ap = argparse.ArgumentParser(description='Automated blind LLM judge for svg-bench')
+    ap = argparse.ArgumentParser(description='Automated blind LLM judge for free-stealth-bench')
     ap.add_argument('--judge-model', default=None,
                     help='free model to judge with (default: probe the free candidates)')
     ap.add_argument('--force', action='store_true', help='re-probe and re-judge everything')

@@ -17,7 +17,6 @@
   "svg_file": "/mnt/e/opencode-bench/svg-bench/results/horse-racing/opencode_iceman-free__default__2026-11-07.svg",
   "raw_log": "/mnt/e/opencode-bench/svg-bench/logs/horse-racing__opencode_iceman-free__default__2026-11-07.ndjson",
   "validation": {
-    "file": "/mnt/e/opencode-bench/svg-bench/results/horse-racing/opencode_iceman-free__default__2026-11-07.svg",
     "exists": true,
     "size_bytes": 40208,
     "sha256": "9fba66af1cbded7bda4eb82e9860f800ed583dbc1cc65df6e82ad3d2924c48f8",
@@ -58,7 +57,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": false,
+    "canvas_offcanvas": false,
+    "root_transform_note": null
   },
   "tokens": {
     "input": 6634,

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <!-- Sky gradient -->
+    <linearGradient id="skyGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="100%" stop-color="#E0F7FA"/>
+    </linearGradient>
+    
+    <!-- Sun gradient -->
+    <radialGradient id="sunGradient" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#FFD700"/>
+      <stop offset="100%" stop-color="#FFA500"/>
+    </radialGradient>
+    
+    <!-- Ground gradient -->
+    <linearGradient id="groundGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#D2B48C"/>
+      <stop offset="50%" stop-color="#8B6914"/>
+      <stop offset="100%" stop-color="#6B4423"/>
+    </linearGradient>
+    
+    <!-- Dirt pile gradient -->
+    <linearGradient id="dirtGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#A0522D"/>
+      <stop offset="50%" stop-color="#CD853F"/>
+      <stop offset="100%" stop-color="#8B4513"/>
+    </linearGradient>
+    
+    <!-- Excavator body metallic gradient -->
+    <linearGradient id="excavatorBodyGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#36454F"/>
+      <stop offset="50%" stop-color="#2C3E50"/>
+      <stop offset="100%" stop-color="#1A2A3A"/>
+    </linearGradient>
+    
+    <!-- Excavator orange accent -->
+    <linearGradient id="excavatorOrangeGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FF8C00"/>
+      <stop offset="100%" stop-color="#FF6347"/>
+    </linearGradient>
+    
+    <!-- Tracks dark gradient -->
+    <linearGradient id="trackGradient" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#2C3E50"/>
+      <stop offset="100%" stop-color="#1A2A3A"/>
+    </linearGradient>
+    
+    <!-- Cone orange -->
+    <linearGradient id="coneGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FF6B6B"/>
+      <stop offset="100%" stop-color="#EE5A24"/>
+    </linearGradient>
+    
+    <!-- Rock gradients -->
+    <linearGradient id="rockGradient1" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#8B4513"/>
+      <stop offset="100%" stop-color="#A0522D"/>
+    </linearGradient>
+    <linearGradient id="rockGradient2" x1="0" y1="100%" x2="0" y2="0%">
+      <stop offset="0%" stop-color="#6B8E23"/>
+      <stop offset="100%" stop-color="#7C9E35"/>
+    </linearGradient>
+    
+    <!-- High vis yellow gradient -->
+    <linearGradient id="highVisGradient" x1="0" y1="0" x2="0" y2="100%">
+      <stop offset="0%" stop-color="#FF00FF"/>
+      <stop offset="100%" stop-color="#FF1493"/>
+    </linearGradient>
+    
+    <!-- Blinking animation -->
+    <animate id="blinkAnim" attributeName="display" values="inherit;none;inherit" dur="4s" repeatCount="indefinite"/>
+  </defs>
+  
+  <!-- Background sky -->
+  <rect width="1200" height="800" fill="url(#skyGradient)"/>
+  
+  <!-- Sun -->
+  <g id="sun">
+    <circle cx="1050" cy="80" r="60" fill="url(#sunGradient)"/>
+    <circle cx="1050" cy="80" r="25" fill="none" stroke="#FFA500" stroke-width="3"/>
+    <!-- Sun rays -->
+    <g fill="#FFA500">
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(0 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(45 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(90 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(135 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(180 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(225 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(270 1050 80)"/>
+      <line x1="1050" y1="20" x2="1090" y2="50" transform="rotate(315 1050 80)"/>
+    </g>
+  </g>
+  
+  <!-- Clouds -->
+  <g id="clouds">
+    <g>
+      <circle cx="300" cy="120" r="35" fill="white"/>
+      <circle cx="330" cy="100" r="30" fill="white"/>
+      <circle cx="370" cy="120" r="35" fill="white"/>
+      <circle cx="410" cy="100" r="30" fill="white"/>
+      <circle cx="450" cy="120" r="35" fill="white"/>
+    </g>
+    <g>
+      <circle cx="800" cy="100" r="40" fill="white"/>
+      <circle cx="840" cy="80" r="35" fill="white"/>
+      <circle cx="880" cy="100" r="40" fill="white"/>
+      <circle cx="920" cy="80" r="35" fill="white"/>
+      <circle cx="960" cy="100" r="40" fill="white"/>
+    </g>
+    <g>
+      <circle cx="1050" cy="150" r="45" fill="white"/>
+      <circle cx="1090" cy="130" r="40" fill="white"/>
+      <circle cx="1130" cy="150" r="45" fill="white"/>
+      <circle cx="1170" cy="130" r="40" fill="white"/>
+      <circle cx="1200" cy="150" r="50" fill="white"/>
+    </g>
+  </g>
+  
+  <!-- Animated bird -->
+  <g id="bird" transform="translate(200, 120)">
+    <polygon points="0,-20 -15,10 15,10" fill="#6A5ACD"/>
+    <circle cx="0" cy="-5" r="3" fill="#6A5ACD"/>
+    <animateTransform attributeName="transform" type="rotate"
+                      from="0 0 -20" to="30 0 -20"
+                      dur="1s" repeatCount="indefinite"
+                      keyTimes="0;0.5;1"
+                      keySplines="0.4 0 0.2 1;0.4 0 0.2 1"/>
+  </g>
+  
+  <!-- More birds flying across sky -->
+  <g transform="translate(400, 80)">
+    <polygon points="0,-15 -10,8 10,8" fill="#4169E1"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="800,0"
+                      dur="8s" repeatCount="indefinite"/>
+  </g>
+  <g transform="translate(650, 60)">
+    <polygon points="0,-12 -8,6 8,6" fill="#4682B4"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="900,0"
+                      dur="10s" repeatCount="indefinite"/>
+  </g>
+  <g transform="translate(850, 110)">
+    <polygon points="0,-18 -12,10 12,10" fill="#5F9EA0"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="1000,0"
+                      dur="12s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Ground -->
+  <rect x="0" y="550" width="1200" height="250" fill="url(#groundGradient)"/>
+  
+  <!-- Dirt pile -->
+  <g id="dirtPile" transform="translate(300, 500)">
+    <path d="M0,0 C50,-100 150,-120 200,-80 L200,0 L150,0 Z" fill="url(#dirtGradient)"/>
+    <path d="M0,0 C30,-20 70,-30 90,-10 L90,0 Z" fill="#D2B49C" opacity="0.3"/>
+    <path d="M0,0 C40,-30 80,-40 100,-20 L100,0 Z" fill="#D2B49C" opacity="0.3"/>
+    <path d="M0,0 L10, -20 L150,-20 L160,0 Z" fill="#228B22" opacity="0.5"/>
+    <path d="M50,0 L60, -30 L130, -30 L140,0 Z" fill="#228B22" opacity="0.5"/>
+    <path d="M100,0 L110, -40 L170, -40 L180,0 Z" fill="#228B22" opacity="0.5"/>
+  </g>
+  
+  <!-- Construction site details -->
+  <!-- Cone 1 -->
+  <g id="cone1" transform="translate(100, 520)">
+    <polygon points="0,-40 15,20 -15,20" fill="url(#coneGradient)"/>
+    <circle cx="0" cy="-40" r="5" fill="#FFFFFF"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="0,-5"
+                      dur="2s" repeatCount="indefinite"/>
+  </g>
+  <!-- Cone 2 -->
+  <g id="cone2" transform="translate(250, 530)">
+    <polygon points="0,-40 15,20 -15,20" fill="url(#coneGradient)"/>
+    <circle cx="0" cy="-40" r="5" fill="#FFFFFF"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="0,-5"
+                      dur="2.5s" repeatCount="indefinite" begin="0.5s"/>
+  </g>
+  <!-- Cone 3 -->
+  <g id="cone3" transform="translate(400, 525)">
+    <polygon points="0,-40 15,20 -15,20" fill="url(#coneGradient)"/>
+    <circle cx="0" cy="-40" r="5" fill="#FFFFFF"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="0,-5"
+                      dur="3s" repeatCount="indefinite" begin="1s"/>
+  </g>
+  <!-- Cone 4 -->
+  <g id="cone4" transform="translate(550, 535)">
+    <polygon points="0,-40 15,20 -15,20" fill="url(#coneGradient)"/>
+    <circle cx="0" cy="-40" r="5" fill="#FFFFFF"/>
+    <animateTransform attributeName="transform" type="translate"
+                      from="0,0" to="0,-5"
+                      dur="3.5s" repeatCount="indefinite" begin="1.5s"/>
+  </g>
+  
+  <!-- Caution stripe -->
+  <rect x="100" y="560" width="400" height="20" fill="#FF0000"/>
+  <rect x="100" y="560" width="400" height="20" fill="#FFFFFF" opacity="0.3"/>
+  <rect x="100" y="560" width="400" height="20" fill="#FF0000" opacity="0.3"/>
+  <rect x="100" y="560" width="400" height="20" fill="#FFFFFF" opacity="0.3"/>
+  
+  <!-- Rocks -->
+  <g id="rock1" transform="translate(800, 560)">
+    <path d="M0,0 C20,-30 50,-40 80,-20 L80,0 C60,-30 30,-20 0,0 Z" fill="url(#rockGradient1)"/>
+    <ellipse cx="40" cy="10" rx="25" ry="10" fill="#D2B49C" opacity="0.5"/>
+  </g>
+  <g id="rock2" transform="translate(950, 570)">
+    <path d="M0,0 C30,-40 60,-50 90,-30 L90,0 C70,-40 40,-30 0,0 Z" fill="url(#rockGradient2)"/>
+    <ellipse cx="45" cy="12" rx="30" ry="12" fill="#D2B49C" opacity="0.5"/>
+  </g>
+  <g id="rock3" transform="translate(1080, 550)">
+    <path d="M0,0 C15,-30 40,-40 65,-25 L65,0 C50,-30 20,-25 0,0 Z" fill="#8B4513"/>
+  </g>
+  
+  <!-- Excavator base -->
+  <g id="excavatorBase" transform="translate(200, 400)">
+    <!-- Main body -->
+    <path d="M0,0 L200,0 L220,300 L0,300 Z" fill="url(#excavatorBodyGradient)"/>
+    <path d="M0,0 L200,0 L200,100 L0,100 Z" fill="url(#excavatorOrangeGradient)"/>
+    <!-- Tracks -->
+    <g id="tracks">
+      <rect x="20" y="50" width="180" height="8" fill="url(#trackGradient)"/>
+      <rect x="20" y="70" width="180" height="8" fill="url(#trackGradient)"/>
+      <!-- Track rollers -->
+      <g id="rollers">
+        <circle cx="50" cy="60" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="80" cy="60" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="110" cy="60" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="140" cy="60" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="50" cy="80" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="80" cy="80" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="110" cy="80" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+        <circle cx="140" cy="80" r="12" fill="#ECF0F1" stroke="#2C3E50" stroke-width="2"/>
+      </g>
+      <!-- Roller rolling animation -->
+      <animateTransform attributeName="transform" type="translate"
+                        from="0,0" to="40,0"
+                        dur="2s" repeatCount="indefinite"
+                        keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+    </g>
+    <!-- Boom -->
+    <g id="boom" transform="translate(100, 0)">
+      <rect x="0" y="0" width="30" height="150" fill="url(#excavatorBodyGradient)"/>
+      <rect x="5" y="20" width="20" height="130" fill="url(#excavatorOrangeGradient)"/>
+      <!-- Stick -->
+      <g id="stick" transform="translate(25, 140)">
+        <rect x="0" y="0" width="20" height="120" fill="url(#excavatorBodyGradient)"/>
+        <rect x="8" y="40" width="12" height="100" fill="url(#excavatorOrangeGradient)"/>
+        <!-- Bucket -->
+        <g id="bucket" transform="translate(15, 95)">
+          <polygon points="0,0 20,-15 12,-25 -8,-25 Z" fill="url(#excavatorOrangeGradient)"/>
+          <rect x="8" y="-15" width="8" height="15" fill="#FFFFFF"/>
+        </g>
+      </g>
+    </g>
+    <!-- Boom digging animation (via xlink:href targeting) -->
+    <animateTransform xlink:href="#boom" attributeName="transform" type="rotate"
+                      from="0" to="30"
+                      dur="4s" repeatCount="indefinite"
+                      keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+    <!-- Stick digging animation -->
+    <animateTransform xlink:href="#stick" attributeName="transform" type="rotate"
+                      from="0" to="20"
+                      dur="4s" repeatCount="indefinite"
+                      keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+    <!-- Bucket digging animation -->
+    <animateTransform xlink:href="#bucket" attributeName="transform" type="rotate"
+                      from="0" to="-25"
+                      dur="4s" repeatCount="indefinite"
+                      keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+    
+    <!-- Cab -->
+    <g id="cab" transform="translate(180, 30)">
+      <rect x="0" y="0" width="100" height="80" fill="url(#excavatorBodyGradient)"/>
+      <rect x="10" y="10" width="80" height="60" fill="url(#excavatorOrangeGradient)"/>
+      <!-- Window -->
+      <rect x="15" y="20" width="70" height="40" fill="#ADD8E6"/>
+      <!-- Steering wheel -->
+      <circle cx="80" cy="60" r="18" fill="#DEB887" id="steering"/>
+      <circle cx="80" cy="60" r="12" fill="#2C3E50"/>
+      <animateTransform xlink:href="#steering" attributeName="transform" type="rotate"
+                        from="0" to="30"
+                        dur="6s" repeatCount="indefinite"
+                        keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+      <!-- Spokes -->
+      <g stroke="#2C3E50" stroke-width="2">
+        <line x1="80" y1="60" x2="80" y2="42"/>
+        <line x1="80" y1="60" x2="80" y2="78"/>
+        <line x1="80" y1="60" y2="60" x2="60"/>
+        <line x1="80" y1="60" y2="60" x2="100"/>
+      </g>
+    </g>
+    
+    <!-- Sloth in cab -->
+    <g id="sloth" transform="translate(20, 35)">
+      <!-- Head -->
+      <ellipse cx="30" cy="25" rx="35" ry="30" fill="#FFF8DC"/>
+      <!-- Hard hat -->
+      <polygon points="0,0 35,-30 -35,-30" fill="#2C3E50"/>
+      <rect x="-20" y="-30" width="40" height="15" fill="url(#highVisGradient)"/>
+      <!-- Eye patches -->
+      <ellipse cx="20" cy="20" rx="18" ry="12" fill="#2C3E50" opacity="0.7"/>
+      <ellipse cx="40" cy="20" rx="18" ry="12" fill="#2C3E50" opacity="0.7"/>
+      <!-- Content half-closed eyes -->
+      <g id="slothEyes">
+        <ellipse cx="20" cy="20" rx="12" ry="8" fill="#FFD700"/>
+        <ellipse cx="40" cy="20" rx="12" ry="8" fill="#FFD700"/>
+        <!-- Eyelids - blinking animation -->
+        <ellipse cx="20" cy="20" rx="12" ry="4" fill="#FFF8DC"/>
+        <ellipse cx="40" cy="20" rx="12" ry="4" fill="#FFF8DC"/>
+      </g>
+      <!-- Nose -->
+      <triangle cx="30" cy="30" base="6" height="4" fill="#2C3E50"/>
+      <!-- Smile -->
+      <path d="M22 35 Q30 38 38 35" stroke="#2C3E50" stroke-width="2" fill="none"/>
+      <!-- Arms -->
+      <g id="slothArms">
+        <!-- Left arm -->
+        <line x1="10" y1="35" x2="5" y2="50" stroke="#2C3E50" stroke-width="3"/>
+        <circle cx="5" cy="50" r="4" fill="#2C3E50"/>
+        <!-- Claws -->
+        <line x1="1" y1="54" x2="-3" y2="54" stroke="#2C3E50" stroke-width="2"/>
+        <line x1="1" y1="54" x2="5" y2="58" stroke="#2C3E50" stroke-width="2"/>
+        <line x1="1" y1="54" x2="3" y2="62" stroke="#2C3E50" stroke-width="2"/>
+        <!-- Right arm (steering wheel) -->
+        <line x1="55" y1="35" x2="80" y2="55" stroke="#2C3E50" stroke-width="3"/>
+        <circle cx="80" cy="55" r="4" fill="#2C3E50"/>
+      </g>
+      <!-- Vest -->
+      <g id="vest">
+        <rect x="-25" y="5" width="50" height="45" fill="url(#highVisGradient)"/>
+        <line x1="-20" y1="30" x2="-5" y2="30" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="5" y1="30" x2="20" y2="30" stroke="#FFFFFF" stroke-width="2"/>
+        <line x1="-20" y1="55" x2="20" y="55" stroke="#FFFFFF" stroke-width="2"/>
+      </g>
+      <!-- Zzz sleep text -->
+      <text id="slothZzz" x="30" y="10" font-family="Georgia" font-size="12" fill="#654321" opacity="0">Zzz</text>
+      <animate xlink:href="#slothZzz" attributeName="opacity" from="0" to="1" dur="2s" begin="boomAnim.begin" repeatCount="indefinite" fill="freeze"/>
+      <animate xlink:href="#slothZzz" attributeName="y" from="10" to="-30" dur="4s" repeatCount="indefinite" begin="slothZzz.opacity.begin" fill="freeze"/>
+    </g>
+  </g>
+  
+  <!-- Exhaust puffs -->
+  <g id="exhaust">
+    <circle cx="220" cy="280" r="8" fill="#333333" opacity="0.8">
+      <animate attributeName="r" from="8" to="15" dur="1s" repeatCount="indefinite" keyTimes="0;0.5;1" fill="freeze"/>
+      <animate attributeName="opacity" from="0.8" to="0.3" dur="1s" repeatCount="indefinite" keyTimes="0;0.5;1" fill="freeze"/>
+    </circle>
+    <circle cx="235" cy="270" r="6" fill="#333333" opacity="0.7">
+      <animate attributeName="r" from="6" to="12" dur="1.5s" repeatCount="indefinite" begin="0.3s" keyTimes="0;0.5;1" fill="freeze"/>
+      <animate attributeName="opacity" from="0.7" to="0.4" dur="1.5s" repeatCount="indefinite" begin="0.3s" keyTimes="0;0.5;1" fill="freeze"/>
+    </circle>
+    <circle cx="210" cy="265" r="5" fill="#333333" opacity="0.6">
+      <animate attributeName="r" from="5" to="10" dur="2s" repeatCount="indefinite" begin="0.6s" keyTimes="0;0.5;1" fill="freeze"/>
+      <animate attributeName="opacity" from="0.6" to="0.3" dur="2s" repeatCount="indefinite" begin="0.6s" keyTimes="0;0.5;1" fill="freeze"/>
+    </circle>
+  </g>
+  
+  <!-- Warning triangle -->
+  <g transform="translate(900, 450)">
+    <polygon points="0,-40 35,20 -35,20" fill="#FF0000"/>
+    <polygon points="0,-40 35,20 -35,20" fill="none" stroke="#FFFFFF" stroke-width="2"/>
+    <animateTransform attributeName="transform" type="rotate"
+                      from="0" to="15"
+                      dur="3s" repeatCount="indefinite"
+                      keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+  </g>
+  
+  <!-- Tree -->
+  <g transform="translate(1000, 550)">
+    <rect x="0" y="0" width="20" height="100" fill="#8B4513"/>
+    <polygon points="0,0 -15,-40 15,-40" fill="#228B22"/>
+    <animateTransform attributeName="transform" type="rotate"
+                      from="0" to="5"
+                      dur="4s" repeatCount="indefinite"
+                      keyTimes="0;0.5;1" keySplines="0.4 0 0.2 1"/>
+  </g>
+  
+  <!-- Powered by text (subtle) -->
+  <text x="600" y="780" text-anchor="middle" font-family="Arial" font-size="12" fill="#666666" opacity="0.5">
+    Sloth Excavator Animation
+  </text>
+  
+</svg>

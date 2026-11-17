@@ -41,7 +41,10 @@ MIME = {'.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8',
         '.js': 'text/javascript; charset=utf-8', '.json': 'application/json; charset=utf-8',
         '.svg': 'image/svg+xml', '.png': 'image/png', '.ico': 'image/x-icon'}
 
-PROVIDER_RE = re.compile(r'^(opencode|openrouter|tokenrouter|ollama|claude-code-router)/[a-zA-Z0-9._:/+~#-]{1,90}$')
+# provider/model, optionally prefixed with an agent harness: harness@provider/model.
+# Path-safety only; runner.py performs the real registry validation.
+TARGET_RE = re.compile(r'^(?:[a-z0-9][a-z0-9._-]*@)?[a-z0-9][a-z0-9._-]*/'
+                       r'[a-zA-Z0-9][a-zA-Z0-9._:/+~#@-]{0,160}$')
 
 KNOWN_TASKS = None
 def known_tasks():
@@ -75,7 +78,7 @@ def expand_pairs(body):
         return None, f'too many pairs ({len(pairs)} > {ACTIONS_MAX_PAIRS})'
     tasks_known = set(known_tasks())
     for model, task in pairs:
-        if not PROVIDER_RE.match(model) or '..' in model:
+        if not TARGET_RE.match(model) or '..' in model:
             return None, f'model rejected by whitelist: {model!r}'
         if task not in tasks_known:
             return None, f'unknown task: {task!r} (known: {sorted(tasks_known)})'
@@ -96,10 +99,19 @@ def any_runner_active():
     if running:
         return True
     try:
-        out = subprocess.run(['ps', '-eo', 'args='], capture_output=True, timeout=5, text=True).stdout
+        out = subprocess.run(['ps', '-eo', 'pid=,args='], capture_output=True,
+                             timeout=5, text=True).stdout
         for line in out.splitlines():
-            if 'svg-bench/run.sh' in line and 'run-benchmark' not in line:
-                return True
+            pid, _, args = line.strip().partition(' ')
+            if not pid.isdigit() or 'run.sh' not in args or 'run-benchmark' in args:
+                continue
+            # ps doesn't show cwd; check /proc so an unrelated run.sh in
+            # another directory cannot block this benchmark.
+            try:
+                if os.path.realpath(f'/proc/{pid}/cwd') == os.path.realpath(ROOT):
+                    return True
+            except OSError:
+                continue
     except Exception:
         pass
     return False
@@ -279,7 +291,7 @@ if __name__ == '__main__':
         if e.errno == errno.EADDRINUSE:
             sys.exit(f"port {PORT} already in use — pick another: python3 serve.py 8001")
         raise
-    print(f"svg-bench leaderboard → http://{BIND}:{PORT}/site/   (Ctrl+C to stop)")
+    print(f"free-stealth-bench leaderboard → http://{BIND}:{PORT}/site/   (Ctrl+C to stop)")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

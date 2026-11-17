@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "horse-racing",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/longcat-2.5-free",
+  "model": "opencode/longcat-2.5-free",
+  "model_id": "longcat-2.5-free",
+  "effort": "default",
+  "effort_requested": "default",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-16T20:26:29+00:00",
+  "wall_seconds": 900,
+  "exit_code": 124,
+  "timed_out": true,
+  "collection_method": "missing",
+  "tokens": {
+    "input": 62785,
+    "output": 10589,
+    "reasoning": 41272,
+    "cache_read": 454912,
+    "total": 73374
+  },
+  "steps": 11,
+  "session_id": "ses_e1a038c30ffeFCKwA2Z7OB3Oyb",
+  "events": 43,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false
+}

@@ -1,0 +1,94 @@
+# Agent harness registry.
+#
+# A *harness* is how an agent is invoked: the OpenCode CLI, an OpenAI-compatible
+# chat endpoint, the Anthropic API, or any command-line agent. A *provider* in
+# providers.yaml binds a harness to an endpoint and a model list.
+#
+# Add support for a new agent by adding a block here — no Python changes needed
+# for the `command` type. Available types:
+#
+#   opencode   OpenCode CLI (`opencode run --format json`), NDJSON log
+#   openai     OpenAI-compatible POST /chat/completions (OpenAI, OpenRouter,
+#              Groq, Together, DeepSeek, Ollama, LM Studio, vLLM, ...)
+#   anthropic  Anthropic Messages API (POST /messages)
+#   command    Any CLI. `command` is an argv list; no shell is involved.
+#
+# Command placeholders (each list item is substituted independently):
+#   {provider}    provider id                      openai
+#   {model}       bare model id                    gpt-5.2
+#   {target}      provider/model                   openai/gpt-5.2
+#   {harness}     harness id                       codex
+#   {effort}      resolved effort                  high / default
+#   {prompt}      full prompt text
+#   {prompt_file} path to a file containing the prompt
+#   {workdir}     fresh empty working directory
+#   {output}      expected output filename         output.svg
+#   {timeout}     per-run wall-clock seconds
+#
+# `effort_style`:
+#   variant            append #<effort> to the model argument (OpenCode)
+#   reasoning_effort   send {"reasoning_effort": "<effort>"} (OpenAI-style)
+#   flag               append `effort_flag` (list) when effort != default
+#   none               harness has no effort knob (run at "default")
+#
+# `version_command`: optional argv used to record the agent version.
+
+harnesses:
+  opencode:
+    type: opencode
+    # The runner exports PWD=workdir, so the shared server executes tools in the
+    # fresh run directory instead of its own cwd.
+    command: ["opencode", "run", "--format", "json", "--auto", "-m", "{target}", "{prompt}"]
+    version_command: ["opencode", "--version"]
+    effort_style: variant
+    log_format: ndjson
+
+  openai:
+    type: openai
+    path: /chat/completions
+    effort_style: reasoning_effort
+    log_format: ndjson
+
+  anthropic:
+    type: anthropic
+    path: /messages
+    effort_style: none
+    version: anthropic-messages
+    log_format: ndjson
+
+  # ── CLI presets (provider supplies the models) ──────────────────────────────
+  # These are ready to use; enable a provider in providers.yaml or pass a
+  # target like `codex@openai/gpt-5.2-codex` on the command line.
+  codex:
+    type: command
+    command: ["codex", "exec", "--full-auto", "--skip-git-repo-check",
+              "--model", "{model}", "--cd", "{workdir}", "{prompt}"]
+    version_command: ["codex", "--version"]
+    effort_style: none
+
+  claude-code:
+    type: command
+    command: ["claude", "-p", "--model", "{model}", "--output-format", "text", "{prompt}"]
+    version_command: ["claude", "--version"]
+    effort_style: none
+
+  gemini-cli:
+    type: command
+    command: ["gemini", "-m", "{model}", "-p", "{prompt}", "--yolo"]
+    version_command: ["gemini", "--version"]
+    effort_style: none
+
+  # ── Generic escape hatch ────────────────────────────────────────────────────
+  # Copy this into a new harness block and set providers.yaml `harness: my-cli`.
+  # Example:
+  #   my-cli:
+  #     type: command
+  #     command: ["my-agent", "--model", "{model}", "--cwd", "{workdir}",
+  #               "--prompt-file", "{prompt_file}", "--effort", "{effort}"]
+  #     version_command: ["my-agent", "--version"]
+  #     effort_style: flag
+  #     effort_flag: ["--effort", "{effort}"]
+  command:
+    type: command
+    command: ["{prompt}"]
+    effort_style: none

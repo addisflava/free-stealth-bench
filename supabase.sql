@@ -14,12 +14,17 @@ create table if not exists public.svgbench_reviews (
   run_id      text        not null,
   model       text        not null default '',
   task        text        not null default '',
-  stars       smallint    not null check (stars between 1 and 5),
+  stars       smallint    not null,
+  constraint svgbench_reviews_stars_check check (stars between -5 and 5),
   note        text        not null default '' check (char_length(note) <= 2000),
   reviewer    text        not null default 'anonymous' check (char_length(reviewer) <= 60),
   revoked     boolean     not null default false,
   created_at  timestamptz not null default now()
 );
+
+-- If you created the table before the signed scale, fix the old 1..5 check:
+alter table public.svgbench_reviews drop constraint if exists svgbench_reviews_stars_check;
+alter table public.svgbench_reviews add constraint svgbench_reviews_stars_check check (stars between -5 and 5);
 
 create index if not exists svgbench_reviews_run_id_idx
   on public.svgbench_reviews (run_id, created_at desc);

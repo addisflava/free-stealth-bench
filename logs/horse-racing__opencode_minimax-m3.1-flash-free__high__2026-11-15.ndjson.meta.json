@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "horse-racing",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/minimax-m3.1-flash-free",
+  "model": "opencode/minimax-m3.1-flash-free",
+  "model_id": "minimax-m3.1-flash-free",
+  "effort": "high",
+  "effort_requested": "high",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-15T10:49:09+00:00",
+  "wall_seconds": 900,
+  "exit_code": 124,
+  "timed_out": true,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 143250,
+    "output": 44491,
+    "reasoning": 57041,
+    "cache_read": 8426240,
+    "total": 187741
+  },
+  "steps": 98,
+  "session_id": "ses_e213a77a6ffeICIds81bCXpkO6",
+  "events": 307,
+  "error_type": "unknown",
+  "error_message": "Transport: The socket connection was closed unexpectedly. For more information, pass `verbose: true` in the second argument to fetch()",
+  "effort_rejected": false
+}

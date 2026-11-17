@@ -17,7 +17,6 @@
   "svg_file": "/mnt/e/opencode-bench/svg-bench/results/sloth-excavator/opencode_inkling-2-small-free__high__2026-11-07.svg",
   "raw_log": "/mnt/e/opencode-bench/svg-bench/logs/sloth-excavator__opencode_inkling-2-small-free__high__2026-11-07.ndjson",
   "validation": {
-    "file": "/mnt/e/opencode-bench/svg-bench/results/sloth-excavator/opencode_inkling-2-small-free__high__2026-11-07.svg",
     "exists": true,
     "size_bytes": 34019,
     "sha256": "1d1976f057385a8008242e0f1bf12903ac494f3a32816e054dca51cadb2ad40c",
@@ -56,7 +55,10 @@
     "external_refs": 0,
     "rendered": null,
     "render_tool": null,
-    "render_error": null
+    "render_error": null,
+    "root_transform_animation": false,
+    "canvas_offcanvas": false,
+    "root_transform_note": null
   },
   "tokens": {
     "input": 48611,

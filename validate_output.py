@@ -97,6 +97,76 @@ def main():
     out['gradient_defs'] = grads
     out['animation_elements'] = anims + out['keyframes_blocks']
 
+    # ── canvas-level transform animations ──────────────────────────────────
+    # A transform animation attached to the root <svg> (instead of to the
+    # group it was meant for) moves the ENTIRE scene. The canvas then slides
+    # out of the viewBox and the artwork renders blank or cropped, even
+    # though the file is perfectly valid XML.
+    out['root_transform_animation'] = False
+    out['canvas_offcanvas'] = False
+    out['root_transform_note'] = None
+    vb = out.get('viewBox')
+    vb_w = vb_h = None
+    if vb:
+        parts = re.split(r'[,\s]+', vb.strip())
+        if len(parts) == 4:
+            try:
+                vb_w = abs(float(parts[2]))
+                vb_h = abs(float(parts[3]))
+            except ValueError:
+                vb_w = vb_h = None
+    for el in list(root):
+        name = local(el.tag)
+        if name not in ANIM_TAGS:
+            continue
+        attr = el.get('attributeName')
+        if attr not in ('transform', 'x', 'y'):
+            continue
+        out['root_transform_animation'] = True
+        note = f'root <svg> has a {name} on "{attr}"'
+        if attr == 'transform' and (el.get('type') or 'translate') == 'translate':
+            def _xy(val):
+                parts = re.split(r'[,\s]+', (val or '').strip())
+                try:
+                    return (float(parts[0]), float(parts[1]) if len(parts) > 1 else 0.0)
+                except (ValueError, IndexError):
+                    return None
+            x0 = _xy(el.get('from'))
+            x1 = _xy(el.get('to'))
+            if x0 is not None and vb_w and vb_h:
+                if x1 is None:
+                    x1 = x0
+
+                def _visible(tx, ty):
+                    """Fraction of the canvas still showing scene content."""
+                    vx = (min(vb_w, tx + vb_w) - max(0.0, tx)) / vb_w
+                    vy = (min(vb_h, ty + vb_h) - max(0.0, ty)) / vb_h
+                    return max(0.0, vx) * max(0.0, vy)
+
+                # The scene is painted from (0,0) and the transform moves all
+                # of it. Sample the whole range: the start pose is what a
+                # thumbnail and the judge's first frames show, the best pose
+                # is what the animation eventually reaches.
+                start = _visible(*x0)
+                best = 0.0
+                steps = 24
+                for i in range(steps + 1):
+                    f = i / steps
+                    best = max(best, _visible(x0[0] + (x1[0] - x0[0]) * f,
+                                               x0[1] + (x1[1] - x0[1]) * f))
+                if start < 0.95 or best < 0.95:
+                    out['canvas_offcanvas'] = True
+                    note += (f' translating the whole scene from ({x0[0]:g},{x0[1]:g}) '
+                             f'to ({x1[0]:g},{x1[1]:g}) — only {start * 100:.0f}% of the '
+                             f'{vb_w:g}×{vb_h:g} canvas shows artwork at the start'
+                             + (f', {best * 100:.0f}% at best' if best >= 0.95 else
+                                f', {best * 100:.0f}% at best'))
+                else:
+                    note += (f' translating the whole scene from ({x0[0]:g},{x0[1]:g}) '
+                             f'to ({x1[0]:g},{x1[1]:g})')
+        out['root_transform_note'] = note
+        break
+
     # Best effort rasterisation check — only if a tool is already installed.
     for tool, cmd in (
         ('rsvg-convert', ['rsvg-convert', '-o', '/dev/null', path]),

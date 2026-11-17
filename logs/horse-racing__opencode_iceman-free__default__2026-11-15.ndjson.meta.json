@@ -1,0 +1,31 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "horse-racing",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/iceman-free",
+  "model": "opencode/iceman-free",
+  "model_id": "iceman-free",
+  "effort": "default",
+  "effort_requested": "default",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-15T10:18:43+00:00",
+  "wall_seconds": 152,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 7406,
+    "output": 9380,
+    "reasoning": 446,
+    "cache_read": 6144,
+    "total": 16786
+  },
+  "steps": 2,
+  "session_id": "ses_e214aec9cffexbEtXfFnqyDKUU",
+  "events": 10,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false
+}

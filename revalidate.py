@@ -53,7 +53,10 @@ def main():
         old = json.dumps(rec.get('validation'), sort_keys=True)
         rec['validation'] = v
         ok = bool(v.get('exists')) and bool(v.get('well_formed_xml')) and bool(v.get('root_is_svg'))
-        rec['result_status'] = 'ok' if ok else 'invalid_svg'
+        if ok and v.get('canvas_offcanvas'):
+            rec['result_status'] = 'off_canvas'
+        else:
+            rec['result_status'] = 'ok' if ok else 'invalid_svg'
         if json.dumps(old, sort_keys=True) != json.dumps(v, sort_keys=True):
             changed += 1
             if not dry:

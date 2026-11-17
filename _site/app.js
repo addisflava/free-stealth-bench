@@ -1,4 +1,4 @@
-/* svg-bench leaderboard — vanilla JS, no build step, GitHub Pages friendly.
+/* free-stealth-bench leaderboard — vanilla JS, no build step, GitHub Pages friendly.
    Private ratings are local-first (localStorage) with an optional committed seed.
    Public reviews are read from and written to a Supabase table configured in
    config.js; if no backend is configured the page still works offline. */
@@ -23,9 +23,20 @@ function judgeFor(runId) {
   const j = judgeData();
   return j && j.by_run ? j.by_run[runId] || null : null;
 }
-function rankFor(model) {
+function rankFor(model, harness) {
   const j = judgeData();
-  return j && Array.isArray(j.ranking) ? j.ranking.find(r => r.model === model) || null : null;
+  if (!j || !Array.isArray(j.ranking)) return null;
+  // Rankings are keyed by harness+model so the same model run through two
+  // different agents gets two honest rows. Fall back to model-only for data
+  // produced before harness support.
+  if (harness) {
+    const exact = j.ranking.find(r => r.model === model && (r.harness || '') === harness);
+    if (exact) return exact;
+    // Pre-harness stores have no `harness` field; fall back only for those.
+    const legacy = j.ranking.filter(r => !('harness' in r));
+    return legacy.find(r => r.model === model) || null;
+  }
+  return j.ranking.find(r => r.model === model) || null;
 }
 const dimLabel = k => DIM_LABELS[k] || k;
 const shortModel = m => String(m || '').split('/').pop() || m || '—';
@@ -35,8 +46,9 @@ const state = {
   runs: [],
   scope: 'available', // 'available' = free models in the latest discovery snapshot
   view: 'runs',       // 'runs' = artwork matrix, 'ranking' = automated judge ranking
-  filters: { task: 'all', status: 'all', provider: 'all', q: '', unrated: false },
-  sort: { key: 'judge', dir: -1 }, // default: automated judge score, highest first
+  filters: { task: 'all', status: 'all', provider: 'all', harness: 'all', q: '', unrated: false },
+  sort: { key: 'score', dir: -1 }, // default: model score (judge + review delta), highest first
+  newBannerDismissed: false,
   previewTimer: null,
   previewRun: null,
   previewRunId: null,
@@ -65,7 +77,8 @@ function runRating(id) {
 function setStars(id, stars) {
   const ls = lsRatings();
   const prev = ls[id] || {};
-  const next = prev.stars === stars ? { ...prev, stars: 0 } : { ...prev, stars };
+  const v = Math.max(-5, Math.min(5, Math.round(+stars || 0)));
+  const next = prev.stars === v ? { ...prev, stars: 0 } : { ...prev, stars: v };
   next.ts = Date.now();
   if (!next.stars && !(next.note || '').trim()) delete ls[id]; else ls[id] = next;
   saveLsRatings(ls);
@@ -132,8 +145,8 @@ function supabaseCfg() {
 }
 function normalizeReview(r) {
   if (!r || typeof r !== 'object') return null;
-  const stars = Math.max(1, Math.min(5, Math.round(+r.stars || 0)));
-  if (!r.run_id || !stars) return null;
+  const stars = Math.max(-5, Math.min(5, Math.round(+r.stars || 0)));
+  if (!r.run_id || Number.isNaN(stars)) return null;
   return {
     id: String(r.id ?? `${r.run_id}:${r.created_at || ''}:${r.reviewer || ''}`),
     run_id: String(r.run_id),
@@ -172,7 +185,7 @@ function reviewStats(runIds) {
       source: 'public',
     };
   }
-  const local = runIds.map(runRating).filter(r => r.stars > 0);
+  const local = runIds.map(runRating).filter(r => r.stars !== 0);
   if (local.length) {
     return {
       avg: local.reduce((a, r) => a + r.stars, 0) / local.length,
@@ -259,7 +272,13 @@ async function publishReview(run, reviewer, stars, note) {
 /* ───────── availability: free models from the latest discovery snapshot ───────── */
 function availableSet() {
   const list = state.data && state.data.discovery && state.data.discovery.available;
-  return Array.isArray(list) && list.length ? new Set(list) : null;
+  if (!Array.isArray(list) || !list.length) return null;
+  // Discovery may emit harness@provider/model; availability is a property of
+  // the underlying model, so compare the bare provider/model.
+  return new Set(list.map(m => {
+    const s = String(m);
+    return s.includes('@') ? s.slice(s.indexOf('@') + 1) : s;
+  }));
 }
 function isAvailable(model) {
   const set = availableSet();
@@ -280,16 +299,33 @@ function modelFirstSeen(model) {
 }
 function hasNewModels() { return state.runs.some(r => isNewModel(r.model)); }
 function isNewModel(model) {
-  const list = state.data && state.data.discovery && state.data.discovery.new;
-  if (Array.isArray(list)) return list.indexOf(model) !== -1;
-  const first = modelFirstSeen(model);
-  if (!first) return false;
+  // A NEW badge is for a genuinely new model — one that did not exist before.
+  // Discovery's first_seen is the earliest appearance across the FULL snapshot
+  // history, so a model that failed, dropped out and later worked again is
+  // never badged new even if its first successful run is recent.
+  const disc = state.data && state.data.discovery;
   const gen = state.data && state.data.generated_utc;
   const now = gen ? Date.parse(gen) : Date.now();
-  const firstMs = Date.parse(first);
-  if (isNaN(firstMs) || isNaN(now)) return false;
   const week = 7 * 24 * 60 * 60 * 1000;
-  return now - firstMs >= 0 && now - firstMs <= week;
+  const startOfDay = ms => {
+    const d = new Date(ms);
+    d.setUTCHours(0, 0, 0, 0);
+    return d.getTime();
+  };
+  const withinWeek = d => {
+    const ms = Date.parse(d);
+    if (isNaN(ms) || isNaN(now)) return false;
+    const age = startOfDay(now) - startOfDay(ms);
+    return age >= 0 && age <= week;
+  };
+  if (disc && disc.first_seen && disc.first_seen[model]) {
+    return withinWeek(disc.first_seen[model]);
+  }
+  // No discovery history (e.g. a hand-added target): fall back to the first
+  // run. Failed attempts count as an earlier existence here too, so a model
+  // that only started working recently is not mistaken for a new one.
+  const first = modelFirstSeen(model);
+  return first ? withinWeek(first) : false;
 }
 
 /* ───────── matrix: one model per row, one task per artwork column ───────── */
@@ -302,8 +338,25 @@ function latestRunByTask(runs) {
   return byTask;
 }
 
+/* ───────── score calibration ─────────
+   The 1–5 rubric is generous: raw composites cluster above 90, which is not
+   comparable with public benchmark tables. Scale linearly so the strongest
+   judged model lands at 65/100 (the public-benchmark ceiling); everything
+   else is scaled by the same factor. Reviews then add/subtract points. */
+const CAL_TOP = 65;
+function judgeCalibration() {
+  const j = judgeData();
+  const rows = (j && Array.isArray(j.ranking)) ? j.ranking : [];
+  const max = rows.reduce((m, r) => Math.max(m, Number(r.mean_composite) || 0), 0);
+  return max > 0 ? CAL_TOP / max : 1;
+}
+function calibrateJudge(raw) {
+  if (raw == null || Number.isNaN(+raw)) return null;
+  return Math.max(0, Math.min(100, +raw * judgeCalibration()));
+}
+
 function matrixRows() {
-  const { task, status, provider, q, unrated } = state.filters;
+  const { task, status, provider, harness, q, unrated } = state.filters;
   const allTasks = (state.data.summary?.tasks?.length)
     ? state.data.summary.tasks
     : [...new Set(state.runs.map(r => r.task))].sort();
@@ -312,11 +365,14 @@ function matrixRows() {
   const byModel = new Map();
   for (const r of scopedRuns()) {
     if (provider !== 'all' && r.provider !== provider) continue;
+    if (harness !== 'all' && r.harness !== harness) continue;
     if (q && !r.model.toLowerCase().includes(q)) continue;
-    if (!byModel.has(r.model)) {
-      byModel.set(r.model, { model: r.model, model_id: r.model_id, provider: r.provider, runs: [] });
+    const key = `${r.model}\u0000${r.harness || ''}`;
+    if (!byModel.has(key)) {
+      byModel.set(key, { model: r.model, model_id: r.model_id, provider: r.provider,
+                         harness: r.harness, target: r.target, runs: [] });
     }
-    byModel.get(r.model).runs.push(r);
+    byModel.get(key).runs.push(r);
   }
 
   const rows = [];
@@ -335,15 +391,23 @@ function matrixRows() {
     const ok = present.filter(r => r.result_status === 'ok').length;
     const stats = reviewStats(present.map(r => r.id));
     const taskResults = tasks.map(t => ({ task: t, run: latest.get(t) || null })).filter(x => x.run);
-    const rank = rankFor(m.model);
+    const rank = rankFor(m.model, m.harness);
     rows.push({
       ...m,
       latest,
       cells,
       taskResults,
-      judgeScore: rank ? rank.mean_composite : null,
+      judgeRaw: rank ? rank.mean_composite : null,
+      judgeScore: rank ? calibrateJudge(rank.mean_composite) : null,
       judgeRank: rank ? rank.rank : null,
       judgeDnf: rank ? rank.dnf : 0,
+      reviewDelta: stats.count ? stats.avg * 5 : 0, // -5..+5 → -25..+25 points added to the judge score
+      modelScore: (() => {
+        const j = rank ? calibrateJudge(rank.mean_composite) : null;
+        const delta = stats.count ? stats.avg * 5 : 0;
+        if (j == null && !stats.count) return null;
+        return Math.max(0, Math.min(100, (j ?? 50) + delta));
+      })(),
       ok,
       total: present.length,
       avgRating: stats.avg,
@@ -354,6 +418,10 @@ function matrixRows() {
     });
   }
 
+  // position by model score (judge + review delta), best first
+  const ranked = [...rows].filter(r => r.modelScore != null).sort((a, b) => b.modelScore - a.modelScore);
+  ranked.forEach((r, i) => { r.scoreRank = i + 1; });
+
   const { key, dir } = state.sort;
   const val = m => {
     switch (key) {
@@ -361,36 +429,45 @@ function matrixRows() {
       case 'rating': return m.avgRating;
       case 'valid': return m.total ? m.ok / m.total : 0;
       case 'judge': return m.judgeScore ?? -1;
+      case 'score': return m.modelScore ?? -1;
       default: return m.model_id || '';
     }
   };
   rows.sort((a, b) => {
     const va = val(a), vb = val(b);
     const cmp = typeof va === 'string' ? va.localeCompare(vb) : va - vb;
-    return cmp !== 0 ? cmp * dir : a.model_id.localeCompare(b.model_id);
+    return cmp !== 0 ? cmp * dir
+      : a.model_id.localeCompare(b.model_id) || (a.harness || '').localeCompare(b.harness || '');
   });
   return { tasks, rows };
 }
 
-/* ───────── stars ───────── */
+/* ───────── signed score: -5 (bad) … 0 … +5 (good) ───────── */
+function scoreLabel(v) {
+  v = Number(v) || 0;
+  return v > 0 ? `+${v}` : String(v);
+}
+function scoreClass(v) {
+  v = Number(v) || 0;
+  return v > 0 ? 'pos' : v < 0 ? 'neg' : 'zero';
+}
 function starsHtml(id) {
-  const { stars, source } = runRating(id);
-  const hint = source === 'seed' ? ' title="Seeded from ratings.json — click to make it yours"' : ' title="Your private rating (saved in this browser)"';
-  return `<span class="stars" data-id="${esc(id)}"${hint}>${[1, 2, 3, 4, 5].map(n =>
-    `<button type="button" class="star${n <= stars ? ' on' : ''}" data-star="${n}" aria-label="Rate ${n} of 5">★</button>`
-  ).join('')}</span><button type="button" class="note-btn${(runRating(id).note || '').trim() ? ' has' : ''}" aria-label="Toggle private note">✎</button>`;
+  const { stars, source, note } = runRating(id);
+  const hint = source === 'seed' ? 'Seeded from ratings.json — slide to make it yours' : 'Your private rating, -5 (bad) to +5 (good) — saved in this browser';
+  const v = Number(stars) || 0;
+  return `<span class="stars score" data-id="${esc(id)}" title="${esc(hint)}">
+    <input type="range" class="score-slider" min="-5" max="5" step="1" value="${v}" aria-label="Rating from -5 (bad) to +5 (good)">
+    <output class="score-val ${scoreClass(v)}">${scoreLabel(v)}</output>
+  </span><button type="button" class="note-btn${(note || '').trim() ? ' has' : ''}" aria-label="Toggle private note">✎</button>`;
 }
 
 /* ───────── matrix rendering ───────── */
 function taskClass(task) { return task.includes('horse') ? 'horse' : 'sloth'; }
-function taskIcon(status) {
-  return ({ ok: '✓', invalid_svg: '!', timeout: '⏱', no_output: '✕' })[status] || '?';
-}
 
 function matrixHead(tasks) {
   return `<tr>
     <th class="matrix-model-head" data-sort="model_id">Model &amp; benchmark result</th>
-    <th class="matrix-score-head num" data-sort="judge" title="Automated blind LLM judge rank (0–100). Click to sort, highest first.">Rank</th>
+    <th class="matrix-score-head num" data-sort="score" title="Total = calibrated judge score (strongest model = 65, matching public benchmark ranges) + review average ×5 (up to ±25). The small badge shows the judge-only score. Click to sort, highest first.">Total / 100</th>
     ${tasks.map(t => {
       const meta = (state.data.tasks && state.data.tasks[t]) || {};
       const blurb = meta.blurb ? ` title="${esc(meta.blurb)}"` : '';
@@ -405,13 +482,18 @@ function matrixHead(tasks) {
 function cellReviewBadge(r) {
   const s = reviewStats([r.id]);
   if (!s.count) return '';
-  return `<span class="cell-reviews" title="${esc(reviewStatsLabel(s))}">★ ${s.avg.toFixed(1)}<span>(${s.count})</span></span>`;
+  const avg = s.avg >= 0 ? `+${s.avg.toFixed(1)}` : s.avg.toFixed(1);
+  const cls = s.avg < 0 ? 'cell-reviews neg' : 'cell-reviews';
+  return `<span class="${cls}" title="${esc(reviewStatsLabel(s))}">${avg}<span>(${s.count})</span></span>`;
 }
 
 function matrixCell(r, task) {
   if (!r) return `<td class="matrix-cell is-empty"><span class="cell-none">—</span></td>`;
   const status = r.result_status || 'unknown';
-  const art = r.svg_rel
+  // An off_canvas run has a file, but the artwork slides out of the viewBox —
+  // showing the raw SVG would just be an empty frame.
+  const blank = status === 'off_canvas';
+  const art = (r.svg_rel && !blank)
     ? `<img class="thumb matrix-thumb" loading="lazy" src="${esc(r.svg_rel)}" alt="${esc(r.model_id)} — ${esc(task)}" data-id="${esc(r.id)}">`
     : `<div class="no-art matrix-no-art"><span>✕</span><span>${esc(status.replace('_', ' '))}</span></div>`;
   const adminRerun = state.admin
@@ -421,7 +503,7 @@ function matrixCell(r, task) {
   const judgeChip = jr
     ? `<span class="cell-judge" title="Automated judge score ${Number(jr.composite || 0).toFixed(1)} / 100${jr.dnf ? ' — did not finish' : ''}">◆ ${Number(jr.composite || 0).toFixed(1)}</span>`
     : '';
-  return `<td class="matrix-cell" data-id="${esc(r.id)}" title="${esc(status)} — ${esc(r.model_id)} on ${esc(task)}">
+  return `<td class="matrix-cell" data-id="${esc(r.id)}" title="${esc(status)} — ${esc(r.model_id)} on ${esc(task)}${r.root_transform_note ? ' — ' + esc(r.root_transform_note) : ''}">
     <div class="cell-card">
       ${art}
       <div class="cell-meta">
@@ -440,36 +522,32 @@ function matrixCell(r, task) {
 }
 
 function nameCell(m, tasks) {
-  const dot = m.status === 'mixed' ? 'mixed' : m.status;
   const avail = isAvailable(m.model);
-  const chips = m.taskResults.map(({ task, run }) => {
-    const st = run.result_status || 'unknown';
-    const s = reviewStats([run.id]);
-    const reviews = s.count ? ` · ★${s.avg.toFixed(1)}` : '';
-    return `<span class="task-result st-${esc(st)}" title="${esc(task)}: ${esc(st)}${reviews}">${esc(task)} ${taskIcon(st)}${reviews}</span>`;
-  }).join('');
   return `<th scope="row" class="matrix-model">
     <div class="model-name">
-      <span class="status-dot st-${esc(dot)}"></span>${esc(m.model_id)}
+      ${esc(m.model_id)}
       ${isNewModel(m.model) ? '<span class="badge new" title="First seen within the last 7 days">NEW</span>' : ''}
       <span class="effort-chip" title="Effort variant used"><span class="tag-key">effort</span>${esc(m.effort)}</span>
     </div>
     <div class="model-id" title="${esc(m.model)}">${esc(m.model)}</div>
-    <div class="task-results">${chips}</div>
     <div class="model-sub">
-      <span class="tag" title="Provider / agent that served the model"><span class="tag-key">agent</span>${esc(m.provider)}</span>
+      <span class="tag" title="Provider endpoint that served the model"><span class="tag-key">provider</span>${esc(m.provider)}</span>
+      ${m.harness && m.harness !== m.provider ? `<span class="tag" title="Agent harness that ran the task"><span class="tag-key">harness</span>${esc(m.harness)}</span>` : ''}
+      <span class="tag" title="Runs that produced a valid SVG"><span class="tag-key">valid</span>${m.ok}/${m.total}</span>
       ${avail ? '' : '<span class="badge historic" title="Not in the current free-model discovery snapshot — paid, delisted or region-blocked">not available</span>'}
     </div>
   </th>`;
 }
 
 function matrixScoreCell(m) {
-  const rank = rankFor(m.model);
-  const avg = m.avgRating ? m.avgRating.toFixed(1) : '—';
-  const filled = m.rated ? Math.round(m.avgRating) : 0;
+  const rank = rankFor(m.model, m.harness);
+  const avgNum = m.avgRating || 0;
+  const avg = m.rated ? (avgNum >= 0 ? `+${avgNum.toFixed(1)}` : avgNum.toFixed(1)) : '—';
+  const filled = m.rated ? Math.round(Math.abs(avgNum)) : 0;
+  const avgCls = avgNum < 0 ? 'neg' : avgNum > 0 ? 'pos' : 'zero';
   const reviewBadge = m.rated
-    ? `<div class="rating-summary" title="${esc(reviewStatsLabel({ count: m.rated, source: m.reviewSource }))}">
-         <span class="rating-stars">${[1, 2, 3, 4, 5].map(n => `<span class="${n <= filled ? 'on' : ''}">★</span>`).join('')}</span>
+    ? `<div class="rating-summary ${avgCls}" title="${esc(reviewStatsLabel({ count: m.rated, source: m.reviewSource }))}">
+         <span class="rating-stars">${[1, 2, 3, 4, 5].map(n => `<span class="${n <= filled ? 'on' : ''}">${avgNum < 0 ? '✕' : '★'}</span>`).join('')}</span>
          <b class="rating-avg">${avg}</b>
          <span class="rating-meta">${m.rated} review${m.rated === 1 ? '' : 's'}</span>
        </div>`
@@ -478,12 +556,23 @@ function matrixScoreCell(m) {
          <b class="rating-avg">—</b>
          <span class="rating-meta">no reviews</span>
        </div>`;
-  const judgeBadge = rank
-    ? `<span class="badge rank" title="Automated judge rank #${rank.rank} · mean score ${Number(rank.mean_composite).toFixed(1)} / 100">#${rank.rank} · ${Number(rank.mean_composite).toFixed(1)}</span>`
-    : `<span class="badge rank is-empty" title="No automated judge score yet">score —</span>`;
-  if (m.judgeScore == null) return `<td class="matrix-score num is-empty" title="Not judged yet">—</td>`;
-  return `<td class="matrix-score num" title="Rank #${rank.rank} · mean score ${Number(m.judgeScore).toFixed(1)} / 100">
+  const score = m.modelScore == null ? null : Math.round(m.modelScore * 10) / 10;
+  const medal = m.scoreRank === 1 ? ' rank-1' : m.scoreRank === 2 ? ' rank-2' : m.scoreRank === 3 ? ' rank-3' : '';
+  const rankBadge = m.scoreRank != null && score != null
+    ? `<span class="badge rank${medal}" title="Position by model score after adding the review delta to the judge score"><b class="rank-num">#${m.scoreRank}</b><span class="rank-sep"></span><span class="rank-score">${score.toFixed(1)}</span></span>`
+    : `<span class="badge rank is-empty" title="No model score yet">—</span>`;
+  const judgeAdj = m.judgeScore == null ? null : Math.round(m.judgeScore * 10) / 10;
+  const judgeBadge = judgeAdj != null
+    ? `<span class="badge rank judge" title="Judge score ${judgeAdj.toFixed(1)} / 100 (raw ${Number(m.judgeRaw).toFixed(1)}, calibrated) · automated judge rank #${rank.rank} before reviews">judge ${judgeAdj.toFixed(1)}</span>`
+    : '';
+  const delta = m.reviewDelta || 0;
+  const deltaTxt = delta ? `${delta > 0 ? '+' : ''}${delta.toFixed(1)}` : '±0';
+  const scoreTitle = judgeAdj != null
+    ? `Total ${score == null ? '—' : score.toFixed(1)} / 100 = judge ${judgeAdj.toFixed(1)} (raw ${Number(m.judgeRaw).toFixed(1)}) + review delta ${deltaTxt} (clamped 0–100)`
+    : `Total from reviews alone (judge 50 baseline): ${score == null ? '—' : score.toFixed(1)} / 100 (clamped 0–100)`;
+  return `<td class="matrix-score num" title="${esc(scoreTitle)}">
     <div class="score-stack">
+      ${rankBadge}
       ${reviewBadge}
       ${judgeBadge}
       ${m.judgeDnf ? `<span class="matrix-score-dnf" title="${m.judgeDnf} did not finish">${m.judgeDnf} DNF</span>` : ''}
@@ -495,23 +584,109 @@ function matrixRow(m, tasks) {
   return `<tr data-model="${esc(m.model)}">${nameCell(m, tasks)}${matrixScoreCell(m)}${tasks.map(t => matrixCell(m.cells.get(t), t)).join('')}</tr>`;
 }
 
+/* ───────── new-model panel (right side) ───────── */
+// Same score-based ranking the matrix shows (#N · total), but computed over
+// all models so the badge is a stable global rank regardless of active filters.
+function allScoreRanks() {
+  const byKey = new Map();
+  for (const r of state.runs) {
+    const key = `${r.model}\u0000${r.harness || ''}`;
+    if (!byKey.has(key)) byKey.set(key, { model: r.model, harness: r.harness, ids: [] });
+    byKey.get(key).ids.push(r.id);
+  }
+  const scored = [];
+  for (const m of byKey.values()) {
+    const rank = rankFor(m.model, m.harness);
+    const stats = reviewStats(m.ids);
+    const judge = rank ? calibrateJudge(rank.mean_composite) : null;
+    const delta = stats.count ? stats.avg * 5 : 0;
+    const total = (judge == null && !stats.count)
+      ? null : Math.max(0, Math.min(100, (judge ?? 50) + delta));
+    scored.push({ key: `${m.model}\u0000${m.harness || ''}`, total });
+  }
+  const map = new Map();
+  scored.filter(x => x.total != null)
+    .sort((a, b) => b.total - a.total)
+    .forEach((x, i) => map.set(x.key, { rank: i + 1, total: x.total }));
+  return map;
+}
+
+function newHighlightModels() {
+  const ranks = allScoreRanks();
+  const byModel = new Map();
+  for (const r of state.runs) {
+    if (!isNewModel(r.model)) continue;
+    if (!byModel.has(r.model)) byModel.set(r.model, []);
+    byModel.get(r.model).push(r);
+  }
+  const items = [];
+  for (const runs of byModel.values()) {
+    // Best artwork: a successful run first, then the most recent one.
+    const picked = [...runs].sort((a, b) => {
+      const ao = a.result_status === 'ok' && a.svg_rel ? 0 : 1;
+      const bo = b.result_status === 'ok' && b.svg_rel ? 0 : 1;
+      return ao - bo || (b.date_utc || '').localeCompare(a.date_utc || '');
+    })[0];
+    if (!picked) continue;
+    const rank = rankFor(picked.model, picked.harness);
+    const judge = rank ? calibrateJudge(rank.mean_composite) : null;
+    const scoreInfo = ranks.get(`${picked.model}\u0000${picked.harness || ''}`) || {};
+    items.push({ run: picked, judge,
+                 scoreRank: scoreInfo.rank ?? rank?.rank ?? null,
+                 total: scoreInfo.total ?? judge ?? null });
+  }
+  items.sort((a, b) => (b.run.date_utc || '').localeCompare(a.run.date_utc || ''));
+  return items;
+}
+
+function renderNewHighlight() {
+  const host = $('#new-highlight');
+  if (!host) return;
+  // The "new" tab already shows these models, so don't duplicate the panel there.
+  const items = (state.newBannerDismissed || state.scope === 'new') ? [] : newHighlightModels();
+  host.hidden = !items.length;
+  if (!items.length) return;
+  $('#new-highlight-sub').innerHTML =
+    `${items.length} model${items.length === 1 ? '' : 's'} ·<br>new in the last 7 days`;
+  $('#new-highlight-cards').innerHTML = items.map(({ run: r, judge, scoreRank, total }) => {
+    const art = r.svg_rel
+      ? `<img class="thumb new-hl-thumb" src="${esc(r.svg_rel)}" alt="${esc(r.model_id)}" loading="lazy">`
+      : `<div class="new-hl-noart">✕</div>`;
+    // Primary rank badge mirrors the matrix: #rank · total score. Judge score
+    // and task stay in the tooltip to keep the strip compact.
+    const rankBadge = (scoreRank != null && total != null)
+      ? `<span class="new-hl-rank" title="Rank by model score (judge + review delta)">#${scoreRank} · ${Number(total).toFixed(1)}</span>`
+      : `<span class="new-hl-rank is-empty" title="No score yet">—</span>`;
+    const tip = `${r.model} · ${r.task} · ${rankBadge.replace(/<[^>]+>/g, '')}`
+      + (judge == null ? '' : ` · judge ${judge.toFixed(1)}`) + ' — click to preview';
+    return `<button type="button" class="new-hl-card" data-id="${esc(r.id)}" title="${esc(tip)}">
+      ${art}
+      <span class="new-hl-info">
+        <span class="new-hl-name">${esc(r.model_id)}</span>
+        ${rankBadge}
+      </span>
+    </button>`;
+  }).join('');
+}
+
 function renderMatrix() {
   const { tasks, rows } = matrixRows();
   $('#matrix-head').innerHTML = matrixHead(tasks);
   $('#runs-matrix tbody').innerHTML = rows.map(m => matrixRow(m, tasks)).join('');
-  const scope = state.scope === 'available' ? 'free &amp; available'
-    : state.scope === 'new' ? 'new' : 'ever tested';
-  $('#shown-count').innerHTML = `${rows.length} <b>${scope}</b> model${rows.length === 1 ? '' : 's'} × ${tasks.length} task${tasks.length === 1 ? '' : 's'}`;
   $('#empty').hidden = rows.length !== 0;
   $$('#matrix-head th[data-sort]').forEach(th => {
     th.classList.toggle('sorted-asc', state.sort.key === th.dataset.sort && state.sort.dir === 1);
     th.classList.toggle('sorted-desc', state.sort.key === th.dataset.sort && state.sort.dir === -1);
   });
+  renderNewHighlight();
 }
 
 /* ───────── preview panel ───────── */
 function starsReadonly(stars) {
-  return `<span class="review-stars" aria-label="${stars} out of 5">${[1, 2, 3, 4, 5].map(n => `<span class="${n <= stars ? 'on' : ''}">★</span>`).join('')}</span>`;
+  const v = Math.max(-5, Math.min(5, Math.round(+stars || 0)));
+  const filled = Math.abs(v);
+  const cls = v < 0 ? 'neg' : v > 0 ? 'pos' : 'zero';
+  return `<span class="review-stars ${cls}" aria-label="${scoreLabel(v)} out of 5">${[1, 2, 3, 4, 5].map(n => `<span class="${n <= filled ? 'on' : ''}">${v < 0 ? '✕' : '★'}</span>`).join('')}<b class="review-sign">${scoreLabel(v)}</b></span>`;
 }
 
 function reviewListHtml(run) {
@@ -542,9 +717,10 @@ function reviewFormHtml(run) {
       <label class="field compact"><span>Your name</span>
         <input name="reviewer" maxlength="60" placeholder="optional" value="${esc(reviewer)}" autocomplete="nickname">
       </label>
-      <div class="field compact"><span>Stars</span>
-        <span class="rev-picker" role="group" aria-label="Review stars">
-          ${[1, 2, 3, 4, 5].map(n => `<button type="button" class="rev-star${n <= selected ? ' on' : ''}" data-star="${n}" aria-label="${n} of 5">★</button>`).join('')}
+      <div class="field compact"><span>Rating (-5 bad to +5 good)</span>
+        <span class="rev-picker" role="group" aria-label="Review rating from -5 to +5">
+          <input type="range" class="score-slider rev-slider" min="-5" max="5" step="1" value="${selected}" aria-label="Review rating from -5 (bad) to +5 (good)">
+          <output class="score-val ${scoreClass(selected)}">${scoreLabel(selected)}</output>
         </span>
       </div>
     </div>
@@ -576,7 +752,7 @@ function renderJudgeBreakdown(run) {
       <p class="judge-empty">Not judged yet — run <code>./run.sh judge</code> to score every output.</p>`;
     return;
   }
-  const rank = rankFor(run.model);
+  const rank = rankFor(run.model, run.harness);
   const dims = (j.dimensions && j.dimensions.length) ? j.dimensions : Object.keys(j.weights || {});
   const weights = j.weights || {};
   const scores = jr.scores || {};
@@ -626,10 +802,18 @@ function showPreview(r) {
   pill.textContent = (r.result_status || 'unknown').replace('_', ' ');
   $('#preview-name').textContent = r.model_id;
   $('#preview-name').title = r.model;
+  const agent = $('#preview-agent');
+  if (agent) {
+    const route = r.harness && r.harness !== r.provider
+      ? `${r.provider} · ${r.harness}` : (r.provider || '');
+    agent.textContent = route;
+    agent.title = r.harness ? `provider ${r.provider} · harness ${r.harness}` : `provider ${r.provider}`;
+    agent.hidden = !route;
+  }
 
   const img = $('#preview-img');
   const empty = $('#preview-empty');
-  if (r.svg_rel) {
+  if (r.svg_rel && r.result_status !== 'off_canvas') {
     img.style.display = '';
     empty.style.display = 'none';
     img.src = r.svg_rel;
@@ -637,18 +821,19 @@ function showPreview(r) {
   } else {
     img.style.display = 'none';
     empty.style.display = '';
-    empty.innerHTML = `<div class="none-status">${esc((r.result_status || 'no output').replace('_', ' '))}</div>
-      <div class="none-msg">${esc(r.error_message || 'The model produced no usable SVG file.')}</div>`;
+    empty.innerHTML = `<div class="none-status st-${esc(r.result_status || 'no output')}">${esc((r.result_status || 'no output').replace('_', ' '))}</div>
+      <div class="none-msg">${esc(r.root_transform_note
+        ? `The SVG file exists, but ${r.root_transform_note}. The artwork slides out of the viewBox, so nothing is visible.`
+        : (r.error_message || 'The model produced no usable SVG file.'))}</div>`;
   }
-  $('#preview-chips').innerHTML = `
-    <span class="pchip">${esc(r.task)}</span>
-    <span class="pchip">${esc(r.effort || 'default')} effort</span>
-    <span class="pchip">${r.animation_elements ?? 0} animations</span>
-    <span class="pchip">${r.size_bytes ? `${Math.round(r.size_bytes / 1024)} KB` : 'no file'}</span>`;
-  $('#preview-open').style.display = r.svg_rel ? '' : 'none';
-  $('#preview-open').href = r.svg_rel || '#';
-  $('#preview-rating').innerHTML = `<span class="pchip">${esc(r.task)}</span>` + starsHtml(r.id) +
-    `<span class="cell-date">${esc((r.date_utc || '').slice(0, 10))}</span>`;
+  const rawLink = r.svg_rel
+    ? `<a class="preview-open-link" href="${esc(r.svg_rel)}" target="_blank" rel="noopener">Open raw SVG ↗</a>`
+    : '';
+  $('#preview-rating').innerHTML =
+    `<span class="pchip preview-task task-${taskClass(r.task)}">${esc(r.task)}</span>` +
+    starsHtml(r.id) +
+    `<span class="cell-date preview-date">${esc((r.date_utc || '').slice(0, 10))}</span>` +
+    rawLink;
   const noteBox = $('#preview-note');
   const noteTa = noteBox.querySelector('textarea');
   noteTa.value = runRating(r.id).note || '';
@@ -728,6 +913,7 @@ function syncNewTab() {
 function setScope(scope) {
   state.view = 'runs';
   state.scope = scope;
+  document.querySelector('.controls-grid')?.classList.remove('hide-toolbar');
   $$('.view').forEach(s => s.classList.toggle('active', s.id === 'view-runs'));
   $$('.tab[data-scope]').forEach(t => {
     const on = t.dataset.scope === scope;
@@ -749,6 +935,7 @@ function setView(view) {
   const v = view === 'ranking' ? 'ranking' : 'runs';
   state.view = v;
   const isRank = v === 'ranking';
+  document.querySelector('.controls-grid')?.classList.toggle('hide-toolbar', isRank);
   $$('.view').forEach(s => s.classList.toggle('active', s.id === `view-${v}`));
   $$('.tab[data-view]').forEach(t => {
     const on = isRank && t.dataset.view === 'ranking';
@@ -780,24 +967,29 @@ function renderRanking() {
   const probe = meta.probe || {};
   const dims = (j.dimensions && j.dimensions.length) ? j.dimensions : Object.keys(j.weights || {});
   const weights = j.weights || {};
-  const head = `<tr><th class="num">#</th><th>Model</th><th class="num" title="Weighted mean score across the model's tasks (0–100)">Score</th>
+  const head = `<tr><th class="num">#</th><th>Model</th><th class="num" title="Calibrated judge score (0–100, strongest model = 65). Raw rubric score is shown below it.">Score</th>
     ${dims.map(k => `<th class="num" title="${esc(k)} · weight ${Number(weights[k] || 0).toFixed(2)}">${esc(dimLabel(k))}</th>`).join('')}
     <th class="num" title="Tasks scored">Runs</th><th class="num" title="Did not finish">DNF</th></tr>`;
-  const body = j.ranking.map(r => `<tr>
+  const body = j.ranking.map(r => {
+    const raw = Number(r.mean_composite || 0);
+    const cal = calibrateJudge(raw);
+    return `<tr>
     <td class="num rank-cell">${r.rank}</td>
-    <td class="rank-model"><b>${esc(shortModel(r.model))}</b><span>${esc(r.model)}</span></td>
-    <td class="num rank-score"><b>${Number(r.mean_composite || 0).toFixed(1)}</b></td>
+    <td class="rank-model"><b>${esc(shortModel(r.model))}${r.harness && r.harness !== r.provider ? `<span class="rank-harness">@${esc(r.harness)}</span>` : ''}</b><span>${esc(r.model)}</span></td>
+    <td class="num rank-score" title="Calibrated ${cal == null ? '—' : cal.toFixed(1)} / 100 · raw rubric ${raw.toFixed(1)} / 100"><b>${cal == null ? '—' : cal.toFixed(1)}</b><span class="rank-raw">raw ${raw.toFixed(1)}</span></td>
     ${dims.map(k => `<td class="num">${Number((r.dimensions || {})[k] || 0).toFixed(1)}</td>`).join('')}
     <td class="num">${r.n_runs}</td>
     <td class="num">${r.dnf || '—'}</td>
-  </tr>`).join('');
+  </tr>`;
+  }).join('');
   el.innerHTML = `
     <div class="ranking-meta">
       <div><h2>Automated judge ranking</h2>
         <p>Blind 1–5 rubric · ${esc(j.rubric_version || '')} · judge
         <b>${esc(shortModel(j.judge_model))}</b> · ${esc(probe.mode || 'unknown')} input ·
-        ${meta.n_judged || 0} runs scored · updated ${esc((j.updated_utc || '').slice(0, 16).replace('T', ' '))}</p></div>
-      <span class="badge rank" title="Number of ranked models">${j.ranking.length} models</span>
+        ${meta.n_judged || 0} runs scored · updated ${esc((j.updated_utc || '').slice(0, 16).replace('T', ' '))}</p>
+        <p class="ranking-note">Scores are calibrated to public benchmark ranges: the strongest judged model = 65/100. Raw rubric scores are shown under each score.</p></div>
+      <span class="badge rank" title="Number of ranked harness+model entries">${j.ranking.length} entries</span>
     </div>
     <div class="ranking-weights">Weights: ${dims.map(k => `<span class="pchip">${esc(dimLabel(k))} ${Number(weights[k] || 0).toFixed(2)}</span>`).join('')}
       <span class="pchip" title="Failed runs score 0">DNF = 0</span></div>
@@ -844,8 +1036,8 @@ function uniqPairs(pairs) {
     return true;
   });
 }
-const failedPairs = () => uniqPairs(scopedRuns().filter(r => r.result_status !== 'ok').map(r => [r.model, r.task]));
-const allPairs = () => uniqPairs(scopedRuns().map(r => [r.model, r.task]));
+const failedPairs = () => uniqPairs(scopedRuns().filter(r => r.result_status !== 'ok').map(r => [r.target || r.model, r.task]));
+const allPairs = () => uniqPairs(scopedRuns().map(r => [r.target || r.model, r.task]));
 
 async function launchRerun(pairs, label) {
   if (!state.admin) { toast('Admin controls are disabled for this page', true); return; }
@@ -909,6 +1101,7 @@ function bindEvents() {
   $('#f-task').addEventListener('change', e => { state.filters.task = e.target.value; renderMatrix(); });
   $('#f-status').addEventListener('change', e => { state.filters.status = e.target.value; renderMatrix(); });
   $('#f-provider').addEventListener('change', e => { state.filters.provider = e.target.value; renderMatrix(); });
+  $('#f-harness').addEventListener('change', e => { state.filters.harness = e.target.value; renderMatrix(); });
   $('#f-search').addEventListener('input', e => { state.filters.q = e.target.value.trim().toLowerCase(); renderMatrix(); });
   $('#f-unrated').addEventListener('change', e => { state.filters.unrated = e.target.checked; renderMatrix(); });
 
@@ -925,14 +1118,6 @@ function bindEvents() {
 
   // stars + notes + run output + artwork preview (delegated)
   $('#runs-matrix').addEventListener('click', e => {
-    const starBtn = e.target.closest('.star');
-    if (starBtn) {
-      const wrap = starBtn.closest('.stars');
-      setStars(wrap.dataset.id, +starBtn.dataset.star);
-      renderMatrix();
-      if (state.previewRunId === wrap.dataset.id) showPreview(state.runs.find(r => r.id === state.previewRunId));
-      return;
-    }
     const noteBtn = e.target.closest('.note-btn');
     if (noteBtn) {
       const cell = noteBtn.closest('.matrix-cell');
@@ -955,7 +1140,7 @@ function bindEvents() {
       e.stopPropagation();
       if (!state.admin) return;
       const run = state.runs.find(r => r.id === adminBtn.dataset.id);
-      if (run) launchRerun([[run.model, run.task]], `Re-run ${run.model_id}`);
+      if (run) launchRerun([[run.target || run.model, run.task]], `Re-run ${run.model_id}`);
       return;
     }
     const thumb = e.target.closest('.matrix-thumb');
@@ -966,7 +1151,32 @@ function bindEvents() {
       if (run) showPreview(run);
     }
   }, true); // capture phase so per-cell actions win over the cell preview
+
+  // new-model panel: click a card for a full preview, ✕ hides the panel
+  $('#new-highlight').addEventListener('click', e => {
+    if (e.target.closest('#new-highlight-close')) {
+      state.newBannerDismissed = true;
+      $('#new-highlight').hidden = true;
+      return;
+    }
+    const card = e.target.closest('.new-hl-card[data-id]');
+    if (!card) return;
+    const run = state.runs.find(r => r.id === card.dataset.id);
+    if (run) showPreview(run);
+  });
+
   $('#runs-matrix').addEventListener('input', e => {
+    const slider = e.target.closest('.score-slider');
+    if (slider) {
+      const wrap = slider.closest('.score');
+      const id = wrap && wrap.dataset.id;
+      const v = Number(slider.value) || 0;
+      setStars(id, v);
+      const out = wrap.querySelector('.score-val');
+      out.textContent = scoreLabel(v);
+      out.className = `score-val ${scoreClass(v)}`;
+      return;
+    }
     const ta = e.target.closest('.cell-note textarea');
     if (!ta) return;
     const id = ta.closest('td.matrix-cell').dataset.id;
@@ -987,15 +1197,6 @@ function bindEvents() {
 
   // preview: private rating, note
   $('#preview').addEventListener('click', e => {
-    const starBtn = e.target.closest('.star');
-    if (starBtn) {
-      const wrap = starBtn.closest('.stars');
-      const id = wrap.dataset.id;
-      setStars(id, +starBtn.dataset.star);
-      renderMatrix();
-      showPreview(state.runs.find(r => r.id === id));
-      return;
-    }
     const noteBtn = e.target.closest('.note-btn');
     if (noteBtn) {
       const note = $('#preview-note');
@@ -1003,16 +1204,32 @@ function bindEvents() {
       if (!note.hidden) note.querySelector('textarea').focus();
       return;
     }
-    const revStar = e.target.closest('.rev-star');
-    if (revStar) {
-      const form = revStar.closest('#review-form');
-      if (!form) return;
-      const stars = +revStar.dataset.star;
-      form.dataset.stars = String(stars);
-      $$('.rev-star', form).forEach(b => b.classList.toggle('on', +b.dataset.star <= stars));
-    }
+  });
+  $('#public-reviews').addEventListener('input', e => {
+    const slider = e.target.closest('.rev-slider');
+    if (!slider) return;
+    const form = slider.closest('#review-form');
+    if (!form) return;
+    form.dataset.stars = String(slider.value);
+    const out = slider.closest('.rev-picker').querySelector('.score-val');
+    const v = Number(slider.value) || 0;
+    out.textContent = scoreLabel(v);
+    out.className = `score-val ${scoreClass(v)}`;
   });
   $('#preview').addEventListener('input', e => {
+    const slider = e.target.closest('.score-slider:not(.rev-slider)');
+    if (slider) {
+      const wrap = slider.closest('.score');
+      const id = wrap && wrap.dataset.id;
+      const v = Number(slider.value) || 0;
+      setStars(id, v);
+      const out = wrap.querySelector('.score-val');
+      out.textContent = scoreLabel(v);
+      out.className = `score-val ${scoreClass(v)}`;
+      clearTimeout(state.scoreTimer);
+      state.scoreTimer = setTimeout(renderMatrix, 250);
+      return;
+    }
     const ta = e.target.closest('.preview-note textarea');
     if (!ta) return;
     const id = $('#preview-rating .stars')?.dataset.id;
@@ -1034,7 +1251,6 @@ function bindEvents() {
     const stars = +form.dataset.stars;
     const note = form.querySelector('[name="note"]').value.trim();
     const reviewer = form.querySelector('[name="reviewer"]').value.trim();
-    if (!stars) { toast('Pick a star rating first', true); return; }
     if (note.length < 3) { toast('Write at least a few words', true); return; }
     const submit = form.querySelector('button[type="submit"]');
     submit.disabled = true;
@@ -1098,6 +1314,8 @@ async function boot() {
   $('#f-task').innerHTML = '<option value="all">All tasks</option>' + tasks.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
   const providers = [...new Set(state.runs.map(r => r.provider))].sort();
   $('#f-provider').innerHTML = '<option value="all">All providers</option>' + providers.map(p => `<option value="${esc(p)}">${esc(p)}</option>`).join('');
+  const harnesses = [...new Set(state.runs.map(r => r.harness).filter(Boolean))].sort();
+  $('#f-harness').innerHTML = '<option value="all">All harnesses</option>' + harnesses.map(h => `<option value="${esc(h)}">${esc(h)}</option>`).join('');
 
   renderChips();
   bindEvents();

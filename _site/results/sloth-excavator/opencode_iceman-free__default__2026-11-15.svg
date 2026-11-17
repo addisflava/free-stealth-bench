@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" aria-labelledby="title desc" role="img">
+  <title id="title">Sleepy Sloth Excavator</title>
+  <desc id="desc">A cartoon sloth in a hard hat and high-visibility vest calmly operates a yellow excavator, gently digging and filling a dirt pile on a sunny construction site.</desc>
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#6ec6ff"/>
+      <stop offset="65%" stop-color="#b9e9ff"/>
+      <stop offset="100%" stop-color="#eaf8ff"/>
+    </linearGradient>
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff7a8"/>
+      <stop offset="60%" stop-color="#ffd54a"/>
+      <stop offset="100%" stop-color="#ffb300"/>
+    </radialGradient>
+    <linearGradient id="groundGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e3c07a"/>
+      <stop offset="100%" stop-color="#b07a3a"/>
+    </linearGradient>
+    <linearGradient id="dirtPileGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#d2a45b"/>
+      <stop offset="100%" stop-color="#8a5a2b"/>
+    </linearGradient>
+    <linearGradient id="excBodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffe066"/>
+      <stop offset="50%" stop-color="#f4c20d"/>
+      <stop offset="100%" stop-color="#cf9800"/>
+    </linearGradient>
+    <linearGradient id="armGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffd84d"/>
+      <stop offset="100%" stop-color="#d89b00"/>
+    </linearGradient>
+    <linearGradient id="trackGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="100%" stop-color="#222"/>
+    </linearGradient>
+    <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dff6ff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#8fd3f4" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="vestGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff8a00"/>
+      <stop offset="100%" stop-color="#ff6a00"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.18"/>
+    </filter>
+    <pattern id="cautionStripe" patternUnits="userSpaceOnUse" width="20" height="20" patternTransform="rotate(45)">
+      <rect width="10" height="20" fill="#222"/>
+      <rect x="10" width="10" height="20" fill="#ffd400"/>
+    </pattern>
+    <clipPath id="cabWindowClip">
+      <rect x="430" y="345" rx="10" ry="10" width="120" height="70"/>
+    </clipPath>
+  </defs>
+
+  <!-- Sky -->
+  <rect x="0" y="0" width="1200" height="800" fill="url(#skyGrad)"/>
+
+  <!-- Sun -->
+  <g transform="translate(1030,120)">
+    <g>
+      <animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="40s" repeatCount="indefinite"/>
+      <g stroke="#ffd54a" stroke-width="6" stroke-linecap="round" opacity="0.9">
+        <line x1="0" y1="-78" x2="0" y2="-105"/>
+        <line x1="0" y1="78" x2="0" y2="105"/>
+        <line x1="-78" y1="0" x2="-105" y2="0"/>
+        <line x1="78" y1="0" x2="105" y2="0"/>
+        <line x1="55" y1="-55" x2="74" y2="-74"/>
+        <line x1="-55" y1="-55" x2="-74" y2="-74"/>
+        <line x1="55" y1="55" x2="74" y2="74"/>
+        <line x1="-55" y1="55" x2="-74" y2="74"/>
+      </g>
+    </g>
+    <circle r="58" fill="url(#sunGrad)"/>
+  </g>
+
+  <!-- Clouds -->
+  <g fill="#ffffff" opacity="0.92">
+    <g transform="translate(180,150)">
+      <animateTransform attributeName="transform" type="translate" values="180,150; 210,150; 180,150" dur="18s" repeatCount="indefinite"/>
+      <ellipse cx="0" cy="0" rx="55" ry="28"/>
+      <ellipse cx="40" cy="-10" rx="45" ry="24"/>
+      <ellipse cx="45" cy="10" rx="50" ry="26"/>
+      <ellipse cx="-35" cy="8" rx="38" ry="22"/>
+    </g>
+    <g transform="translate(720,110)" opacity="0.88">
+      <animateTransform attributeName="transform" type="translate" values="720,110; 690,110; 720,110" dur="22s" repeatCount="indefinite"/>
+      <ellipse cx="0" cy="0" rx="48" ry="24"/>
+      <ellipse cx="34" cy="-8" rx="38" ry="20"/>
+      <ellipse cx="38" cy="8" rx="42" ry="22"/>
+      <ellipse cx="-30" cy="7" rx="32" ry="18"/>
+    </g>
+  </g>
+
+  <!-- Bird crossing the sky (animated element) -->
+  <g stroke="#355" stroke-width="3" fill="none" stroke-linecap="round">
+    <g>
+      <animateTransform attributeName="transform" type="translate" values="-80,220; 1280,180" dur="26s" repeatCount="indefinite"/>
+      <path d="M0,0 Q8,-8 16,0 Q24,-8 32,0">
+        <animate attributeName="d" values="M0,0 Q8,-8 16,0 Q24,-8 32,0; M0,0 Q8,6 16,0 Q24,6 32,0; M0,0 Q8,-8 16,0 Q24,-8 32,0" dur="0.8s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </g>
+
+  <!-- Distant hills -->
+  <path d="M0,520 C180,450 320,470 470,520 C620,570 760,500 930,520 C1040,535 1120,520 1200,545 L1200,800 L0,800 Z" fill="#d9bf78" opacity="0.55"/>
+  <path d="M0,560 C220,500 360,560 520,560 C700,560 820,520 980,555 C1080,570 1140,560 1200,585 L1200,800 L0,800 Z" fill="#cfb06a" opacity="0.5"/>
+
+  <!-- Ground -->
+  <rect x="0" y="560" width="1200" height="240" fill="url(#groundGrad)"/>
+  <ellipse cx="930" cy="690" rx="170" ry="45" fill="#000" opacity="0.08"/>
+
+  <!-- Dirt pile -->
+  <g filter="url(#softShadow)">
+    <path d="M760,640 C820,560 900,520 980,560 C1045,595 1090,620 1120,645 C1080,650 1020,655 960,660 C880,665 820,655 760,640 Z" fill="url(#dirtPileGrad)"/>
+    <path d="M805,628 C860,575 915,545 975,575 C1025,600 1060,620 1080,638 C1030,642 980,646 930,648 C885,650 845,643 805,628 Z" fill="#e0b56e" opacity="0.35"/>
+    <circle cx="860" cy="625" r="5" fill="#7a4e23" opacity="0.5"/>
+    <circle cx="940" cy="610" r="4" fill="#7a4e23" opacity="0.45"/>
+    <circle cx="1010" cy="625" r="6" fill="#7a4e23" opacity="0.4"/>
+  </g>
+
+  <!-- Construction details: cones, rocks, caution barrier -->
+  <g id="construction-details">
+    <!-- Rocks -->
+    <ellipse cx="250" cy="700" rx="26" ry="14" fill="#8d8d8d"/>
+    <ellipse cx="285" cy="705" rx="18" ry="10" fill="#757575"/>
+    <ellipse cx="220" cy="708" rx="16" ry="9" fill="#6e6e6e"/>
+    <!-- Caution barrier -->
+    <g transform="translate(90,560)">
+      <rect x="0" y="40" width="170" height="24" fill="url(#cautionStripe)" stroke="#333" stroke-width="2"/>
+      <rect x="12" y="64" width="10" height="80" fill="#444"/>
+      <rect x="148" y="64" width="10" height="80" fill="#444"/>
+    </g>
+    <!-- Traffic cone 1 -->
+    <g transform="translate(640,640)">
+      <rect x="-28" y="58" width="56" height="10" rx="3" fill="#333"/>
+      <polygon points="0,0 -22,58 22,58" fill="#ff7a00" stroke="#d45500" stroke-width="2"/>
+      <rect x="-12" y="22" width="24" height="8" fill="#fff6cc" opacity="0.95"/>
+      <rect x="-16" y="38" width="32" height="8" fill="#fff6cc" opacity="0.95"/>
+    </g>
+    <!-- Traffic cone 2 -->
+    <g transform="translate(700,655) scale(0.85)">
+      <rect x="-28" y="58" width="56" height="10" rx="3" fill="#333"/>
+      <polygon points="0,0 -22,58 22,58" fill="#ff7a00" stroke="#d45500" stroke-width="2"/>
+      <rect x="-12" y="22" width="24" height="8" fill="#fff6cc" opacity="0.95"/>
+      <rect x="-16" y="38" width="32" height="8" fill="#fff6cc" opacity="0.95"/>
+    </g>
+  </g>
+
+  <!-- Exhaust puffs (animated element) -->
+  <g fill="#d9d9d9">
+    <g>
+      <circle cx="330" cy="300" r="8" opacity="0">
+        <animate attributeName="cy" values="300;250;210" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="cx" values="330;318;305" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="6;11;16" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.55;0" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="330" cy="300" r="8" opacity="0">
+        <animate attributeName="cy" values="300;250;210" dur="3s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="cx" values="330;318;305" dur="3s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="6;11;16" dur="3s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.5;0" dur="3s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="330" cy="300" r="8" opacity="0">
+        <animate attributeName="cy" values="300;250;210" dur="3s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="cx" values="330;318;305" dur="3s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="r" values="6;11;16" dur="3s" begin="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.45;0" dur="3s" begin="2s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+  </g>
+
+  <!-- Excavator -->
+  <g id="excavator" transform="translate(250,360)" filter="url(#softShadow)">
+    <!-- Tracks base -->
+    <g id="tracks" transform="translate(0,210)">
+      <rect x="0" y="0" rx="38" ry="38" width="360" height="76" fill="url(#trackGrad)" stroke="#111" stroke-width="4"/>
+      <!-- Track tread marks (animated element: rolling) -->
+      <g clip-path="url(#trackClip)">
+        <defs>
+          <clipPath id="trackClip">
+            <rect x="10" y="8" rx="30" ry="30" width="340" height="60"/>
+          </clipPath>
+        </defs>
+        <g stroke="#6b6b6b" stroke-width="6" opacity="0.7">
+          <g>
+            <animateTransform attributeName="transform" type="translate" values="0,0; -40,0" dur="1.2s" repeatCount="indefinite"/>
+            <line x1="0" y1="10" x2="0" y2="66"/>
+            <line x1="40" y1="10" x2="40" y2="66"/>
+            <line x1="80" y1="10" x2="80" y2="66"/>
+            <line x1="120" y1="10" x2="120" y2="66"/>
+            <line x1="160" y1="10" x2="160" y2="66"/>
+            <line x1="200" y1="10" x2="200" y2="66"/>
+            <line x1="240" y1="10" x2="240" y2="66"/>
+            <line x1="280" y1="10" x2="280" y2="66"/>
+            <line x1="320" y1="10" x2="320" y2="66"/>
+            <line x1="360" y1="10" x2="360" y2="66"/>
+            <line x1="400" y1="10" x2="400" y2="66"/>
+          </g>
+        </g>
+      </g>
+      <!-- Rollers / wheels -->
+      <g fill="#8a8a8a" stroke="#444" stroke-width="4">
+        <g transform="translate(55,38)">
+          <animateTransform attributeName="transform" type="rotate" values="0 55 38; 360 55 38" dur="1.2s" repeatCount="indefinite"/>
+          <circle cx="55" cy="38" r="22"/>
+          <circle cx="55" cy="38" r="6" fill="#555"/>
+          <line x1="55" y1="16" x2="55" y2="60" stroke="#555" stroke-width="3"/>
+          <line x1="33" y1="38" x2="77" y2="38" stroke="#555" stroke-width="3"/>
+        </g>
+        <g>
+          <circle cx="130" cy="38" r="18"/>
+          <circle cx="130" cy="38" r="5" fill="#555"/>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="0 130 38; 360 130 38" dur="1.2s" repeatCount="indefinite"/>
+            <line x1="130" y1="20" x2="130" y2="56" stroke="#555" stroke-width="3"/>
+            <line x1="112" y1="38" x2="148" y2="38" stroke="#555" stroke-width="3"/>
+          </g>
+        </g>
+        <g>
+          <circle cx="190" cy="38" r="18"/>
+          <circle cx="190" cy="38" r="5" fill="#555"/>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="0 190 38; 360 190 38" dur="1.2s" repeatCount="indefinite"/>
+            <line x1="190" y1="20" x2="190" y2="56" stroke="#555" stroke-width="3"/>
+            <line x1="172" y1="38" x2="208" y2="38" stroke="#555" stroke-width="3"/>
+          </g>
+        </g>
+        <g>
+          <circle cx="250" cy="38" r="18"/>
+          <circle cx="250" cy="38" r="5" fill="#555"/>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="0 250 38; 360 250 38" dur="1.2s" repeatCount="indefinite"/>
+            <line x1="250" y1="20" x2="250" y2="56" stroke="#555" stroke-width="3"/>
+            <line x1="232" y1="38" x2="268" y2="38" stroke="#555" stroke-width="3"/>
+          </g>
+        </g>
+        <g>
+          <circle cx="305" cy="38" r="22"/>
+          <circle cx="305" cy="38" r="6" fill="#555"/>
+          <g>
+            <animateTransform attributeName="transform" type="rotate" values="0 305 38; 360 305 38" dur="1.2s" repeatCount="indefinite"/>
+            <line x1="305" y1="16" x2="305" y2="60" stroke="#555" stroke-width="3"/>
+            <line x1="283" y1="38" x2="327" y2="38" stroke="#555" stroke-width="3"/>
+          </g>
+        </g>
+      </g>
+      <rect x="20" y="30" width="320" height="16" rx="8" fill="#3d3d3d" opacity="0.5"/>
+    </g>
+
+    <!-- Rotating upper body platform -->
+    <g id="upper-body">
+      <animateTransform attributeName="transform" type="rotate" values="-1 190 180; 1.5 190 180; -1 190 180" dur="6s" repeatCount="indefinite"/>
+      <!-- Swing platform -->
+      <ellipse cx="190" cy="205" rx="150" ry="28" fill="#c98900" stroke="#8a5d00" stroke-width="3"/>
+      <rect x="70" y="120" rx="18" ry="18" width="230" height="95" fill="url(#excBodyGrad)" stroke="#9c6b00" stroke-width="3"/>
+      <rect x="90" y="145" rx="10" ry="10" width="85" height="35" fill="#d79a00" opacity="0.5"/>
+      <!-- Exhaust pipe -->
+      <rect x="70" y="75" width="18" height="55" rx="5" fill="#666" stroke="#444" stroke-width="2"/>
+      <rect x="64" y="65" width="30" height="14" rx="4" fill="#777" stroke="#444" stroke-width="2"/>
+
+      <!-- Cab -->
+      <g id="cab">
+        <rect x="160" y="40" rx="14" ry="14" width="150" height="125" fill="url(#excBodyGrad)" stroke="#9c6b00" stroke-width="3"/>
+        <rect x="180" y="55" rx="10" ry="10" width="120" height="70" fill="url(#glassGrad)" stroke="#6faec7" stroke-width="3"/>
+        <line x1="240" y1="55" x2="240" y2="125" stroke="#6faec7" stroke-width="2" opacity="0.8"/>
+        <rect x="170" y="130" width="130" height="25" rx="6" fill="#d79a00" stroke="#9c6b00" stroke-width="2"/>
+        <!-- Seat hint -->
+        <rect x="205" y="108" width="40" height="20" rx="5" fill="#3b4a59" opacity="0.5"/>
+
+        <!-- Steering wheel (animated element) -->
+        <g id="steering-wheel" transform="translate(225,132)">
+          <animateTransform attributeName="transform" type="rotate" values="-18 225 132; 18 225 132; -18 225 132" dur="3.6s" repeatCount="indefinite"/>
+          <circle cx="225" cy="132" r="16" fill="none" stroke="#333" stroke-width="5"/>
+          <circle cx="225" cy="132" r="4" fill="#333"/>
+          <line x1="225" y1="116" x2="225" y2="148" stroke="#333" stroke-width="3"/>
+          <line x1="209" y1="132" x2="241" y2="132" stroke="#333" stroke-width="3"/>
+        </g>
+
+        <!-- Sloth inside cab -->
+        <g id="sloth" clip-path="url(#cabWindowClip)">
+          <!-- body / vest -->
+          <ellipse cx="255" cy="118" rx="28" ry="24" fill="#b8895b"/>
+          <path d="M232,104 C244,94 268,94 278,106 L282,132 C272,140 248,142 232,132 Z" fill="url(#vestGrad)" stroke="#d45500" stroke-width="2"/>
+          <rect x="242" y="110" width="8" height="20" rx="3" fill="#ffd37a" opacity="0.9"/>
+          <rect x="262" y="110" width="8" height="20" rx="3" fill="#ffd37a" opacity="0.9"/>
+          <rect x="236" y="121" width="40" height="5" fill="#d9d9d9" opacity="0.9"/>
+          <rect x="236" y="104" width="40" height="4" fill="#d9d9d9" opacity="0.9"/>
+          <!-- arm stretched toward steering wheel with claws -->
+          <path d="M238,118 C225,122 215,128 208,134" fill="none" stroke="#b8895b" stroke-width="10" stroke-linecap="round"/>
+          <g stroke="#8f6743" stroke-width="2" stroke-linecap="round">
+            <line x1="205" y1="132" x2="200" y2="136"/>
+            <line x1="208" y1="134" x2="203" y2="139"/>
+            <line x1="211" y1="136" x2="206" y2="141"/>
+          </g>
+          <!-- head -->
+          <g id="sloth-head" transform="translate(255,86)">
+            <ellipse cx="0" cy="0" rx="22" ry="19" fill="#c99867"/>
+            <!-- face mask -->
+            <ellipse cx="0" cy="3" rx="17" ry="13" fill="#f3d8b3"/>
+            <!-- dark eye patches -->
+            <ellipse cx="-8" cy="-1" rx="7" ry="5" fill="#6b4b37"/>
+            <ellipse cx="8" cy="-1" rx="7" ry="5" fill="#6b4b37"/>
+            <!-- content half-closed eyes (blinking animated element) -->
+            <g stroke="#2f241c" stroke-width="2.2" stroke-linecap="round" fill="none">
+              <path d="M-12,-1 Q-8,2 -4,-1">
+                <animate attributeName="d" values="M-12,-1 Q-8,2 -4,-1; M-12,-1 Q-8,2 -4,-1; M-12,-1 Q-8,-1 -4,-1; M-12,-1 Q-8,2 -4,-1" keyTimes="0;0.92;0.96;1" dur="4.5s" repeatCount="indefinite"/>
+              </path>
+              <path d="M4,-1 Q8,2 12,-1">
+                <animate attributeName="d" values="M4,-1 Q8,2 12,-1; M4,-1 Q8,2 12,-1; M4,-1 Q8,-1 12,-1; M4,-1 Q8,2 12,-1" keyTimes="0;0.92;0.96;1" dur="4.5s" repeatCount="indefinite"/>
+              </path>
+            </g>
+            <!-- small nose -->
+            <ellipse cx="0" cy="3" rx="2.4" ry="1.8" fill="#5a3e2b"/>
+            <!-- sleepy smile -->
+            <path d="M-6,8 Q0,12 6,8" stroke="#5a3e2b" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <!-- hard hat -->
+            <g id="hard-hat">
+              <ellipse cx="0" cy="-16" rx="24" ry="6" fill="#f6c400" stroke="#b38600" stroke-width="2"/>
+              <path d="M-18,-16 C-16,-32 -6,-38 0,-38 C6,-38 16,-32 18,-16 Z" fill="#ffd84d" stroke="#b38600" stroke-width="2"/>
+              <rect x="-4" y="-38" width="8" height="10" rx="2" fill="#f2b800" stroke="#b38600" stroke-width="1.5"/>
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <!-- Arm assembly: boom + stick + bucket (animated digging cycle) -->
+      <g id="arm-assembly" transform="translate(300,120)">
+        <!-- Boom -->
+        <g id="boom">
+          <animateTransform attributeName="transform" type="rotate" values="-12 0 0; -2 0 0; -12 0 0" dur="5s" repeatCount="indefinite"/>
+          <rect x="-10" y="-18" width="170" height="36" rx="16" fill="url(#armGrad)" stroke="#9c6b00" stroke-width="3"/>
+          <circle cx="0" cy="0" r="12" fill="#b97f00" stroke="#7b5400" stroke-width="3"/>
+          <circle cx="150" cy="0" r="10" fill="#b97f00" stroke="#7b5400" stroke-width="3"/>
+          <!-- hydraulic -->
+          <rect x="35" y="12" width="80" height="10" rx="5" fill="#888" opacity="0.7"/>
+          <!-- Stick -->
+          <g id="stick" transform="translate(150,0)">
+            <animateTransform attributeName="transform" type="rotate" values="-55 0 0; 5 0 0; -55 0 0" dur="5s" repeatCount="indefinite"/>
+            <rect x="-8" y="-14" width="150" height="28" rx="14" fill="url(#armGrad)" stroke="#9c6b00" stroke-width="3"/>
+            <circle cx="0" cy="0" r="9" fill="#b97f00" stroke="#7b5400" stroke-width="3"/>
+            <circle cx="140" cy="0" r="8" fill="#b97f00" stroke="#7b5400" stroke-width="3"/>
+            <rect x="25" y="10" width="70" height="8" rx="4" fill="#888" opacity="0.7"/>
+            <!-- Bucket -->
+            <g id="bucket" transform="translate(140,0)">
+              <animateTransform attributeName="transform" type="rotate" values="-20 0 0; 55 0 0; 30 0 0; -20 0 0" dur="5s" repeatCount="indefinite"/>
+              <path d="M0,-10 L55,-20 C75,-5 78,20 58,38 L18,42 C4,30 -4,10 0,-10 Z" fill="#cfcfcf" stroke="#666" stroke-width="3"/>
+              <path d="M8,-2 L50,-10 C64,0 64,16 50,28 L18,30 C8,22 4,10 8,-2 Z" fill="#aeb4b8" opacity="0.7"/>
+              <!-- Teeth -->
+              <g fill="#e6e6e6" stroke="#666" stroke-width="2">
+                <polygon points="52,-18 66,-12 54,-6"/>
+                <polygon points="62,-4 77,2 63,8"/>
+                <polygon points="60,12 74,20 58,24"/>
+                <polygon points="46,26 58,36 43,36"/>
+                <polygon points="30,32 40,44 25,40"/>
+              </g>
+              <circle cx="0" cy="0" r="7" fill="#888" stroke="#666" stroke-width="2"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+
+    <!-- Counterweight -->
+    <rect x="20" y="95" width="70" height="55" rx="10" fill="#e0aa00" stroke="#9c6b00" stroke-width="3"/>
+    <rect x="30" y="105" width="50" height="10" rx="4" fill="#f5d56b" opacity="0.6"/>
+  </g>
+
+  <!-- Floating Zzz (animated element: drifting to sleep) -->
+  <g fill="#4a5d73" font-family="Arial, Helvetica, sans-serif" font-weight="bold">
+    <g transform="translate(520,380)">
+      <text x="0" y="0" font-size="22" opacity="0">Z
+        <animate attributeName="y" values="0;-30;-60" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="x" values="0;8;2" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.9;0" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="font-size" values="18;24;28" dur="4s" repeatCount="indefinite"/>
+      </text>
+      <text x="18" y="10" font-size="18" opacity="0">z
+        <animate attributeName="y" values="10;-18;-48" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="x" values="18;28;20" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.8;0" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+        <animate attributeName="font-size" values="14;20;24" dur="4s" begin="1.3s" repeatCount="indefinite"/>
+      </text>
+      <text x="34" y="18" font-size="14" opacity="0">z
+        <animate attributeName="y" values="18;-8;-36" dur="4s" begin="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="x" values="34;42;36" dur="4s" begin="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.7;0" dur="4s" begin="2.4s" repeatCount="indefinite"/>
+        <animate attributeName="font-size" values="12;16;20" dur="4s" begin="2.4s" repeatCount="indefinite"/>
+      </text>
+    </g>
+  </g>
+
+  <!-- Foreground ground accents -->
+  <g stroke="#8a5a2b" stroke-width="3" stroke-linecap="round" opacity="0.35">
+    <path d="M120,730 q20,-12 40,0"/>
+    <path d="M360,745 q18,-10 36,0"/>
+    <path d="M1040,740 q22,-12 44,0"/>
+  </g>
+</svg>
