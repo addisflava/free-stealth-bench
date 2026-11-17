@@ -30,30 +30,31 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-# Summarize which new models this publish adds, using the newest discovery
-# snapshot that has a matching judged result.
-snapshot="$(ls -1 logs/models-snapshot-*.txt 2>/dev/null | sort | tail -1 || true)"
+# Summarize which new models this publish adds. "New" = present in the newest
+# discovery snapshot but absent from the previous one, and actually ranked by
+# the judge (names come from the judge report, not the hash-keyed judgments).
+snapshots=( $(ls -1 logs/models-snapshot-*.txt 2>/dev/null | sort) )
 new_models=""
-if [ -n "$snapshot" ]; then
-  new_models="$(python3 - "$snapshot" <<'PY'
-import json, sys
-snapshot = sys.argv[1]
-wanted = []
-for line in open(snapshot, encoding='utf-8'):
-    name = line.strip()
-    if not name or name.startswith('#'):
-        continue
-    bare = name.split('/')[-1]
-    wanted.append(bare)
+if [ "${#snapshots[@]}" -ge 1 ]; then
+  new_models="$(python3 - "${snapshots[@]}" <<'PY'
+import re, sys
+snaps = sys.argv[1:]
+def models(path):
+    out = set()
+    for line in open(path, encoding='utf-8'):
+        name = line.strip()
+        if name and not name.startswith('#'):
+            out.add(name.split('/')[-1])
+    return out
+current = models(snaps[-1])
+previous = models(snaps[-2]) if len(snaps) >= 2 else set()
+new = current - previous
 try:
-    data = json.load(open('judgments.json', encoding='utf-8'))
-except Exception:
-    data = {}
-judged = set()
-for key in (data.get('judgments') or {}):
-    for tok in str(key).replace('__', '_').split('_'):
-        judged.add(tok)
-found = sorted({w for w in wanted if w in judged})
+    report = open('results/judge-report.md', encoding='utf-8').read()
+except FileNotFoundError:
+    report = ''
+ranked = set(re.findall(r'\b[\w.\-]+-free\b', report))
+found = sorted(m for m in new if m in ranked)
 print(', '.join(found))
 PY
 )"
