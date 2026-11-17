@@ -21,6 +21,8 @@ import re
 import sys
 from datetime import datetime, timezone, timedelta
 
+from bench_config import infer_harness, provider_harness_map
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(ROOT, 'results')
 SITE = os.path.join(ROOT, 'site')
@@ -219,8 +221,13 @@ def main():
         model = r.get('model') or ''
         provider = str(r.get('provider') or (model.partition('/')[0] if '/' in model else 'unknown'))
         model_id = str(r.get('model_id') or (model.partition('/')[2] if '/' in model else model))
-        harness = str(r.get('harness') or provider)
-        target = str(r.get('target') or (f'{harness}@{model}' if harness != provider else model))
+        # Legacy sidecars carry no harness field. Infer the agent from the
+        # provider's default harness in providers.yaml — not from the provider
+        # id, otherwise "openrouter" would appear as a harness.
+        default_harness = provider_harness_map().get(provider, provider)
+        harness = infer_harness(provider, r.get('harness'))
+        target = str(r.get('target') or
+                     (f'{harness}@{model}' if harness != default_harness else model))
         run_id = f"{task}__{base[:-5]}"  # task-prefixed: unique across tasks
         runs.append({
             'id': run_id,

@@ -270,7 +270,7 @@ The companion `.json` sidecar carries everything permanently important:
 
 `results/summary-<date>.json` aggregates all sidecars into one matrix.
 
-Old sidecars without `provider` / `harness` / `target` still load: the leaderboard infers `provider` from the model prefix, defaults `harness` to the provider, and uses `provider/model` as the target. This keeps historical OpenCode artifacts compatible.
+Old sidecars without `provider` / `harness` / `target` still load: the leaderboard infers `provider` from the model prefix and the `harness` from that provider's default harness in `providers.yaml` (for example `openrouter` → `openai`), using `provider/model` as the target when the harness is that default. This keeps historical artifacts compatible without ever mislabelling a provider as an agent.
 
 ## Judging (automated, blind, free)
 
@@ -332,7 +332,7 @@ Features:
 
 - **Tabs:** **current models** (free and listed in the latest discovery snapshot), **all models** (every target ever tested), and **new** (only targets with a NEW badge; the tab is hidden when there are none). The **Ranking** tab shows the automated judge table.
 - **A model × task matrix**, one row per `(harness, model)` and one artwork column per task. Hover the artwork (not the whole cell) to load it in the live preview stage; click to pin it.
-- **Provider and harness tags** in each name cell. The harness tag appears when it differs from the provider, so `codex@openai/...` is visibly distinct from `openai/...`.
+- **Provider and harness tags** in each name cell. Both are always shown: the provider is the endpoint that served the model, the harness is the agent that ran it (e.g. `opencode`, `openai`, `codex`). A `codex@openai/...` row is therefore visibly distinct from `openai/...`.
 - **Provider and harness filters**, plus task, status, search and "unrated only".
 - **Signed reviews:** private ratings are **−5 … +5** (0 = neutral), shown as stars or crosses. Public reviews use the same signed scale.
 - **Two scores:** the calibrated judge score and the **total** score after reviews. The primary `#N · total` badge shows the post-review position; the muted `judge #N` badge shows the judge-only position.

@@ -27,6 +27,8 @@ import sys
 import tempfile
 from datetime import datetime, timezone
 
+from bench_config import infer_harness, provider_harness_map
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(ROOT, 'results')
 LOGS = os.path.join(ROOT, 'logs')
@@ -179,14 +181,19 @@ def iter_sidecars():
         task = sidecar.get('task') or os.path.basename(os.path.dirname(p))
         model = sidecar.get('model') or ''
         provider = sidecar.get('provider') or (model.split('/', 1)[0] if '/' in model else '')
-        harness = sidecar.get('harness') or provider
+        # Legacy sidecars have no harness: use the provider's default harness
+        # from providers.yaml rather than the provider id (e.g. openrouter ->
+        # openai), so provider names never leak into the harness list.
+        default_harness = provider_harness_map().get(provider, provider)
+        harness = infer_harness(provider, sidecar.get('harness'))
         yield {
             'run_id': f"{task}__{base[:-5]}",
             'task': task,
             'model': model,
             'provider': provider,
             'harness': harness,
-            'target': sidecar.get('target') or (f'{harness}@{model}' if harness != provider else model),
+            'target': sidecar.get('target') or
+                      (f'{harness}@{model}' if harness != default_harness else model),
             'date_utc': sidecar.get('date_utc'),
             'result_status': sidecar.get('result_status'),
             'validation': sidecar.get('validation') or {},
@@ -681,7 +688,7 @@ def recompute_ranking(store):
         if not entry.get('judged'):
             continue
         model = entry['model']
-        harness = entry.get('harness') or (model.split('/', 1)[0] if '/' in model else '')
+        harness = infer_harness(entry.get('provider'), entry.get('harness'))
         key = (harness, model, entry['task'])
         prev = latest.get(key)
         if prev is None or str(entry.get('date_utc') or '') >= str(runs[prev].get('date_utc') or ''):
@@ -691,7 +698,7 @@ def recompute_ranking(store):
     for run_id in latest.values():
         e = runs[run_id]
         model = e['model']
-        harness = e.get('harness') or (model.split('/', 1)[0] if '/' in model else '')
+        harness = infer_harness(e.get('provider'), e.get('harness'))
         by_model.setdefault((harness, model), []).append((e['task'], e))
 
     ranking = []
@@ -713,7 +720,7 @@ def recompute_ranking(store):
             'model': model,
             'provider': provider,
             'harness': harness,
-            'target': (f'{harness}@{model}' if harness and harness != provider else model),
+            'target': next((e.get('target') for _, e in pairs if e.get('target')), model),
             'mean_composite': round(sum(composites) / len(composites), 3),
             'n_runs': len(pairs),
             'dnf': sum(1 for _, e in pairs if e.get('dnf')),

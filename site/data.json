@@ -1,6 +1,6 @@
 {
  "benchmark": "free-stealth-bench",
- "generated_utc": "2026-11-17T11:32:37+00:00",
+ "generated_utc": "2026-11-17T11:44:09+00:00",
  "tasks": {
   "sloth-excavator": {
    "blurb": "Cartoon sloth in hard hat and hi-vis vest calmly operating a yellow tracked excavator, digging/filling a dirt pile, several animated elements."
@@ -970,7 +970,7 @@
    "model": "openrouter/stealth/crouton-alpha",
    "provider": "openrouter",
    "model_id": "stealth/crouton-alpha",
-   "harness": "openrouter",
+   "harness": "openai",
    "target": "openrouter/stealth/crouton-alpha",
    "variant": "high",
    "effort": "high",
@@ -1930,7 +1930,7 @@
    "model": "openrouter/stealth/crouton-alpha",
    "provider": "openrouter",
    "model_id": "stealth/crouton-alpha",
-   "harness": "openrouter",
+   "harness": "openai",
    "target": "openrouter/stealth/crouton-alpha",
    "variant": "high",
    "effort": "high",
@@ -1983,7 +1983,7 @@
  "seed_ratings": null,
  "judge": {
   "rubric_version": "v1",
-  "judge_model": "opencode/inkling-2-small-free",
+  "judge_model": "opencode/nemotron-3.5-super-vl-free",
   "weights": {
    "output_quality": 0.22,
    "instruction_following": 0.2,
@@ -2002,7 +2002,7 @@
    "composition_aesthetics",
    "technical_validity"
   ],
-  "updated_utc": "2026-11-16T20:26:55+00:00",
+  "updated_utc": "2026-11-17T11:43:50+00:00",
   "meta": {
    "probe": {
     "candidate": "opencode/inkling-2-small-free",
@@ -3747,7 +3747,7 @@
     "rank": 5,
     "model": "openrouter/stealth/crouton-alpha",
     "provider": "openrouter",
-    "harness": "openrouter",
+    "harness": "openai",
     "target": "openrouter/stealth/crouton-alpha",
     "mean_composite": 89.0,
     "n_runs": 2,

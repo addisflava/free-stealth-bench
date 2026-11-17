@@ -532,7 +532,7 @@ function nameCell(m, tasks) {
     <div class="model-id" title="${esc(m.model)}">${esc(m.model)}</div>
     <div class="model-sub">
       <span class="tag" title="Provider endpoint that served the model"><span class="tag-key">provider</span>${esc(m.provider)}</span>
-      ${m.harness && m.harness !== m.provider ? `<span class="tag" title="Agent harness that ran the task"><span class="tag-key">harness</span>${esc(m.harness)}</span>` : ''}
+      <span class="tag" title="Agent harness (how the model was invoked)"><span class="tag-key">harness</span>${esc(m.harness || m.provider)}</span>
       <span class="tag" title="Runs that produced a valid SVG"><span class="tag-key">valid</span>${m.ok}/${m.total}</span>
       ${avail ? '' : '<span class="badge historic" title="Not in the current free-model discovery snapshot — paid, delisted or region-blocked">not available</span>'}
     </div>
@@ -804,10 +804,9 @@ function showPreview(r) {
   $('#preview-name').title = r.model;
   const agent = $('#preview-agent');
   if (agent) {
-    const route = r.harness && r.harness !== r.provider
-      ? `${r.provider} · ${r.harness}` : (r.provider || '');
+    const route = [r.provider, r.harness || r.provider].filter(Boolean).join(' · ');
     agent.textContent = route;
-    agent.title = r.harness ? `provider ${r.provider} · harness ${r.harness}` : `provider ${r.provider}`;
+    agent.title = `provider ${r.provider || '—'} · harness ${r.harness || r.provider || '—'}`;
     agent.hidden = !route;
   }
 

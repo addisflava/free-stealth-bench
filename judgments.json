@@ -19,8 +19,8 @@
   "composition_aesthetics",
   "technical_validity"
  ],
- "judge_model": "opencode/inkling-2-small-free",
- "updated_utc": "2026-11-16T20:26:55+00:00",
+ "judge_model": "opencode/nemotron-3.5-super-vl-free",
+ "updated_utc": "2026-11-17T11:43:50+00:00",
  "meta": {
   "probe": {
    "candidate": "opencode/inkling-2-small-free",
@@ -1738,7 +1738,7 @@
    "render_ok": true,
    "parse_note": "",
    "provider": "openrouter",
-   "harness": "openrouter",
+   "harness": "openai",
    "target": "openrouter/stealth/crouton-alpha"
   },
   "sloth-excavator__opencode_beam-free__high__2026-11-05": {
@@ -2361,7 +2361,7 @@
    "render_ok": true,
    "parse_note": "",
    "provider": "openrouter",
-   "harness": "openrouter",
+   "harness": "openai",
    "target": "openrouter/stealth/crouton-alpha"
   },
   "horse-racing__opencode_iceman-free__default__2026-11-15": {
@@ -3302,7 +3302,7 @@
    "rank": 5,
    "model": "openrouter/stealth/crouton-alpha",
    "provider": "openrouter",
-   "harness": "openrouter",
+   "harness": "openai",
    "target": "openrouter/stealth/crouton-alpha",
    "mean_composite": 89.0,
    "n_runs": 2,

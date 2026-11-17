@@ -1,6 +1,6 @@
 # free-stealth-bench automated judge ranking
 
-Rubric `v1` · judge `opencode/inkling-2-small-free` · input mode `image` · updated 2026-11-16T20:26:55+00:00
+Rubric `v1` · judge `opencode/nemotron-3.5-super-vl-free` · input mode `image` · updated 2026-11-17T11:43:50+00:00
 
 Weights: output_quality=0.22, instruction_following=0.2, creativity=0.1, animation_fidelity=0.12, richness_detail=0.1, composition_aesthetics=0.11, technical_validity=0.15
 
@@ -11,7 +11,7 @@ Weights: output_quality=0.22, instruction_following=0.2, creativity=0.1, animati
   2  glm-5.3-flash-free                      92.50   4.0   5.0   4.0   5.0   5.0   4.5   5.0    0
   3  big-pickle                              91.40   4.0   5.0   4.0   5.0   5.0   4.0   5.0    0
   4  inkling-2-small-free                    90.20   4.0   5.0   4.0   4.5   5.0   4.0   5.0    0
-  5  crouton-alpha                           89.00   4.0   5.0   4.0   4.0   5.0   4.0   5.0    0
+  5  crouton-alpha@openai                    89.00   4.0   5.0   4.0   4.0   5.0   4.0   5.0    0
   6  nemotron-3.5-super-vl-free              86.20   4.0   4.5   4.0   4.5   4.0   4.0   5.0    0
   7  hy4-flash-free                          86.00   4.0   4.5   4.0   4.0   4.5   4.0   5.0    0
   8  beam-free                               85.30   4.0   4.0   3.5   4.5   4.5   4.5   5.0    0
