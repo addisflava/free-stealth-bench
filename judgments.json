@@ -19,8 +19,8 @@
   "composition_aesthetics",
   "technical_validity"
  ],
- "judge_model": "opencode/nemotron-3.5-super-vl-free",
- "updated_utc": "2026-11-17T11:43:50+00:00",
+ "judge_model": "opencode/inkling-2-small-free",
+ "updated_utc": "2026-11-22T19:26:52+00:00",
  "meta": {
   "probe": {
    "candidate": "opencode/inkling-2-small-free",
@@ -30,8 +30,8 @@
   },
   "blind_note": "The judge sees only an anonymous \"Submission A\": task prompt, SVG source, objective source facts, and rendered frames. No model name, run id, date, path or sidecar identity is provided.",
   "judge_is_contestant_note": "The free judge model is also a contestant in this benchmark. Blind presentation mitigates but does not eliminate self-preference bias; the judge model is recorded per run and can be changed with --judge-model.",
-  "n_judged": 48,
-  "n_dnf": 19
+  "n_judged": 54,
+  "n_dnf": 25
  },
  "judgments": {
   "ca1cfa663cab89c7c2873d154a0239e72f80cf36bfde9bf893224bb820dceb71|v1|opencode/nemotron-3.5-super-vl-free|image": {
@@ -3107,6 +3107,222 @@
    },
    "frames": 3,
    "render_ok": true
+  },
+  "horse-racing__opencode_longcat-2.5-free__default__2026-11-20": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/longcat-2.5-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/longcat-2.5-free",
+   "date_utc": "2026-11-20T09:41:38Z",
+   "result_status": "no_output",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "horse-racing__opencode_tidepool-alpha-free__high__2026-11-20": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "date_utc": "2026-11-20T09:56:39Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_mimo-v2.6-flash-free__default__2026-11-20": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/mimo-v2.6-flash-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/mimo-v2.6-flash-free",
+   "date_utc": "2026-11-20T10:45:19Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_tidepool-alpha-free__high__2026-11-20": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "date_utc": "2026-11-20T09:27:18Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "horse-racing__opencode_tidepool-alpha-free__high__2026-11-22": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "horse-racing",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "date_utc": "2026-11-22T19:26:52Z",
+   "result_status": "no_output",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
+  },
+  "sloth-excavator__opencode_tidepool-alpha-free__high__2026-11-22": {
+   "judged": true,
+   "composite": 0.0,
+   "task": "sloth-excavator",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "date_utc": "2026-11-22T19:18:17Z",
+   "result_status": "timeout",
+   "dnf": true,
+   "svg_sha256": null,
+   "scores": {
+    "output_quality": 0,
+    "instruction_following": 0,
+    "creativity": 0,
+    "animation_fidelity": 0,
+    "richness_detail": 0,
+    "composition_aesthetics": 0,
+    "technical_validity": 0
+   },
+   "reasons": {
+    "output_quality": "",
+    "instruction_following": "",
+    "creativity": "",
+    "animation_fidelity": "",
+    "richness_detail": "",
+    "composition_aesthetics": ""
+   },
+   "technical_validity": 0,
+   "technical_checks": {},
+   "input_mode": "none",
+   "judge_model": null,
+   "parse_ok": true,
+   "cache_key": null
   }
  },
  "ranking": [
@@ -3821,6 +4037,53 @@
    "provider": "opencode",
    "harness": "opencode",
    "target": "opencode/crouton-alpha-free",
+   "mean_composite": 0.0,
+   "n_runs": 2,
+   "dnf": 2,
+   "dimensions": {
+    "output_quality": 0.0,
+    "instruction_following": 0.0,
+    "creativity": 0.0,
+    "animation_fidelity": 0.0,
+    "richness_detail": 0.0,
+    "composition_aesthetics": 0.0,
+    "technical_validity": 0.0
+   },
+   "per_task": {
+    "horse-racing": {
+     "composite": 0.0,
+     "scores": {
+      "output_quality": 0,
+      "instruction_following": 0,
+      "creativity": 0,
+      "animation_fidelity": 0,
+      "richness_detail": 0,
+      "composition_aesthetics": 0,
+      "technical_validity": 0
+     },
+     "dnf": true
+    },
+    "sloth-excavator": {
+     "composite": 0.0,
+     "scores": {
+      "output_quality": 0,
+      "instruction_following": 0,
+      "creativity": 0,
+      "animation_fidelity": 0,
+      "richness_detail": 0,
+      "composition_aesthetics": 0,
+      "technical_validity": 0
+     },
+     "dnf": true
+    }
+   }
+  },
+  {
+   "rank": 17,
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
    "mean_composite": 0.0,
    "n_runs": 2,
    "dnf": 2,

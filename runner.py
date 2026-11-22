@@ -36,6 +36,13 @@ HARNESSES_FILE = os.environ.get('HARNESSES_FILE') or os.environ.get('BENCH_HARNE
     or os.path.join(ROOT, 'harnesses.yaml')
 EXTRACT = os.path.join(ROOT, 'extract_svg.py')
 
+# Transient provider failures get a bounded number of retries inside one run.
+# A stalled agent (no text/tool call/completion) is killed by the no-progress
+# watchdog instead of consuming the whole wall-clock budget.
+DEFAULT_RETRIES = max(0, int(os.environ.get('BENCH_RETRIES', '2')))
+DEFAULT_RETRY_DELAY = max(0.0, float(os.environ.get('BENCH_RETRY_DELAY', '5')))
+DEFAULT_NO_PROGRESS_TIMEOUT = max(0, int(os.environ.get('BENCH_NO_PROGRESS_TIMEOUT', '240')))
+
 TARGET_RE = re.compile(r'^(?:(?P<harness>[a-z0-9][a-z0-9._-]*)@)?'
                        r'(?P<provider>[a-z0-9][a-z0-9._-]*)/'
                        r'(?P<model>[A-Za-z0-9][A-Za-z0-9._:/+~#@-]{0,190})$')
@@ -265,8 +272,93 @@ def discover_all(cfg, only_provider=None, all_harnesses=False, include_disabled=
 
 
 # ── process helpers ─────────────────────────────────────────────────────────
-def spawn_logged(cmd, cwd, log_path, timeout):
-    """Run argv with stdout+stderr captured to log_path. Returns (code, timed_out)."""
+# Events that mean the agent actually did something. A bare `step-start` is
+# deliberately excluded: hung OpenCode sessions emit those over and over with
+# no text/tool call, which used to burn the whole wall-clock budget.
+PROGRESS_EVENT_TYPES = frozenset({'text', 'tool_use', 'step_finish', 'error',
+                                  'result', 'message', 'thinking'})
+
+# Provider errors that cannot be fixed by retrying the same request.
+TERMINAL_ERROR_TYPES = frozenset({
+    'config', 'provider.auth', 'provider.quota', 'provider.no-route',
+    'provider.not-found', 'provider.permission',
+})
+TERMINAL_ERROR_TEXT = (
+    'not available in your country',
+    'free usage limit reached',
+    'variant unavailable',
+    'you must provide a message',
+    'api key',
+    'unauthorized',
+)
+
+
+def is_terminal_error(result):
+    """True when another attempt of the same request cannot possibly help."""
+    if result.get('effort_rejected'):
+        return True
+    kind = str(result.get('error_type') or '').lower()
+    if kind in TERMINAL_ERROR_TYPES:
+        return True
+    msg = str(result.get('error_message') or '').lower()
+    return any(snippet in msg for snippet in TERMINAL_ERROR_TEXT)
+
+
+def _kill_group(proc):
+    """Terminate a child process group, escalating to SIGKILL if needed."""
+    try:
+        os.killpg(proc.pid, signal.SIGTERM)
+    except ProcessLookupError:
+        pass
+    try:
+        proc.wait(timeout=10)
+        return
+    except subprocess.TimeoutExpired:
+        pass
+    try:
+        os.killpg(proc.pid, signal.SIGKILL)
+    except ProcessLookupError:
+        pass
+    try:
+        proc.wait(timeout=10)
+    except subprocess.TimeoutExpired:
+        pass
+
+
+def _new_log_progress(log_path, offset):
+    """Return (saw_progress, new_offset) for bytes appended since `offset`."""
+    try:
+        with open(log_path, 'rb') as fh:
+            fh.seek(offset)
+            chunk = fh.read()
+            new_offset = fh.tell()
+    except OSError:
+        return False, offset
+    saw = False
+    for line in chunk.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if not line.startswith(b'{'):
+            # Plain-text harnesses stream non-NDJSON output: any content is
+            # evidence of progress.
+            saw = True
+            continue
+        try:
+            ev = json.loads(line)
+        except (ValueError, UnicodeDecodeError):
+            continue
+        if ev.get('type') in PROGRESS_EVENT_TYPES:
+            saw = True
+    return saw, new_offset
+
+
+def spawn_logged(cmd, cwd, log_path, timeout, no_progress_timeout=0):
+    """Run argv with stdout+stderr captured to log_path.
+
+    Returns (exit_code, timed_out, stalled). `stalled` marks a kill caused by
+    no progress (as opposed to hitting the overall wall-clock timeout).
+    """
     os.makedirs(os.path.dirname(os.path.abspath(log_path)), exist_ok=True)
     # Some harnesses (OpenCode) read PWD from the environment instead of the
     # process cwd, so keep it in sync or tools run in the caller's directory.
@@ -279,45 +371,37 @@ def spawn_logged(cmd, cwd, log_path, timeout):
                                     env=env)
         except OSError as e:
             log.write(f'runner: failed to start {cmd[0]!r}: {e}\n'.encode())
-            return 127, False
+            return 127, False, False
         # If the runner is interrupted, take the child (and its private
         # opencode server) down with it instead of leaving an orphan.
         previous = {}
 
         def _terminate(signum, _frame):
-            try:
-                os.killpg(proc.pid, signal.SIGTERM)
-            except ProcessLookupError:
-                pass
-            try:
-                proc.wait(timeout=10)
-            except subprocess.TimeoutExpired:
-                try:
-                    os.killpg(proc.pid, signal.SIGKILL)
-                except ProcessLookupError:
-                    pass
+            _kill_group(proc)
             raise SystemExit(128 + signum)
 
+        deadline = time.monotonic() + timeout if timeout and timeout > 0 else None
+        last_progress = time.monotonic()
+        offset = 0
         try:
             for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
                 previous[sig] = signal.signal(sig, _terminate)
-            try:
-                code = proc.wait(timeout=timeout)
-                return code, False
-            except subprocess.TimeoutExpired:
-                try:
-                    os.killpg(proc.pid, signal.SIGTERM)
-                except ProcessLookupError:
-                    pass
-                try:
-                    proc.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    try:
-                        os.killpg(proc.pid, signal.SIGKILL)
-                    except ProcessLookupError:
-                        pass
-                    proc.wait()
-                return 124, True
+            while True:
+                code = proc.poll()
+                if code is not None:
+                    return code, False, False
+                progressed, offset = _new_log_progress(log_path, offset)
+                now = time.monotonic()
+                if progressed:
+                    last_progress = now
+                if deadline is not None and now >= deadline:
+                    _kill_group(proc)
+                    return 124, True, False
+                if (no_progress_timeout and no_progress_timeout > 0
+                        and now - last_progress >= no_progress_timeout):
+                    _kill_group(proc)
+                    return 124, True, True
+                time.sleep(0.5)
         finally:
             for sig, handler in previous.items():
                 signal.signal(sig, handler)
@@ -400,7 +484,8 @@ def collect_output(workdir, out_name, log_path, out_path):
 
 
 # ── adapters ────────────────────────────────────────────────────────────────
-def run_opencode(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort):
+def run_opencode(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort,
+                 no_progress_timeout=0):
     mapping = placeholder_map(t, cfg, prompt, prompt_file, workdir,
                               cfg.defaults.get('output', 'output.svg'), timeout, effort)
     if effort != 'default':
@@ -409,13 +494,19 @@ def run_opencode(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort
     cmd = [substitute(str(a), mapping) for a in (t['harness'].get('command') or [])]
     if not cmd:
         die(f"harness {t['harness_id']!r} has no command")
-    code, timed_out = spawn_logged(cmd, workdir, log_path, timeout)
+    code, timed_out, stalled = spawn_logged(cmd, workdir, log_path, timeout,
+                                            no_progress_timeout)
     stats = parse_log_lenient(log_path)
-    return {'exit_code': code, 'timed_out': timed_out, 'tokens': stats['tokens'],
+    error = stats['error'] or {}
+    if stalled and not error.get('type'):
+        error = {'type': 'no_progress',
+                 'message': 'agent produced no text, tool call or completion'}
+    return {'exit_code': code, 'timed_out': timed_out, 'stalled': stalled,
+            'tokens': stats['tokens'],
             'steps': stats['steps'] or None, 'session_id': stats['session_id'],
             'events': stats['events'],
-            'error_type': (stats['error'] or {}).get('type'),
-            'error_message': (stats['error'] or {}).get('message'),
+            'error_type': error.get('type'),
+            'error_message': error.get('message'),
             'effort_rejected': False}
 
 
@@ -508,7 +599,8 @@ def _effort_rejected(status, raw, harness, effort):
         r'reasoning[._ ]?effort|effort|variant|unsupported', raw or '', re.I))
 
 
-def run_openai(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort):
+def run_openai(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort,
+               no_progress_timeout=0):
     provider, harness = t['provider'], t['harness']
     base = str(provider.get('base_url') or '').rstrip('/')
     if not base:
@@ -568,7 +660,8 @@ def run_openai(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort):
             'effort_rejected': rejected, 'wall_seconds': wall}
 
 
-def run_anthropic(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort):
+def run_anthropic(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort,
+                  no_progress_timeout=0):
     provider, harness = t['provider'], t['harness']
     base = str(provider.get('base_url') or '').rstrip('/')
     if not base:
@@ -628,7 +721,8 @@ def run_anthropic(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effor
             'effort_rejected': False, 'wall_seconds': wall}
 
 
-def run_command(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort):
+def run_command(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort,
+                no_progress_timeout=0):
     mapping = placeholder_map(t, cfg, prompt, prompt_file, workdir,
                               cfg.defaults.get('output', 'output.svg'), timeout, effort)
     cmd = [substitute(str(a), mapping) for a in (t['harness'].get('command') or [])]
@@ -636,7 +730,8 @@ def run_command(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort)
         die(f"harness {t['harness_id']!r} has no command")
     if effort != 'default' and t['harness'].get('effort_style') == 'flag':
         cmd += [substitute(str(a), mapping) for a in (t['harness'].get('effort_flag') or [])]
-    code, timed_out = spawn_logged(cmd, workdir, log_path, timeout)
+    code, timed_out, stalled = spawn_logged(cmd, workdir, log_path, timeout,
+                                            no_progress_timeout)
     text = ''
     try:
         with open(log_path, 'rb') as fh:
@@ -647,10 +742,14 @@ def run_command(t, cfg, prompt, prompt_file, workdir, log_path, timeout, effort)
         effort != 'default' and code != 0 and re.search(
             r'variant|effort|reasoning[._ ]?level|unknown option|unsupported',
             text, re.I))
-    return {'exit_code': code, 'timed_out': timed_out, 'tokens': None,
-            'steps': None, 'session_id': None, 'events': 0,
-            'error_type': 'timeout' if timed_out else (None if code == 0 else f'exit_{code}'),
-            'error_message': '' if code == 0 else text[-400:],
+    if stalled:
+        error_type, error_message = 'no_progress', 'agent produced no output'
+    else:
+        error_type = ('timeout' if timed_out else (None if code == 0 else f'exit_{code}'))
+        error_message = '' if code == 0 else text[-400:]
+    return {'exit_code': code, 'timed_out': timed_out, 'stalled': stalled,
+            'tokens': None, 'steps': None, 'session_id': None, 'events': 0,
+            'error_type': error_type, 'error_message': error_message,
             'effort_rejected': effort_rejected}
 
 
@@ -734,17 +833,65 @@ def cmd_run(args):
         die('prompt is empty (use --prompt or --prompt-file)')
     effort = cfg.resolve_effort(t, args.effort)
     timeout = int(args.timeout or cfg.defaults.get('timeout') or 900)
+    retries = max(0, int(args.retries if args.retries is not None else DEFAULT_RETRIES))
+    retry_delay = (float(args.retry_delay) if args.retry_delay is not None
+                   else DEFAULT_RETRY_DELAY)
+    no_progress = (int(args.no_progress_timeout) if args.no_progress_timeout is not None
+                   else DEFAULT_NO_PROGRESS_TIMEOUT)
+    attempt_timeout_arg = max(0, int(args.attempt_timeout or 0))
     out_name = str(t['provider'].get('output') or cfg.defaults.get('output') or 'output.svg')
+    out_path = os.path.abspath(args.out)
     workdir = tempfile.mkdtemp(prefix='free-stealth-bench-')
     log_path = os.path.abspath(args.log or os.path.join(workdir, 'run.ndjson'))
     meta_path = os.path.abspath(args.meta or (log_path + '.meta.json'))
+
+    # Never let a previous invocation of this (task, model, effort, date) leak
+    # into this one: a stale SVG would be validated as this run's output, and a
+    # stale meta would be read by run.sh if this process is interrupted.
+    for stale in (out_path, meta_path):
+        try:
+            os.remove(stale)
+        except FileNotFoundError:
+            pass
+
     start = time.time()
+    result, method, retry_errors, attempts = None, 'missing', [], 0
     try:
-        result = adapter(t, cfg, prompt, os.path.abspath(args.prompt_file) if args.prompt_file else '',
-                         workdir, log_path, timeout, effort)
-        wall = int(result.get('wall_seconds') if result.get('wall_seconds') is not None
-                   else time.time() - start)
-        method = collect_output(workdir, out_name, log_path, os.path.abspath(args.out))
+        for index in range(retries + 1):
+            elapsed = int(time.time() - start)
+            remaining = timeout - elapsed
+            if index > 0 and remaining <= 0:
+                break
+            attempt_timeout = attempt_timeout_arg or (remaining if timeout > 0 else 0)
+            if attempt_timeout_arg and timeout > 0:
+                attempt_timeout = min(attempt_timeout_arg, remaining)
+            attempts = index + 1
+            try:
+                os.remove(out_path)
+            except FileNotFoundError:
+                pass
+            result = adapter(t, cfg, prompt,
+                             os.path.abspath(args.prompt_file) if args.prompt_file else '',
+                             workdir, log_path, attempt_timeout, effort, no_progress)
+            method = collect_output(workdir, out_name, log_path, out_path)
+            if (method != 'missing' or result.get('effort_rejected')
+                    or is_terminal_error(result)):
+                break
+            if index < retries:
+                retry_errors.append({
+                    'attempt': attempts,
+                    'error_type': result.get('error_type'),
+                    'error_message': str(result.get('error_message') or '')[:300],
+                    'timed_out': bool(result.get('timed_out')),
+                })
+                delay = min(max(0.0, retry_delay) * (2 ** index),
+                            max(0, timeout - int(time.time() - start)))
+                if delay > 0:
+                    time.sleep(delay)
+        if result is None:  # defensive: the loop always runs at least once
+            result = {'exit_code': 1, 'timed_out': False, 'error_type': 'no_attempt'}
+
+        wall = int(time.time() - start)
         meta = {
             'benchmark': 'free-stealth-bench',
             'task': args.task or '',
@@ -769,6 +916,8 @@ def cmd_run(args):
             'error_type': result.get('error_type'),
             'error_message': result.get('error_message'),
             'effort_rejected': bool(result.get('effort_rejected')),
+            'attempts': attempts,
+            'retry_errors': retry_errors,
         }
         if meta['timed_out']:
             meta['exit_code'] = 124
@@ -777,7 +926,7 @@ def cmd_run(args):
             json.dump(meta, fh, indent=2)
         status = 'ok' if method != 'missing' else 'missing'
         print(f"runner: {t['target']}  effort={effort}  {status}  {wall}s"
-              f"  exit={meta['exit_code']}")
+              f"  attempts={attempts}  exit={meta['exit_code']}")
         if result.get('effort_rejected'):
             return 3
         return 0 if method != 'missing' else 2
@@ -862,6 +1011,14 @@ def main(argv=None):
     p.add_argument('--prompt-file')
     p.add_argument('--effort')
     p.add_argument('--timeout', type=int)
+    p.add_argument('--retries', type=int,
+                   help='extra attempts on transient failures (default: BENCH_RETRIES or 2)')
+    p.add_argument('--retry-delay', type=float,
+                   help='initial backoff in seconds, doubled per retry (default: 5)')
+    p.add_argument('--attempt-timeout', type=int,
+                   help='per-attempt wall clock; defaults to the remaining --timeout budget')
+    p.add_argument('--no-progress-timeout', type=int,
+                   help='kill an agent with no text/tool call for N seconds (0 disables; default: 240)')
     p.add_argument('--out', required=True)
     p.add_argument('--log')
     p.add_argument('--meta')

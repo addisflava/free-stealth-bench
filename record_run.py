@@ -29,6 +29,7 @@ def env(name, default=''):
 def parse_log(log_path):
     stats = {'events': 0, 'steps': 0, 'session_id': None, 'error': None,
              'tokens': None}
+    finishes = 0
     totals = {'input': 0, 'output': 0, 'reasoning': 0, 'cache_read': 0, 'total': 0}
     saw_tokens = False
     try:
@@ -54,8 +55,8 @@ def parse_log(log_path):
             part = ev.get('part')
             if not isinstance(part, dict):
                 continue
-            if part.get('type') in ('step-start', 'step-finish'):
-                stats['steps'] += 1
+            if part.get('type') == 'step-finish':
+                finishes += 1
             tok = part.get('tokens') or part.get('usage')
             if isinstance(tok, dict):
                 saw_tokens = True
@@ -73,7 +74,9 @@ def parse_log(log_path):
     if saw_tokens:
         totals['total'] = totals['total'] or (totals['input'] + totals['output'])
         stats['tokens'] = totals
-    stats['steps'] //= 2
+    # Count completed steps only. A stalled session emits many start events
+    # with no matching finish; counting them would report fake progress.
+    stats['steps'] = finishes
     return stats
 
 

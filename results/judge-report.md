@@ -1,6 +1,6 @@
 # free-stealth-bench automated judge ranking
 
-Rubric `v1` · judge `opencode/nemotron-3.5-super-vl-free` · input mode `image` · updated 2026-11-17T11:43:50+00:00
+Rubric `v1` · judge `opencode/inkling-2-small-free` · input mode `image` · updated 2026-11-22T19:26:52+00:00
 
 Weights: output_quality=0.22, instruction_following=0.2, creativity=0.1, animation_fidelity=0.12, richness_detail=0.1, composition_aesthetics=0.11, technical_validity=0.15
 
@@ -23,6 +23,7 @@ Weights: output_quality=0.22, instruction_following=0.2, creativity=0.1, animati
  14  longcat-2.5-free                        44.50   2.0   2.5   2.0   2.0   2.5   2.0   2.5    1
  15  pulse-alpha-free                        43.50   2.0   2.5   2.0   2.0   2.0   2.0   2.5    1
  16  crouton-alpha-free                       0.00   0.0   0.0   0.0   0.0   0.0   0.0   0.0    2
+ 17  tidepool-alpha-free                      0.00   0.0   0.0   0.0   0.0   0.0   0.0   0.0    2
 ```
 
 Dimensions: output_quality, instruction_following, creativity, animation_fidelity, richness_detail, composition_aesthetics (1-5, judged blind) and technical_validity (1-5, deterministic). DNF runs score 0. See `judgments.json` for per-run reasons.

@@ -1,0 +1,40 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "sloth-excavator",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/tidepool-alpha-free",
+  "model": "opencode/tidepool-alpha-free",
+  "model_id": "tidepool-alpha-free",
+  "effort": "high",
+  "effort_requested": "high",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-22T19:18:17+00:00",
+  "wall_seconds": 735,
+  "exit_code": 124,
+  "timed_out": true,
+  "collection_method": "missing",
+  "tokens": null,
+  "steps": null,
+  "session_id": "ses_dfb51c376ffeT8hHVIVvnKYi85",
+  "events": 1,
+  "error_type": "no_progress",
+  "error_message": "agent produced no text, tool call or completion",
+  "effort_rejected": false,
+  "attempts": 3,
+  "retry_errors": [
+    {
+      "attempt": 1,
+      "error_type": "no_progress",
+      "error_message": "agent produced no text, tool call or completion",
+      "timed_out": true
+    },
+    {
+      "attempt": 2,
+      "error_type": "no_progress",
+      "error_message": "agent produced no text, tool call or completion",
+      "timed_out": true
+    }
+  ]
+}

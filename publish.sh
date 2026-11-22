@@ -60,6 +60,15 @@ PY
 )"
 fi
 
+# Announce newly-ranked models on the OpenCode community. Always writes a
+# ready-to-paste draft into posts/; it only submits to Reddit when OAuth
+# credentials are configured. Best-effort: never block publishing.
+# Set NO_REDDIT=1 to skip, REDDIT_DRY_RUN=1 for drafts without posting.
+if [ "$new_models" != "" ]; then
+  python3 "$ROOT/reddit_post.py" --models "$new_models" \
+    || echo "  .. reddit announcement failed (re-run: python3 reddit_post.py --models '$new_models')"
+fi
+
 if ! git remote get-url origin >/dev/null 2>&1; then
   echo "publish: no 'origin' remote configured; changes staged but not pushed"
   exit 0

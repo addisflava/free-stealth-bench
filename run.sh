@@ -16,6 +16,9 @@
 #   ./run.sh --all-harnesses          # default + alternate harness per provider
 #   ./run.sh --effort high            # override the per-provider effort default
 #   ./run.sh --timeout 1200           # per-run wall-clock seconds (default: 900)
+#   ./run.sh --retries 2              # extra attempts on transient provider failures
+#   ./run.sh --no-progress-timeout 240  # kill an agent with no text/tool call for Ns (0=off)
+#   ./run.sh --quarantine-threshold 3 # skip pairs with N consecutive DNFs (0=off)
 #   ./run.sh --force                  # re-run even if today's output exists
 #   ./run.sh --prompt "Draw a fox" [--task-id fox]   # ad-hoc task from the command line
 #   ./run.sh --new-only               # run only (task, model, effort) with no prior record
@@ -32,10 +35,15 @@
 #
 # Resume semantics: a (task, model, effort) whose newest sidecar says
 # result_status=ok is skipped. Failed, invalid, timed-out or missing-output runs
-# are re-run on the next invocation. --force re-runs everything. With
-# --new-only, any (task, model, effort) that has a sidecar recorded under
+# are re-run on the next invocation, unless they have hit the DNF quarantine
+# threshold (default: 3 consecutive failures). --force re-runs everything.
+# With --new-only, any (task, model, effort) that has a sidecar recorded under
 # results/ (any date) is skipped — so models newly appeared in the live list get
 # benchmarked while recorded runs are not re-done.
+#
+# Within one run, transient provider errors (transport resets, 502/504, stalls)
+# are retried with exponential backoff inside runner.py. Auth, quota, invalid
+# variant and configuration errors are terminal and are not retried.
 
 set -uo pipefail
 cd "$(dirname "$0")"
@@ -91,6 +99,11 @@ esac
 
 EFFORT=""   # empty = use each provider's default (providers.yaml)
 TIMEOUT=900
+RETRIES="${BENCH_RETRIES:-2}"
+RETRY_DELAY="${BENCH_RETRY_DELAY:-5}"
+ATTEMPT_TIMEOUT="${BENCH_ATTEMPT_TIMEOUT:-0}"
+NO_PROGRESS_TIMEOUT="${BENCH_NO_PROGRESS_TIMEOUT:-240}"
+QUARANTINE_THRESHOLD="${DNF_QUARANTINE_THRESHOLD:-3}"
 ONLY_MODELS=""
 ONLY_TASKS=""
 PROMPT_TEXT=""
@@ -113,6 +126,12 @@ while [ "$#" -gt 0 ]; do
     --all-harnesses) ALL_HARNESSES=1; shift ;;
     --effort)  EFFORT="$2"; shift 2 ;;
     --timeout) TIMEOUT="$2"; shift 2 ;;
+    --retries) RETRIES="$2"; shift 2 ;;
+    --retry-delay) RETRY_DELAY="$2"; shift 2 ;;
+    --attempt-timeout) ATTEMPT_TIMEOUT="$2"; shift 2 ;;
+    --no-progress-timeout) NO_PROGRESS_TIMEOUT="$2"; shift 2 ;;
+    --quarantine-threshold) QUARANTINE_THRESHOLD="$2"; shift 2 ;;
+    --no-quarantine) QUARANTINE_THRESHOLD=0; shift ;;
     --force)   FORCE=1; shift ;;
     --prompt)  PROMPT_TEXT="$2"; shift 2 ;;
     --task-id) ADHOC_ID="$2"; shift 2 ;;
@@ -253,8 +272,28 @@ record_ok() {  # $1=task $2=slug $3=effort -> 0 when the newest run is ok and it
   [ -f "${latest%.json}.svg" ]
 }
 
+quarantined() {  # $1=task $2=slug $3=effort -> 0 after N consecutive non-ok sidecars
+  [ "${QUARANTINE_THRESHOLD:-0}" -gt 0 ] || return 1
+  python3 - "$1" "$2" "$3" "$QUARANTINE_THRESHOLD" <<'PY'
+import glob, json, os, sys
+task, slug, effort, threshold = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
+files = sorted(glob.glob(os.path.join('results', task, f'{slug}__{effort}__*.json')))
+fails = 0
+for path in reversed(files):
+    try:
+        status = json.load(open(path, encoding='utf-8')).get('result_status')
+    except Exception:
+        status = 'unknown'
+    if status == 'ok':
+        break
+    fails += 1
+sys.exit(0 if fails >= threshold else 1)
+PY
+}
+
 mode=""; [ "$NEW_ONLY" -eq 1 ] && mode=" | new-only"
-echo "free-stealth-bench | effort=${EFFORT:-per-provider} | timeout=${TIMEOUT}s | ${#MODELS[@]} target(s) x ${#TASKS[@]} task(s)${mode}"
+echo "free-stealth-bench | effort=${EFFORT:-per-provider} | timeout=${TIMEOUT}s | retries=${RETRIES} | no-progress=${NO_PROGRESS_TIMEOUT}s | quarantine=${QUARANTINE_THRESHOLD}"
+echo "free-stealth-bench | ${#MODELS[@]} target(s) x ${#TASKS[@]} task(s)${mode}"
 echo
 
 # ── Build the execution sequence (pairs mode or cartesian product) ──
@@ -286,6 +325,8 @@ if [ "$DRY_RUN" -eq 1 ]; then
       if [ "$NEW_ONLY" -eq 1 ]; then
         existing_record "$task" "$(model_slug "$model")" "$eff" && skip=1
       elif record_ok "$task" "$(model_slug "$model")" "$eff"; then
+        skip=1
+      elif quarantined "$task" "$(model_slug "$model")" "$eff"; then
         skip=1
       fi
     fi
@@ -324,6 +365,9 @@ run_one() {  # $1=task $2=prompt_file $3=model
     elif record_ok "$task" "$slug" "$eff"; then
       echo "SKIP  ${task}  ${model} (${eff}; latest run ok; --force to redo)"
       return 0
+    elif quarantined "$task" "$slug" "$eff"; then
+      echo "SKIP  ${task}  ${model} (${eff}; ${QUARANTINE_THRESHOLD} consecutive DNFs; --force to retry)"
+      return 0
     fi
   fi
 
@@ -336,6 +380,8 @@ run_one() {  # $1=task $2=prompt_file $3=model
     start="$(date +%s)"
     python3 "$ROOT/runner.py" run --target "$target" --task "$task" \
         --prompt-file "$prompt_file" --effort "$effort_used" --timeout "$TIMEOUT" \
+        --retries "$RETRIES" --retry-delay "$RETRY_DELAY" \
+        --attempt-timeout "$ATTEMPT_TIMEOUT" --no-progress-timeout "$NO_PROGRESS_TIMEOUT" \
         --out "$ROOT/$out" --log "$ROOT/$logfile" --meta "$meta_path" >/dev/null 2>&1
     runner_code=$?
     end="$(date +%s)"

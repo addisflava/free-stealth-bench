@@ -49,6 +49,9 @@ LLMs (including the judge) are contestants here, and they are also graded. To ke
 ./run.sh --all-harnesses                 # default + alternate harness per provider
 ./run.sh --effort high                   # override the per-provider effort default
 ./run.sh --timeout 1200                  # per-run wall-clock budget (default 900s)
+./run.sh --retries 2                     # extra attempts on transient provider failures
+./run.sh --no-progress-timeout 240       # kill a stalled agent after Ns without output (0=off)
+./run.sh --quarantine-threshold 3        # skip pairs with N consecutive DNFs (0=off)
 ./run.sh --force                         # redo even if today's file exists
 
 New outputs are judged automatically at the end of every `./run.sh` and the ranking is refreshed; pass `--no-judge` to benchmark without judging.
@@ -64,7 +67,17 @@ New outputs are judged automatically at the end of every `./run.sh` and the rank
 ./run.sh judge --judge-model opencode/glm-5.3-flash-free
 ```
 
-A `(task, model, effort)` whose newest sidecar is `result_status: ok` is **skipped** on the next `./run.sh` (resume semantics). Runs that failed, timed out, produced invalid SVG or no SVG are **retried automatically**; `--force` re-runs everything. Failed runs are recorded, not hidden: a provider error, timeout or missing/invalid SVG appears in the sidecar as `result_status`.
+A `(task, model, effort)` whose newest sidecar is `result_status: ok` is **skipped** on the next `./run.sh` (resume semantics). Runs that failed, timed out, produced invalid SVG or no SVG are **retried automatically**. Failed runs are recorded, not hidden: a provider error, timeout or missing/invalid SVG appears in the sidecar as `result_status`.
+
+### Reliability safeguards
+
+Free endpoints drop connections, return 502/504 and stall mid-stream. The runner handles that without wasting the whole wall-clock budget:
+
+- **No-progress watchdog** (default 240s): a stalled agent — emitting only `step-start` events, no text/tool call/completion — is killed early and recorded as `timeout` with `error_type: no_progress`. Plain-text harness output counts as progress too.
+- **Bounded retries** (default 2 extra attempts): transport errors, 502/504, stalls and silent failures are retried with exponential backoff (default 5s, 10s). The total run still fits inside `--timeout`; auth, quota, invalid-variant and config errors are terminal and are never retried.
+- **DNF quarantine** (default 3): a pair with 3 consecutive non-`ok` sidecars is skipped on later invocations instead of burning 15 minutes each time. Use `--force` or `--quarantine-threshold 0` to retry it anyway.
+
+The sidecar records `attempts` and `retry_errors` for retried runs. Before every run the runner deletes the old SVG and meta for that date, so an interrupted rerun can never inherit a stale result. All three knobs can also be set via `BENCH_NO_PROGRESS_TIMEOUT`, `BENCH_RETRIES`, `BENCH_RETRY_DELAY`, `BENCH_ATTEMPT_TIMEOUT` and `DNF_QUARANTINE_THRESHOLD`.
 
 ## Providers and agent harnesses
 
@@ -262,7 +275,7 @@ The companion `.json` sidecar carries everything permanently important:
 - `provider`, `harness`, `target`, `model`, `model_id`
 - `variant`, `effort`, `effort_requested`, `effort_fallback`
 - `date_utc`, `agent_version`, `prompt_sha256` (identical prompt ⇒ identical hash)
-- `wall_seconds`, `steps`, `events`, `session_id`, `tokens` (in/out/reasoning/cache)
+- `wall_seconds`, `steps`, `events`, `session_id`, `tokens` (in/out/reasoning/cache), `attempts`, `retry_errors`
 - `collection_method` (`output.svg` = agent wrote the file; `extracted` = SVG recovered from the transcript/response; `missing`)
 - `validation`: `size_bytes`, `sha256`, `well_formed_xml`, `root_is_svg`, `viewBox`, `elements_total`, `element_counts`, `animation_elements`, `gradient_defs`, `script_blocks`, `external_refs`, `rendered`
 - `result_status`: `ok` | `invalid_svg` | `timeout` | `no_output`
@@ -381,6 +394,33 @@ Deployment is handled by `.github/workflows/pages.yml`:
 - **Standalone repository:** copy/keep `svg-bench/.github/workflows/pages.yml` at the root of that repository; it deploys this page at `/`.
 
 Set Pages to **GitHub Actions** in the repository settings. No server, build step, database or Netlify configuration is required.
+
+## Reddit announcements
+
+When discovery finds a new model and the judge has ranked it, `publish.sh` also calls `reddit_post.py`. It reuses the same discovery snapshot and judge results that build `site/data.json`, so the post always matches the live leaderboard.
+
+- **Always** writes a ready-to-paste Markdown draft to `posts/<date>-<model>.md`. The draft contains the leaderboard ranking (with the new model marked `<-- NEW`) and a short, data-derived description: rank, score, strongest/weakest rubric dimensions, DNF count and per-task scores.
+- **Optionally** submits the post to Reddit when all four OAuth credentials are configured (a registered Reddit *script* app):
+
+  | Variable | Meaning |
+  | --- | --- |
+  | `REDDIT_CLIENT_ID`, `REDDIT_CLIENT_SECRET` | Reddit script-app credentials |
+  | `REDDIT_USERNAME`, `REDDIT_PASSWORD` | Account the post is submitted from |
+  | `REDDIT_SUBREDDITS` | Comma-separated targets, default `opencode,OpenCode` |
+  | `REDDIT_USER_AGENT` | Distinct OAuth User-Agent (required by Reddit) |
+  | `LEADERBOARD_URL` | Link in the post; otherwise derived from the `origin` remote |
+  | `REDDIT_TOP_N` | Number of ranking rows shown, default `15` |
+  | `NO_REDDIT=1` | Skip this step entirely (like `NO_PUBLISH`) |
+  | `REDDIT_DRY_RUN=1` | Write drafts without calling the Reddit API |
+
+Reddit subreddit names are case-insensitive: `r/opencode` and `r/OpenCode` resolve to the same community, so the configured targets are de-duplicated before submitting (one post per community). Add a genuinely different subreddit to `REDDIT_SUBREDDITS` to cross-post.
+
+`posts/.reddit-state.json` records which models were announced and which subreddits accepted a post, so re-runs never duplicate a draft or a submission; a subreddit that failed is retried on the next run. The whole step is best-effort — a missing credential or a Reddit outage only leaves a draft and never fails publishing. To generate a draft by hand:
+
+```bash
+python3 reddit_post.py                       # discovery's "new" models
+python3 reddit_post.py --models opencode/new-model-free --dry-run
+```
 
 ## Admin-only re-runs
 
