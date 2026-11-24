@@ -20,7 +20,7 @@
   "technical_validity"
  ],
  "judge_model": "opencode/inkling-2-small-free",
- "updated_utc": "2026-11-24T10:44:28+00:00",
+ "updated_utc": "2026-11-24T12:25:19+00:00",
  "meta": {
   "probe": {
    "candidate": "opencode/inkling-2-small-free",

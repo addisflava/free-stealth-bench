@@ -1,6 +1,6 @@
 {
  "benchmark": "free-stealth-bench",
- "generated_utc": "2026-11-24T10:44:28+00:00",
+ "generated_utc": "2026-11-24T12:25:19+00:00",
  "tasks": {
   "sloth-excavator": {
    "blurb": "Cartoon sloth in hard hat and hi-vis vest calmly operating a yellow tracked excavator, digging/filling a dirt pile, several animated elements."
@@ -2304,7 +2304,7 @@
    "composition_aesthetics",
    "technical_validity"
   ],
-  "updated_utc": "2026-11-24T10:44:28+00:00",
+  "updated_utc": "2026-11-24T12:25:19+00:00",
   "meta": {
    "probe": {
     "candidate": "opencode/inkling-2-small-free",
