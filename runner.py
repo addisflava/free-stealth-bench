@@ -41,7 +41,9 @@ EXTRACT = os.path.join(ROOT, 'extract_svg.py')
 # watchdog instead of consuming the whole wall-clock budget.
 DEFAULT_RETRIES = max(0, int(os.environ.get('BENCH_RETRIES', '2')))
 DEFAULT_RETRY_DELAY = max(0.0, float(os.environ.get('BENCH_RETRY_DELAY', '5')))
-DEFAULT_NO_PROGRESS_TIMEOUT = max(0, int(os.environ.get('BENCH_NO_PROGRESS_TIMEOUT', '240')))
+# Free models can think for 5+ minutes before emitting a token; 240s was
+# killing them mid-generation. Workdir file activity also counts as progress.
+DEFAULT_NO_PROGRESS_TIMEOUT = max(0, int(os.environ.get('BENCH_NO_PROGRESS_TIMEOUT', '420')))
 
 TARGET_RE = re.compile(r'^(?:(?P<harness>[a-z0-9][a-z0-9._-]*)@)?'
                        r'(?P<provider>[a-z0-9][a-z0-9._-]*)/'
@@ -353,6 +355,29 @@ def _new_log_progress(log_path, offset):
     return saw, new_offset
 
 
+def _dir_snapshot(path):
+    """Lightweight (mtime, size) snapshot of files in `path` (2 levels deep)."""
+    snap = {}
+    try:
+        root = os.scandir(path)
+    except OSError:
+        return snap
+    with root:
+        for entry in root:
+            try:
+                if entry.is_file():
+                    st = entry.stat()
+                    snap[entry.name] = (st.st_mtime_ns, st.st_size)
+                elif entry.is_dir():
+                    for child in os.scandir(entry.path):
+                        if child.is_file():
+                            st = child.stat()
+                            snap[f'{entry.name}/{child.name}'] = (st.st_mtime_ns, st.st_size)
+            except OSError:
+                continue
+    return snap
+
+
 def spawn_logged(cmd, cwd, log_path, timeout, no_progress_timeout=0):
     """Run argv with stdout+stderr captured to log_path.
 
@@ -383,6 +408,7 @@ def spawn_logged(cmd, cwd, log_path, timeout, no_progress_timeout=0):
         deadline = time.monotonic() + timeout if timeout and timeout > 0 else None
         last_progress = time.monotonic()
         offset = 0
+        dir_snapshot = _dir_snapshot(cwd)
         try:
             for sig in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
                 previous[sig] = signal.signal(sig, _terminate)
@@ -393,6 +419,12 @@ def spawn_logged(cmd, cwd, log_path, timeout, no_progress_timeout=0):
                 progressed, offset = _new_log_progress(log_path, offset)
                 now = time.monotonic()
                 if progressed:
+                    last_progress = now
+                snapshot = _dir_snapshot(cwd)
+                if snapshot != dir_snapshot:
+                    # Tools writing files (even during a long step with no
+                    # NDJSON events) are real progress.
+                    dir_snapshot = snapshot
                     last_progress = now
                 if deadline is not None and now >= deadline:
                     _kill_group(proc)
@@ -1018,7 +1050,7 @@ def main(argv=None):
     p.add_argument('--attempt-timeout', type=int,
                    help='per-attempt wall clock; defaults to the remaining --timeout budget')
     p.add_argument('--no-progress-timeout', type=int,
-                   help='kill an agent with no text/tool call for N seconds (0 disables; default: 240)')
+                   help='kill an agent with no output/file activity for N seconds (0 disables; default: 420)')
     p.add_argument('--out', required=True)
     p.add_argument('--log')
     p.add_argument('--meta')

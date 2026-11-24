@@ -20,7 +20,7 @@
   "technical_validity"
  ],
  "judge_model": "opencode/inkling-2-small-free",
- "updated_utc": "2026-11-22T19:26:52+00:00",
+ "updated_utc": "2026-11-24T10:44:28+00:00",
  "meta": {
   "probe": {
    "candidate": "opencode/inkling-2-small-free",
@@ -3323,6 +3323,48 @@
    "judge_model": null,
    "parse_ok": true,
    "cache_key": null
+  },
+  "horse-racing__opencode_tidepool-alpha-free__high__2026-11-24": {
+   "judged": false,
+   "composite": null,
+   "task": "horse-racing",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "date_utc": "2026-11-24T10:44:24Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "d3cdfd933b088ac04f2c23b10a2f301976ac7ec7e0b63486392f944f9d037c65",
+   "cache_key": "d3cdfd933b088ac04f2c23b10a2f301976ac7ec7e0b63486392f944f9d037c65|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": false,
+   "parse_note": "judge call returned no usable JSON \u2014 retried on the next run",
+   "judge_errors": [
+    "Model unavailable: opencode/inkling-2-small-free"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free"
+  },
+  "sloth-excavator__opencode_tidepool-alpha-free__high__2026-11-24": {
+   "judged": false,
+   "composite": null,
+   "task": "sloth-excavator",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "date_utc": "2026-11-24T10:38:55Z",
+   "result_status": "ok",
+   "dnf": false,
+   "svg_sha256": "114b9ae27ea3f62b190527ff126b0187abbb7cea573ea9757d359e963d15011c",
+   "cache_key": "114b9ae27ea3f62b190527ff126b0187abbb7cea573ea9757d359e963d15011c|v1|opencode/inkling-2-small-free|image",
+   "parse_ok": false,
+   "parse_note": "judge call returned no usable JSON \u2014 retried on the next run",
+   "judge_errors": [
+    "Model unavailable: opencode/inkling-2-small-free"
+   ],
+   "input_mode": "image",
+   "judge_model": "opencode/inkling-2-small-free"
   }
  },
  "ranking": [

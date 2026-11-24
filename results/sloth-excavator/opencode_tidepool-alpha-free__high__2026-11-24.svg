@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" preserveAspectRatio="xMidYMid meet">
+  <title>Cartoon sloth operating a yellow tracked excavator on a sunny construction site</title>
+
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4f8ecf"/>
+      <stop offset="0.55" stop-color="#6fa8e0"/>
+      <stop offset="0.85" stop-color="#ffb85a"/>
+      <stop offset="1" stop-color="#ffd25a"/>
+    </linearGradient>
+    <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%" fx="48%" fy="45%">
+      <stop offset="0" stop-color="#fff7cc"/>
+      <stop offset="0.55" stop-color="#ffc23f"/>
+      <stop offset="1" stop-color="#ff8c00" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cloudGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eef4ff"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#c58a2a"/>
+      <stop offset="0.45" stop-color="#b77d23"/>
+      <stop offset="1" stop-color="#7f4b12"/>
+    </linearGradient>
+    <linearGradient id="dirtGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a66b3a"/>
+      <stop offset="1" stop-color="#5d3a22"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a4e52"/>
+      <stop offset="1" stop-color="#2a2d30"/>
+    </linearGradient>
+    <linearGradient id="stickGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#505559"/>
+      <stop offset="1" stop-color="#2f3235"/>
+    </linearGradient>
+    <linearGradient id="bucketGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5a5e62"/>
+      <stop offset="1" stop-color="#3a3e40"/>
+    </linearGradient>
+    <radialGradient id="rollerGrad" cx="45%" cy="35%" r="60%">
+      <stop offset="0.42" stop-color="#b8bfca"/>
+      <stop offset="0.46" stop-color="#4a4e52"/>
+      <stop offset="0.5" stop-color="#b8bfca"/>
+      <stop offset="0.54" stop-color="#9aa1ab"/>
+      <stop offset="1" stop-color="#c6ccd6"/>
+    </radialGradient>
+  </defs>
+
+  <!-- ================= Sky ================= -->
+  <rect x="0" y="0" width="1200" height="800" fill="url(#skyGrad)"/>
+
+  <!-- Sun with pulsing rays -->
+  <g>
+    <circle cx="1000" cy="130" r="68" fill="url(#sunGrad)"/>
+    <g>
+      <path d="M 1000 47 L 1005 63 L 995 63 Z" fill="#ffd25a" opacity="0.45">
+        <animate attributeName="opacity" values="0.2 0.95 0.2" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 1059 70 L 1053 85 L 1046 78 Z" fill="#ffd25a" opacity="0.4">
+        <animate attributeName="opacity" values="0.15 0.9 0.15" dur="3.2s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 1084 130 L 1068 135 L 1068 125 Z" fill="#ffd25a" opacity="0.5">
+        <animate attributeName="opacity" values="0.2 1 0.25" dur="2.8s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 1060 190 L 1052 178 L 1044 188 Z" fill="#ffd25a" opacity="0.35">
+        <animate attributeName="opacity" values="0.1 0.8 0.1" dur="3.1s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 1000 215 L 1005 204 L 995 204 Z" fill="#ffd25a" opacity="0.5">
+        <animate attributeName="opacity" values="0.2 0.95 0.2" dur="2.9s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 940 190 L 952 177 L 948 190 Z" fill="#ffd25a" opacity="0.4">
+        <animate attributeName="opacity" values="0.15 0.85 0.15" dur="3.3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 916 130 L 932 125 L 932 135 Z" fill="#ffd25a" opacity="0.6">
+        <animate attributeName="opacity" values="0.25 1 0.25" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M 940 70 L 948 85 L 951 78 Z" fill="#ffd25a" opacity="0.45">
+        <animate attributeName="opacity" values="0.2 0.9 0.2" dur="3.4s" repeatCount="indefinite"/>
+      </path>
+    </g>
+  </g>
+
+  <!-- Clouds drifting -->
+  <g>
+    <g>
+      <ellipse cx="140" cy="80" rx="72" ry="26" fill="#fff" opacity="0.96"/>
+      <ellipse cx="175" cy="70" rx="48" ry="16" fill="#fff" opacity="0.97"/>
+      <ellipse cx="112" cy="74" rx="34" ry="14" fill="#fff" opacity="0.93"/>
+      <ellipse cx="168" cy="60" rx="22" ry="9" fill="#fff" opacity="0.95"/>
+      <animateTransform attributeName="transform" type="translate" values="260 0; -40 0; 260 0" dur="42s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <ellipse cx="440" cy="132" rx="58" ry="22" fill="#fff" opacity="0.95"/>
+      <ellipse cx="472" cy="120" rx="38" ry="13" fill="#fff"/>
+      <ellipse cx="415" cy="126" rx="28" ry="11" fill="#fff" opacity="0.94"/>
+      <animateTransform attributeName="transform" type="translate" values="300 0; -90 0; 300 0" dur="36s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <ellipse cx="760" cy="82" rx="66" ry="24" fill="#fff" opacity="0.97"/>
+      <ellipse cx="795" cy="72" rx="42" ry="15" fill="#fff"/>
+      <ellipse cx="735" cy="76" rx="30" ry="12" fill="#fff" opacity="0.95"/>
+      <animateTransform attributeName="transform" type="translate" values="-120 0; 240 0; -120 0" dur="30s" repeatCount="indefinite"/>
+    </g>
+    <g>
+      <ellipse cx="1040" cy="152" rx="60" ry="22" fill="#fff" opacity="0.96"/>
+      <ellipse cx="1072" cy="142" rx="38" ry="13" fill="#fff"/>
+      <ellipse cx="1010" cy="146" rx="26" ry="10" fill="#fff" opacity="0.94"/>
+      <animateTransform attributeName="transform" type="translate" values="220 0; -70 0; 220 0" dur="39s" repeatCount="indefinite"/>
+    </g>
+  </g>
+
+  <!-- ================= Warm ground with a dirt pile ================= -->
+  <rect x="0" y="688" width="1200" height="115" fill="url(#groundGrad)"/>
+
+  <g>
+    <!-- Dirt pile -->
+    <polygon points="620,700 990,700 815,365" fill="url(#dirtGrad)"/>
+    <!-- Pebbles on top of the pile -->
+    <g fill="#a5a9ad">
+      <ellipse cx="690" cy="355" rx="5" ry="3"/>
+      <ellipse cx="740" cy="360" rx="4.5" ry="2.5"/>
+      <ellipse cx="870" cy="330" rx="4" ry="2.5"/>
+      <ellipse cx="930" cy="380" rx="3.5" ry="2"/>
+    </g>
+    <!-- Bigger rocks on the pile -->
+    <ellipse cx="700" cy="340" rx="22" ry="13" fill="#8c9194" stroke="#5a5e62" stroke-width="1.5"/>
+    <ellipse cx="800" cy="390" rx="18" ry="10" fill="#a7acb0" stroke="#5a5e62" stroke-width="1.5"/>
+    <ellipse cx="880" cy="320" rx="14" ry="9" fill="#8c9194" stroke="#5a5e62" stroke-width="1.5"/>
+    <ellipse cx="955" cy="385" rx="12" ry="7" fill="#a7acb0" stroke="#5a5e62" stroke-width="1.5"/>
+    <!-- Caution stripes on the pile face -->
+    <g>
+      <rect x="640" y="500" width="26" height="11" fill="#e6530f"/>
+      <rect x="640" y="511" width="26" height="11" fill="#1a1612"/>
+      <rect x="640" y="522" width="26" height="11" fill="#e6530f"/>
+      <rect x="640" y="533" width="26" height="11" fill="#1a1612"/>
+      <rect x="640" y="544" width="26" height="11" fill="#e6530f"/>
+      <rect x="640" y="555" width="26" height="11" fill="#1a1612"/>
+      <rect x="640" y="566" width="26" height="11" fill="#e6530f"/>
+      <rect x="640" y="577" width="26" height="11" fill="#1a1612"/>
+      <rect x="640" y="588" width="26" height="11" fill="#e6530f"/>
+    </g>
+    <!-- Rocks on the ground near the pile -->
+    <ellipse cx="300" cy="660" rx="14" ry="8" fill="#9aa0a6" stroke="#6a6e73" stroke-width="1.2"/>
+    <ellipse cx="220" cy="692" rx="18" ry="9" fill="#aeb3b8" stroke="#6a6e73" stroke-width="1.2"/>
+    <ellipse cx="700" cy="690" rx="12" ry="6.5" fill="#9aa0a6" stroke="#6a6e73" stroke-width="1.2"/>
+    <!-- Grass blades at the front of the ground -->
+    <g fill="#96b34a" opacity="0.9">
+      <path d="M 615 698 L 618 686 L 621 698 Z"/>
+      <path d="M 648 697 L 652 685 L 655 697 Z"/>
+      <path d="M 560 699 L 563 687 L 566 699 Z"/>
+      <path d="M 680 696 L 683 684 L 686 696 Z"/>
+      <path d="M 720 698 L 723 687 L 726 698 Z"/>
+    </g>
+  </g>
+
+  <!-- ================= Construction cones ================= -->
+  <g>
+    <g>
+      <ellipse cx="335" cy="693" rx="15" ry="4.5" fill="#f35b1f"/>
+      <path d="M 335 670 L 322 693 L 348 693 Z" fill="#f35b1f"/>
+      <ellipse cx="335" cy="671" rx="3" ry="2.5" fill="#fff6e0"/>
+    </g>
+    <g>
+      <ellipse cx="465" cy="693" rx="15" ry="4.5" fill="#f35b1f"/>
+      <path d="M 465 670 L 452 693 L 478 693 Z" fill="#f35b1f"/>
+      <ellipse cx="465" cy="671" rx="3" ry="2.5" fill="#fff6e0"/>
+    </g>
+    <g>
+      <ellipse cx="990" cy="693" rx="15" ry="4.5" fill="#f35b1f"/>
+      <path d="M 990 670 L 977 693 L 1003 693 Z" fill="#f35b1f"/>
+      <ellipse cx="990" cy="671" rx="3" ry="2.5" fill="#fff6e0"/>
+    </g>
+  </g>
+
+  <!-- ================= Bird crossing the sky ================= -->
+  <g>
+    <path d="M 1144 108 L 1162 100 L 1168 106 L 1150 114 Z" fill="#4a4e52"/>
+    <ellipse cx="1130" cy="110" rx="17" ry="10" fill="#3d4144"/>
+    <circle cx="1134" cy="108" r="1.5" fill="#1a1e21"/>
+    <path d="M 1148 106 L 1152 92 L 1148 95 Z" fill="#3d4144"/>
+    <path d="M 1110 116 L 1135 119 L 1115 122 Z" fill="#3d4144" opacity="0.85"/>
+    <animateTransform attributeName="transform" type="translate" values="1050 0; -40 0; 1050 0" dur="16s" repeatCount="indefinite"/>
+  </g>
+
+  <!-- ================= Excavator ================= -->
+  <g id="excavator">
+    <!-- Tracks: left -->
+    <g>
+      <rect x="250" y="690" width="72" height="26" rx="3" fill="#3b3f43" stroke="#23262a" stroke-width="1.5"/>
+      <g>
+        <circle cx="258" cy="703" r="7" fill="url(#rollerGrad)">
+          <animateTransform attributeName="transform" type="rotate" values="0 258 703; 340 258 703; 0 258 703" dur="1.8s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="276" cy="703" r="7" fill="url(#rollerGrad)">
+          <animateTransform attributeName="transform" type="rotate" values="0 276 703; 420 276 703; 0 276 703" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="294" cy="703" r="7" fill="url(#rollerGrad)">
+          <animateTransform attributeName="transform" type="rotate" values="0 294 703; 300 294 703; 0 294 703" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </g>
+    <!-- Tracks: right -->
+    <g>
+      <rect x="680" y="690" width="68" height="26" rx="3" fill="#3b3f43" stroke="#23262a" stroke-width="1.5"/>
+      <g>
+        <circle cx="688" cy="703" r="7" fill="url(#rollerGrad)">
+          <animateTransform attributeName="transform" type="rotate" values="0 688 703; 380 688 703; 0 688 703" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="706" cy="703" r="7" fill="url(#rollerGrad)">
+          <animateTransform attributeName="transform" type="rotate" values="0 706 703; 290 706 703; 0 706 703" dur="2.6s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="724" cy="703" r="7" fill="url(#rollerGrad)">
+          <animateTransform attributeName="transform" type="rotate" values="0 724 703; 340 724 703; 0 724 703" dur="1.7s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </g>
+    <!-- Tracks shadow -->
+    <ellipse cx="515" cy="716" rx="150" ry="3" fill="#121618" opacity="0.35"/>
+
+    <!-- Chassis: rotating body -->
+    <g>
+      <rect x="350" y="496" width="330" height="176" rx="12" fill="url(#bodyGrad)" stroke="#1a1e21" stroke-width="2.5"/>
+      <ellipse cx="385" cy="676" rx="16" ry="6" fill="#2b2f33" opacity="0.85"/>
+      <ellipse cx="676" cy="676" rx="16" ry="6" fill="#2b2f33" opacity="0.85"/>
+      <rect x="362" y="520" width="10" height="30" fill="#3a3f44"/>
+      <rect x="384" y="520" width="10" height="30" fill="#3a3f44"/>
+      <rect x="650" y="520" width="10" height="30" fill="#3a3f44"/>
+      <rect x="668" y="520" width="10" height="30" fill="#3a3f44"/>
+      <line x1="405" y1="545" x2="645" y2="545" stroke="#3a3f44" stroke-width="1.5" opacity="0.6"/>
+      <line x1="405" y1="570" x2="645" y2="570" stroke="#3a3f44" stroke-width="1.5" opacity="0.4"/>
+      <animateTransform attributeName="transform" type="rotate" values="-3 515 584; 2.5 515 584; -3 515 584" dur="13s" repeatCount="indefinite"/>
+    </g>
+
+    <!-- Cab with window -->
+    <g>
+      <rect x="385" y="480" width="190" height="140" rx="16" fill="#2b2f33" stroke="#1a1e21" stroke-width="2.5"/>
+      <rect x="405" y="500" width="140" height="76" rx="8" fill="#a8d8ff" stroke="#2b2f33" stroke-width="3"/>
+      <rect x="427" y="508" width="100" height="16" fill="#e3f4ff" opacity="0.55"/>
+      <!-- Steering wheel turning -->
+      <g transform="translate(505,595)">
+        <circle cx="0" cy="0" r="22" fill="#1a1e21"/>
+        <circle cx="0" cy="0" r="15" fill="#2b2f33"/>
+        <circle cx="0" cy="0" r="9.5" fill="#e6e9ec"/>
+        <circle cx="0" cy="0" r="3" fill="#1a1e21"/>
+        <line x1="-10" y1="0" x2="10" y2="0" stroke="#4a4e52" stroke-width="2.5"/>
+        <line x1="0" y1="-10" x2="0" y2="10" stroke="#4a4e52" stroke-width="2.5"/>
+        <animateTransform attributeName="transform" type="rotate" values="-10;6;-10" dur="6s" repeatCount="indefinite"/>
+      </g>
+    </g>
+
+    <!-- Exhaust pipe with floating puffs -->
+    <g>
+      <rect x="396" y="532" width="30" height="20" rx="4" fill="#2b2f33" stroke="#1a1e21" stroke-width="1.5"/>
+      <ellipse cx="401" cy="528" rx="6" ry="3" fill="#dfe3e8">
+        <animateTransform attributeName="transform" type="translate" values="0 -18" dur="2.6s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0 0.75 0.2 0" dur="2.6s" begin="0.1s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="407" cy="520" rx="5" ry="3" fill="#dfe3e8">
+        <animateTransform attributeName="transform" type="translate" values="0 -14" dur="2.6s" repeatCount="indefinite" begin="0.8s"/>
+        <animate attributeName="opacity" values="0 0.6 0.1 0" dur="2.6s" begin="0.9s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="412" cy="528" rx="6.5" ry="3" fill="#dfe3e8">
+        <animateTransform attributeName="transform" type="translate" values="0 -16" dur="2.6s" repeatCount="indefinite" begin="1.5s"/>
+        <animate attributeName="opacity" values="0 0.8 0 0.15" dur="2.6s" begin="1.6s" repeatCount="indefinite"/>
+      </ellipse>
+    </g>
+
+    <!-- Boom (arm part 1) -->
+    <g>
+      <path d="M 448 462 L 448 196 L 484 186 L 484 452 Z" fill="url(#bodyGrad)" stroke="#1a1e21" stroke-width="2.5"/>
+      <animateTransform attributeName="transform" type="rotate" values="-7 448 462; 8 448 462; -7 448 462" dur="4s" repeatCount="indefinite"/>
+    </g>
+
+    <!-- Stick (arm part 2) -->
+    <g>
+      <path d="M 484 186 L 604.7 326.2 L 600 330 L 488.7 182.2 Z" fill="url(#stickGrad)" stroke="#23262a" stroke-width="2"/>
+      <animateTransform attributeName="transform" type="rotate" values="8 448 462; -7 448 462; 8 448 462" dur="4.4s" repeatCount="indefinite" begin="0.5s"/>
+    </g>
+
+    <!-- Bucket with toothed edge (digging cycle) -->
+    <g>
+      <path d="M 554 338 L 622 342 L 622 362 L 554 358 Z" fill="url(#bucketGrad)" stroke="#23262a" stroke-width="2.5"/>
+      <g fill="#2b2f33">
+        <rect x="554" y="340" width="8" height="10" rx="2"/>
+        <rect x="564" y="335" width="7" height="15" rx="2"/>
+        <rect x="573" y="337" width="9" height="13" rx="2"/>
+        <rect x="585" y="332" width="6" height="18" rx="2"/>
+        <rect x="594" y="336" width="8" height="11" rx="2"/>
+        <rect x="604" y="340" width="6" height="8" rx="2"/>
+      </g>
+      <animateTransform attributeName="transform" type="rotate" values="-10 598 350; 8 598 350; -10 598 350" dur="2.7s" repeatCount="indefinite" begin="0.2s"/>
+    </g>
+  </g>
+
+  <!-- ================= Sloth in the cab ================= -->
+  <g id="sloth">
+    <ellipse cx="445" cy="578" rx="42" ry="5" fill="#1a1610" opacity="0.4"/>
+
+    <!-- Hard hat -->
+    <path d="M 452 494 L 463 505 L 455 507 Z" fill="#ffe07f" stroke="#c9c9b0"/>
+    <ellipse cx="452" cy="507" rx="14" ry="3" fill="#ffe07f" stroke="#c9c9b0"/>
+
+    <!-- Face mask -->
+    <ellipse cx="445" cy="510" rx="30" ry="21" fill="#1a1612" stroke="#0b0908" stroke-width="1.5"/>
+
+    <!-- Dark eye patches -->
+    <ellipse cx="430" cy="512" rx="4.5" ry="3.2" fill="#0b0908"/>
+    <ellipse cx="458" cy="512" rx="4.5" ry="3.2" fill="#0b0908"/>
+
+    <!-- Content, half-closed eyes (with blinking) -->
+    <ellipse cx="433" cy="511" rx="3" ry="1.7" fill="#3a3329">
+      <animate attributeName="ry" values="1.7 0.2 1.7" dur="2.6s" repeatCount="indefinite"/>
+    </ellipse>
+    <ellipse cx="456" cy="511" rx="3" ry="1.7" fill="#3a3329">
+      <animate attributeName="ry" values="1.7 0.2 1.7" dur="2.8s" repeatCount="indefinite" begin="0.35s"/>
+    </ellipse>
+
+    <!-- Small nose -->
+    <circle cx="446" cy="516" r="3" fill="#221a14"/>
+
+    <!-- Sleepy smile -->
+    <path d="M 438 521 Q 445 528 452 521" fill="none" stroke="#221a14" stroke-width="2.5" stroke-linecap="round"/>
+
+    <!-- Body -->
+    <ellipse cx="445" cy="545" rx="40" ry="33" fill="#3a2f24" stroke="#2b2520" stroke-width="1.5"/>
+    <ellipse cx="410" cy="545" rx="9" ry="7" fill="#5a4e44" opacity="0.7"/>
+    <ellipse cx="480" cy="548" rx="9" ry="7" fill="#5a4e44" opacity="0.7"/>
+
+    <!-- Feet -->
+    <ellipse cx="425" cy="568" rx="9" ry="4.5" fill="#3a2f24" stroke="#2b2520"/>
+    <ellipse cx="466" cy="566" rx="10" ry="4.5" fill="#3a2f24" stroke="#2b2520"/>
+
+    <!-- High-visibility vest -->
+    <path d="M 408 558 L 408 588 L 486 588 L 486 558 Z" fill="#ff9d00" stroke="#b4770b" stroke-width="1.5"/>
+    <g fill="#ffffff">
+      <rect x="416" y="564" width="3" height="13"/>
+      <rect x="428" y="561" width="3" height="16"/>
+      <rect x="440" y="567" width="3" height="10"/>
+      <rect x="452" y="562" width="3" height="15"/>
+      <rect x="464" y="565" width="3" height="12"/>
+    </g>
+
+    <!-- Arm stretched toward the steering wheel, with claws -->
+    <g>
+      <path d="M 452 546 Q 462 508 490 490 Q 505 485 512 495 Z" fill="#b39a89"/>
+      <g fill="#3a2f24">
+        <ellipse cx="507" cy="492" rx="2.5" ry="3"/>
+        <ellipse cx="514" cy="488" rx="2" ry="3"/>
+        <ellipse cx="520" cy="494" rx="2.5" ry="3"/>
+      </g>
+      <animateTransform attributeName="transform" type="rotate" values="2 460 530; -3 460 530; 2 460 530" dur="5s" repeatCount="indefinite"/>
+    </g>
+  </g>
+
+  <!-- "Zzz" letters floating upward (sloth drifting to sleep) -->
+  <g>
+    <text x="428" y="507" font-family="Helvetica, Arial, sans-serif" font-size="22" fill="#d9d9d9" opacity="0">
+      Z
+      <animate attributeName="opacity" values="0 0.8 0 0.85" dur="5s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 -16" dur="5s" repeatCount="indefinite"/>
+    </text>
+    <text x="438" y="504" font-family="Helvetica, Arial, sans-serif" font-size="20" fill="#d9d9d9" opacity="0">
+      Z
+      <animate attributeName="opacity" values="0 0.75 0 0.85" dur="5s" begin="1.4s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 -14" dur="5s" begin="1.4s" repeatCount="indefinite"/>
+    </text>
+    <text x="449" y="499" font-family="Helvetica, Arial, sans-serif" font-size="24" fill="#d9d9d9" opacity="0">
+      Z
+      <animate attributeName="opacity" values="0 0.7 0 0.85" dur="5s" begin="2.8s" repeatCount="indefinite"/>
+      <animateTransform attributeName="transform" type="translate" values="0 -18" dur="5s" begin="2.8s" repeatCount="indefinite"/>
+    </text>
+  </g>
+</svg>

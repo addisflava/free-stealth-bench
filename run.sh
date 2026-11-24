@@ -17,7 +17,7 @@
 #   ./run.sh --effort high            # override the per-provider effort default
 #   ./run.sh --timeout 1200           # per-run wall-clock seconds (default: 900)
 #   ./run.sh --retries 2              # extra attempts on transient provider failures
-#   ./run.sh --no-progress-timeout 240  # kill an agent with no text/tool call for Ns (0=off)
+#   ./run.sh --no-progress-timeout 420  # kill an agent with no output/file activity for Ns (0=off)
 #   ./run.sh --quarantine-threshold 3 # skip pairs with N consecutive DNFs (0=off)
 #   ./run.sh --force                  # re-run even if today's output exists
 #   ./run.sh --prompt "Draw a fox" [--task-id fox]   # ad-hoc task from the command line
@@ -102,7 +102,7 @@ TIMEOUT=900
 RETRIES="${BENCH_RETRIES:-2}"
 RETRY_DELAY="${BENCH_RETRY_DELAY:-5}"
 ATTEMPT_TIMEOUT="${BENCH_ATTEMPT_TIMEOUT:-0}"
-NO_PROGRESS_TIMEOUT="${BENCH_NO_PROGRESS_TIMEOUT:-240}"
+NO_PROGRESS_TIMEOUT="${BENCH_NO_PROGRESS_TIMEOUT:-420}"
 QUARANTINE_THRESHOLD="${DNF_QUARANTINE_THRESHOLD:-3}"
 ONLY_MODELS=""
 ONLY_TASKS=""

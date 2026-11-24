@@ -1,6 +1,6 @@
 # free-stealth-bench automated judge ranking
 
-Rubric `v1` · judge `opencode/inkling-2-small-free` · input mode `image` · updated 2026-11-22T19:26:52+00:00
+Rubric `v1` · judge `opencode/inkling-2-small-free` · input mode `image` · updated 2026-11-24T10:44:28+00:00
 
 Weights: output_quality=0.22, instruction_following=0.2, creativity=0.1, animation_fidelity=0.12, richness_detail=0.1, composition_aesthetics=0.11, technical_validity=0.15
 

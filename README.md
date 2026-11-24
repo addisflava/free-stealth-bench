@@ -50,7 +50,7 @@ LLMs (including the judge) are contestants here, and they are also graded. To ke
 ./run.sh --effort high                   # override the per-provider effort default
 ./run.sh --timeout 1200                  # per-run wall-clock budget (default 900s)
 ./run.sh --retries 2                     # extra attempts on transient provider failures
-./run.sh --no-progress-timeout 240       # kill a stalled agent after Ns without output (0=off)
+./run.sh --no-progress-timeout 420       # kill a stalled agent after Ns without output/file changes (0=off)
 ./run.sh --quarantine-threshold 3        # skip pairs with N consecutive DNFs (0=off)
 ./run.sh --force                         # redo even if today's file exists
 
@@ -73,7 +73,7 @@ A `(task, model, effort)` whose newest sidecar is `result_status: ok` is **skipp
 
 Free endpoints drop connections, return 502/504 and stall mid-stream. The runner handles that without wasting the whole wall-clock budget:
 
-- **No-progress watchdog** (default 240s): a stalled agent — emitting only `step-start` events, no text/tool call/completion — is killed early and recorded as `timeout` with `error_type: no_progress`. Plain-text harness output counts as progress too.
+- **No-progress watchdog** (default 420s): a stalled agent — no text/tool call/completion in the log **and** no file activity in the workdir — is killed early and recorded as `timeout` with `error_type: no_progress`. The generous default exists because free models can think for 5+ minutes before emitting a token; a file written by a tool also counts as progress. Plain-text harness output counts too.
 - **Bounded retries** (default 2 extra attempts): transport errors, 502/504, stalls and silent failures are retried with exponential backoff (default 5s, 10s). The total run still fits inside `--timeout`; auth, quota, invalid-variant and config errors are terminal and are never retried.
 - **DNF quarantine** (default 3): a pair with 3 consecutive non-`ok` sidecars is skipped on later invocations instead of burning 15 minutes each time. Use `--force` or `--quarantine-threshold 0` to retry it anyway.
 

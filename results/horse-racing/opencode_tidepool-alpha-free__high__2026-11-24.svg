@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800">
+  <title>Thunderous Finale - Animated Horse Race</title>
+  <defs>
+    <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7EC7FF"/>
+      <stop offset="0.45" stop-color="#B3D8FF"/>
+      <stop offset="0.85" stop-color="#D6E7F5"/>
+      <stop offset="1" stop-color="#CFE2F2"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FFF9E6"/>
+      <stop offset="0.5" stop-color="#FFCD63"/>
+      <stop offset="1" stop-color="#FFAB4D" stop-opacity="0.3"/>
+    </radialGradient>
+    <radialGradient id="sunFace" cx="0.4" cy="0.45" r="0.5">
+      <stop offset="0" stop-color="#FFF9E6"/>
+      <stop offset="0.5" stop-color="#FFD25C"/>
+      <stop offset="1" stop-color="#FFB24D"/>
+    </radialGradient>
+    <linearGradient id="hill1Grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5A7A3F"/>
+      <stop offset="0.5" stop-color="#3F5D2C"/>
+      <stop offset="1" stop-color="#2F4B22"/>
+    </linearGradient>
+    <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3B6B30"/>
+      <stop offset="1" stop-color="#27422C"/>
+    </linearGradient>
+    <linearGradient id="trackGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3E5F2C"/>
+      <stop offset="0.4" stop-color="#4D6F39"/>
+      <stop offset="1" stop-color="#6C8F52"/>
+    </linearGradient>
+    <linearGradient id="grassEdge" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2F4B22"/>
+      <stop offset="0.3" stop-color="#4A6A33"/>
+      <stop offset="1" stop-color="#3B6B30"/>
+    </linearGradient>
+    <linearGradient id="standGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7F4EA"/>
+      <stop offset="1" stop-color="#E6E1D6"/>
+    </linearGradient>
+  </defs>
+  <g id="sky">
+    <rect x="0" y="0" width="1200" height="800" fill="url(#skyGrad)"/>
+    <g id="stars">
+      <circle cx="150px" cy="-10px" r="1.4" fill="#FFFFFF" opacity="0.4">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="247px" cy="30px" r="1.4" fill="#FFFFFF" opacity="0.6000000000000001">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="344px" cy="70px" r="1.4" fill="#FFFFFF" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="441px" cy="110px" r="1.4" fill="#FFFFFF" opacity="0.4">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="538px" cy="150px" r="1.4" fill="#FFFFFF" opacity="0.6000000000000001">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="635px" cy="190px" r="1.4" fill="#FFFFFF" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="732px" cy="230px" r="1.4" fill="#FFFFFF" opacity="0.4">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="829px" cy="270px" r="1.4" fill="#FFFFFF" opacity="0.6000000000000001">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="926px" cy="310px" r="1.4" fill="#FFFFFF" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1023px" cy="350px" r="1.4" fill="#FFFFFF" opacity="0.4">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1120px" cy="390px" r="1.4" fill="#FFFFFF" opacity="0.6000000000000001">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1217px" cy="430px" r="1.4" fill="#FFFFFF" opacity="0.8">
+        <animate attributeName="opacity" values="0.8;0.3;0.8" dur="4s" repeatCount="indefinite"/>
+      </circle>
+    </g>
+    <g id="sun">
+      <circle cx="1050" cy="205" r="85" fill="url(#sunGlow)"/>
+      <circle cx="1050" cy="205" r="50" fill="url(#sunFace)">
+        <animate attributeName="opacity" values="0.92;0.55;0.92" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="1050" cy="205" r="50" fill="#FFF8E4" opacity="0.65"/>
+      <path d="M1050 150 L1050 125 M1045 164 L1056 168 M1045 181 L1052 189 L1045 185" stroke="#FFD25C" stroke-width="5" stroke-linecap="round"/>
+      <path d="M1064 196 L1075 196 M1071 187 L1081 190 M1081 196 L1083 206" stroke="#FFB24D" stroke-width="3"/>
+      <circle cx="1040" cy="225" r="3" fill="#FFF8E4" opacity="0.5"/>
+    </g>
+    <g id="clouds">
+      <g id="cloud0">
+        <ellipse cx="120" cy="92" rx="88" ry="52" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="80" cy="89" rx="35" ry="33" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="146" cy="94" rx="30" ry="28" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <animateMotion path="M16 92 L2416 92" dur="18s" repeatCount="indefinite"/>
+      </g>
+      <g id="cloud1">
+        <ellipse cx="420" cy="105" rx="118" ry="58" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="366" cy="102" rx="47" ry="37" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="455" cy="107" rx="41" ry="31" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <animateMotion path="M20 105 L2420 105" dur="24s" repeatCount="indefinite"/>
+      </g>
+      <g id="cloud2">
+        <ellipse cx="760" cy="88" rx="95" ry="48" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="717" cy="85" rx="38" ry="31" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="788" cy="90" rx="33" ry="26" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <animateMotion path="M14 88 L2414 88" dur="16s" repeatCount="indefinite"/>
+      </g>
+      <g id="cloud3">
+        <ellipse cx="300" cy="145" rx="125" ry="62" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="243" cy="142" rx="50" ry="40" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="337" cy="147" rx="43" ry="34" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <animateMotion path="M12 145 L2412 145" dur="20s" repeatCount="indefinite"/>
+      </g>
+      <g id="cloud4">
+        <ellipse cx="950" cy="128" rx="92" ry="50" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="908" cy="125" rx="36" ry="32" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="977" cy="130" rx="32" ry="27" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <animateMotion path="M18 128 L2418 128" dur="22s" repeatCount="indefinite"/>
+      </g>
+      <g id="cloud5">
+        <ellipse cx="660" cy="155" rx="100" ry="45" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="615" cy="152" rx="40" ry="29" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <ellipse cx="690" cy="157" rx="35" ry="24" fill="#FFFFFF" stroke="#F0F5FB" stroke-width="3"/>
+        <animateMotion path="M10 155 L2410 155" dur="14s" repeatCount="indefinite"/>
+      </g>
+    </g>
+  </g>
+  <g id="hills">
+    <path id="hill1" d="M0 452 Q330 395 620 448 Q900 458 1200 450 L1200 690 L0 690 Z" fill="url(#hill1Grad)"/>
+    <path id="hill2" d="M0 505 Q450 440 750 450 L750 695 L0 695 Z" fill="#4D5F38"/>
+    <path id="hill3" d="M800 470 Q900 445 1000 465 Q1100 460 1150 445 L1150 695 L800 695 Z" fill="#3F5D2C"/>
+  </g>
+  <g id="trackAndRails">
+    <rect id="ground" x="0" y="660" width="1200" height="140" fill="url(#groundGrad)"/>
+    <rect id="track" x="140" y="460" width="720" height="200" fill="url(#trackGrad)"/>
+    <line id="trackLine" x1="140" y1="505" x2="860" y2="505" stroke="#FFFFFF" stroke-width="8" stroke-dasharray="26 18"/>
+    <line id="trackLine2" x1="140" y1="492" x2="860" y2="492" stroke="#F6F2E9" stroke-width="4"/>
+    <g id="rails">
+      <rect x="136" y="460" width="5" height="200" fill="#4A4138"/>
+      <rect x="855" y="460" width="5" height="200" fill="#4A4138"/>
+      <rect x="130" y="450" width="14" height="10" fill="#5B4B40"/>
+      <rect x="850" y="450" width="14" height="10" fill="#5B4B40"/>
+    </g>
+    <rect id="grassLeft" x="120" y="460" width="20" height="320" fill="url(#grassEdge)"/>
+    <rect id="grassRight" x="860" y="460" width="20" height="320" fill="url(#grassEdge)"/>
+    <g id="finishArea">
+      <rect x="830" y="460" width="12" height="200" fill="#F2E7B0"/>
+      <rect x="826" y="460" width="4" height="95" fill="#D43A2C"/>
+      <rect x="838" y="555" width="4" height="105" fill="#2B3D7E"/>
+      <rect x="844" y="460" width="8" height="24" fill="#2B3D7E"/>
+    </g>
+  </g>
+  <g id="grandstand">
+    <polygon points="160,460 840,460 840,420 810,412 500,310 190,412 160,420" fill="url(#standGrad)" stroke="#3D3529" stroke-width="2"/>
+    <g id="seatRows">
+      <rect x="170" y="455" width="700" height="7" fill="#FFFDF3" stroke="#D5CEC1" stroke-width="1"/>
+      <rect x="170" y="445" width="700" height="7" fill="#FFFDF3" stroke="#D5CEC1" stroke-width="1"/>
+      <rect x="170" y="435" width="700" height="7" fill="#FFFDF3" stroke="#D5CEC1" stroke-width="1"/>
+    </g>
+    <g id="crowdOnStand">
+      <circle cx="215" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="237" cy="360" r="2" fill="#444444"/>
+      <circle cx="259" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="281" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="303" cy="360" r="2" fill="#444444"/>
+      <circle cx="325" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="347" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="369" cy="360" r="2" fill="#444444"/>
+      <circle cx="391" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="413" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="435" cy="360" r="2" fill="#444444"/>
+      <circle cx="457" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="479" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="501" cy="360" r="2" fill="#444444"/>
+      <circle cx="523" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="545" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="567" cy="360" r="2" fill="#444444"/>
+      <circle cx="589" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="611" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="633" cy="360" r="2" fill="#444444"/>
+      <circle cx="655" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="677" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="699" cy="360" r="2" fill="#444444"/>
+      <circle cx="721" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="743" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="765" cy="360" r="2" fill="#444444"/>
+      <circle cx="787" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="809" cy="368" r="3" fill="#1F1F1F"/>
+      <circle cx="831" cy="360" r="2" fill="#444444"/>
+      <circle cx="853" cy="368" r="3" fill="#1F1F1F"/>
+    </g>
+    <g id="flags">
+      <g transform="translate(320, 415)">
+        <path d="M0 0 L18 -6 L18 16 Z" fill="#E63946" stroke="#1C1C1C" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="185" stroke="#4A4030" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="4s" repeatCount="indefinite" begin="0.0s"/>
+      </g>
+      <g transform="translate(420, 415)">
+        <path d="M0 0 L18 -6 L18 16 Z" fill="#2B3D7E" stroke="#1C1C1C" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="185" stroke="#4A4030" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="4s" repeatCount="indefinite" begin="0.4s"/>
+      </g>
+      <g transform="translate(520, 415)">
+        <path d="M0 0 L18 -6 L18 16 Z" fill="#F2E7B4" stroke="#1C1C1C" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="185" stroke="#4A4030" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="4s" repeatCount="indefinite" begin="0.8s"/>
+      </g>
+      <g transform="translate(620, 415)">
+        <path d="M0 0 L18 -6 L18 16 Z" fill="#0D9488" stroke="#1C1C1C" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="185" stroke="#4A4030" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="4s" repeatCount="indefinite" begin="1.2s"/>
+      </g>
+      <g transform="translate(720, 415)">
+        <path d="M0 0 L18 -6 L18 16 Z" fill="#D43A2C" stroke="#1C1C1C" stroke-width="1"/>
+        <line x1="0" y1="0" x2="0" y2="185" stroke="#4A4030" stroke-width="2"/>
+        <animateTransform attributeName="transform" type="rotate" values="0;5;-5;0" dur="4s" repeatCount="indefinite" begin="1.6s"/>
+      </g>
+    </g>
+  </g>
+  <g id="crowdInFront">
+    <circle cx="175" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="230" cy="513" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="513;509;513;516;513" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="285" cy="513" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="513;509;513;516;513" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="340" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="395" cy="513" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="513;509;513;516;513" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="450" cy="513" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="513;509;513;516;513" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="505" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="560" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="615" cy="513" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="513;509;513;516;513" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="670" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="725" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="780" cy="513" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="513;509;513;516;513" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="835" cy="512" r="3" fill="#1F1F1F">
+      <animate attributeName="cy" values="512;508;512;515;512" dur="3.2s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  <g id="toteBoard">
+    <rect x="615" y="378" width="170" height="74" rx="6" fill="#EFEFEF" stroke="#2E2E2E" stroke-width="2"/>
+    <text x="625" y="397" font-size="15" font-weight="bold" fill="#2E2E2E">TOTE</text>
+    <g id="toteCol625">
+      <text x="625" y="412" font-size="13" fill="#111111" text-anchor="middle">3.40</text>
+      <animate attributeName="y" values="412;407;412;416;412" dur="2.6s" repeatCount="indefinite" begin="0.0s"/>
+      <text x="625" y="430" font-size="13" fill="#111111" text-anchor="middle">2.85</text>
+      <animate attributeName="y" values="430;425;430;434;430" dur="2.6s" repeatCount="indefinite" begin="0.4s"/>
+      <text x="625" y="448" font-size="13" fill="#111111" text-anchor="middle">7.10</text>
+      <animate attributeName="y" values="448;443;448;452;448" dur="2.6s" repeatCount="indefinite" begin="0.8s"/>
+    </g>
+    <g id="toteCol700">
+      <text x="700" y="412" font-size="13" fill="#111111" text-anchor="middle">5.20</text>
+      <animate attributeName="y" values="412;407;412;416;412" dur="2.6s" repeatCount="indefinite" begin="1.3s"/>
+      <text x="700" y="430" font-size="13" fill="#111111" text-anchor="middle">1.90</text>
+      <animate attributeName="y" values="430;425;430;434;430" dur="2.6s" repeatCount="indefinite" begin="1.7s"/>
+      <text x="700" y="448" font-size="13" fill="#111111" text-anchor="middle">4.05</text>
+      <animate attributeName="y" values="448;443;448;452;448" dur="2.6s" repeatCount="indefinite" begin="2.1s"/>
+    </g>
+  </g>
+  <g id="photoFinish">
+    <rect x="845" y="375" width="130" height="95" rx="4" fill="#2B2B36" stroke="#444444"/>
+    <rect x="858" y="388" width="104" height="50" fill="#0E0E12"/>
+    <rect x="858" y="388" width="104" height="50" fill="#F8E8A0">
+      <animate attributeName="opacity" values="0;0.4;0;1;0.4;0" dur="1.2s" repeatCount="indefinite"/>
+    </rect>
+    <text x="903" y="410" font-size="10" fill="#8A8A8A" text-anchor="middle">photo finish</text>
+  </g>
+  <g id="horses">
+    <g id="h1">
+      <animateMotion path="M170 390 L830 390 L80 390" dur="3.4s" repeatCount="indefinite" begin="0.0s"/>
+      <g class="body">
+        <rect x="0" y="0" width="88" height="96" rx="12" fill="#C1534A" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-13 4 Q-10 -8 0 -4 L14 -2 Q22 -4 26 4 L42 2 Q50 0 56 6 L64 26 L38 50 Q14 34 0 20 Z" fill="#7C3028"/>
+        <ellipse cx="-13" cy="10" rx="15" ry="16" fill="#C1534A" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-10 9 L-6 1 L-2 8 L-8 14" fill="none" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M36 6 L42 12" stroke="#C1534A" stroke-width="8" stroke-linecap="round"/>
+        <rect x="22" y="8" width="62" height="30" rx="4" fill="#E63946" stroke="#1C1C1C" stroke-width="2"/>
+        <rect x="28" y="13" width="50" height="4" fill="#F1FAEE"/>
+        <circle cx="44" cy="-19" r="7" fill="#E63946"/>
+        <circle cx="44" cy="-19" r="4" fill="#FFFBEE"/>
+        <rect x="6" y="34" width="12" height="14" rx="3" fill="#2B3D7E"/>
+        <text x="48" y="28" font-size="13" text-anchor="middle" fill="#111111">5</text>
+        <path d="M88 40 Q100 46 102 62 Q100 78 88 90 Q80 98 62 100 L42 88 L62 60 Q72 44 88 38 Z" fill="#A04238"/>
+        <g id="legs">
+          <g id="h1_fl">
+            <animateTransform attributeName="transform" type="rotate" values="26;-26;26" dur="0.42s" repeatCount="indefinite" begin="0.0s"/>
+            <g transform="translate(10,78)">
+              <path d="M0 0 L0 36" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h1_fr">
+            <animateTransform attributeName="transform" type="rotate" values="-26;26;-26" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(26,80)">
+              <path d="M0 0 L0 36" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h1_rl">
+            <animateTransform attributeName="transform" type="rotate" values="22;-22;22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(4,76)">
+              <path d="M0 0 L0 36" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h1_rr">
+            <animateTransform attributeName="transform" type="rotate" values="-22;22;-22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(22,78)">
+              <path d="M0 0 L0 36" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#C1534A" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+        </g>
+        <g id="dust">
+          <ellipse cx="30" cy="125" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="52" cy="124" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+      </g>
+    </g>
+    <g id="h2">
+      <animateMotion path="M170 390 L830 390 L80 390" dur="2.9s" repeatCount="indefinite" begin="0.5s"/>
+      <g class="body">
+        <rect x="0" y="0" width="88" height="96" rx="12" fill="#5E8B63" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-13 4 Q-10 -8 0 -4 L14 -2 Q22 -4 26 4 L42 2 Q50 0 56 6 L64 26 L38 50 Q14 34 0 20 Z" fill="#2F5D32"/>
+        <ellipse cx="-13" cy="10" rx="15" ry="16" fill="#5E8B63" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-10 9 L-6 1 L-2 8 L-8 14" fill="none" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M36 6 L42 12" stroke="#5E8B63" stroke-width="8" stroke-linecap="round"/>
+        <rect x="22" y="8" width="62" height="30" rx="4" fill="#F4A261" stroke="#1C1C1C" stroke-width="2"/>
+        <rect x="28" y="13" width="50" height="4" fill="#FFEDD0"/>
+        <circle cx="44" cy="-19" r="7" fill="#F4A261"/>
+        <circle cx="44" cy="-19" r="4" fill="#FFFBEE"/>
+        <rect x="6" y="34" width="12" height="14" rx="3" fill="#C41E3A"/>
+        <text x="48" y="28" font-size="13" text-anchor="middle" fill="#111111">7</text>
+        <path d="M88 40 Q100 46 102 62 Q100 78 88 90 Q80 98 62 100 L42 88 L62 60 Q72 44 88 38 Z" fill="#4A7A4A"/>
+        <g id="legs">
+          <g id="h2_fl">
+            <animateTransform attributeName="transform" type="rotate" values="26;-26;26" dur="0.42s" repeatCount="indefinite" begin="0.0s"/>
+            <g transform="translate(10,78)">
+              <path d="M0 0 L0 36" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h2_fr">
+            <animateTransform attributeName="transform" type="rotate" values="-26;26;-26" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(26,80)">
+              <path d="M0 0 L0 36" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h2_rl">
+            <animateTransform attributeName="transform" type="rotate" values="22;-22;22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(4,76)">
+              <path d="M0 0 L0 36" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h2_rr">
+            <animateTransform attributeName="transform" type="rotate" values="-22;22;-22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(22,78)">
+              <path d="M0 0 L0 36" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5E8B63" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+        </g>
+        <g id="dust">
+          <ellipse cx="30" cy="125" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="52" cy="124" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+      </g>
+    </g>
+    <g id="h3">
+      <animateMotion path="M170 390 L830 390 L80 390" dur="3.8s" repeatCount="indefinite" begin="0.2s"/>
+      <g class="body">
+        <rect x="0" y="0" width="88" height="96" rx="12" fill="#5D7BC9" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-13 4 Q-10 -8 0 -4 L14 -2 Q22 -4 26 4 L42 2 Q50 0 56 6 L64 26 L38 50 Q14 34 0 20 Z" fill="#9FB5E8"/>
+        <ellipse cx="-13" cy="10" rx="15" ry="16" fill="#5D7BC9" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-10 9 L-6 1 L-2 8 L-8 14" fill="none" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M36 6 L42 12" stroke="#5D7BC9" stroke-width="8" stroke-linecap="round"/>
+        <rect x="22" y="8" width="62" height="30" rx="4" fill="#F2E7B4" stroke="#1C1C1C" stroke-width="2"/>
+        <rect x="28" y="13" width="50" height="4" fill="#2E5C9B"/>
+        <circle cx="44" cy="-19" r="7" fill="#F2E7B4"/>
+        <circle cx="44" cy="-19" r="4" fill="#FFFBEE"/>
+        <rect x="6" y="34" width="12" height="14" rx="3" fill="#D43A2C"/>
+        <text x="48" y="28" font-size="13" text-anchor="middle" fill="#111111">2</text>
+        <path d="M88 40 Q100 46 102 62 Q100 78 88 90 Q80 98 62 100 L42 88 L62 60 Q72 44 88 38 Z" fill="#93AEE2"/>
+        <g id="legs">
+          <g id="h3_fl">
+            <animateTransform attributeName="transform" type="rotate" values="26;-26;26" dur="0.42s" repeatCount="indefinite" begin="0.0s"/>
+            <g transform="translate(10,78)">
+              <path d="M0 0 L0 36" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h3_fr">
+            <animateTransform attributeName="transform" type="rotate" values="-26;26;-26" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(26,80)">
+              <path d="M0 0 L0 36" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h3_rl">
+            <animateTransform attributeName="transform" type="rotate" values="22;-22;22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(4,76)">
+              <path d="M0 0 L0 36" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h3_rr">
+            <animateTransform attributeName="transform" type="rotate" values="-22;22;-22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(22,78)">
+              <path d="M0 0 L0 36" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#5D7BC9" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+        </g>
+        <g id="dust">
+          <ellipse cx="30" cy="125" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="52" cy="124" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+      </g>
+    </g>
+    <g id="h4">
+      <animateMotion path="M170 390 L830 390 L80 390" dur="2.7s" repeatCount="indefinite" begin="0.3s"/>
+      <g class="body">
+        <rect x="0" y="0" width="88" height="96" rx="12" fill="#E5A14D" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-13 4 Q-10 -8 0 -4 L14 -2 Q22 -4 26 4 L42 2 Q50 0 56 6 L64 26 L38 50 Q14 34 0 20 Z" fill="#A1692F"/>
+        <ellipse cx="-13" cy="10" rx="15" ry="16" fill="#E5A14D" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M-10 9 L-6 1 L-2 8 L-8 14" fill="none" stroke="#1C1C1C" stroke-width="2"/>
+        <path d="M36 6 L42 12" stroke="#E5A14D" stroke-width="8" stroke-linecap="round"/>
+        <rect x="22" y="8" width="62" height="30" rx="4" fill="#A8DADC" stroke="#1C1C1C" stroke-width="2"/>
+        <rect x="28" y="13" width="50" height="4" fill="#2B3D7E"/>
+        <circle cx="44" cy="-19" r="7" fill="#A8DADC"/>
+        <circle cx="44" cy="-19" r="4" fill="#FFFBEE"/>
+        <rect x="6" y="34" width="12" height="14" rx="3" fill="#F2E7B4"/>
+        <text x="48" y="28" font-size="13" text-anchor="middle" fill="#111111">9</text>
+        <path d="M88 40 Q100 46 102 62 Q100 78 88 90 Q80 98 62 100 L42 88 L62 60 Q72 44 88 38 Z" fill="#E5A14D"/>
+        <g id="legs">
+          <g id="h4_fl">
+            <animateTransform attributeName="transform" type="rotate" values="26;-26;26" dur="0.42s" repeatCount="indefinite" begin="0.0s"/>
+            <g transform="translate(10,78)">
+              <path d="M0 0 L0 36" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h4_fr">
+            <animateTransform attributeName="transform" type="rotate" values="-26;26;-26" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(26,80)">
+              <path d="M0 0 L0 36" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h4_rl">
+            <animateTransform attributeName="transform" type="rotate" values="22;-22;22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(4,76)">
+              <path d="M0 0 L0 36" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+          <g id="h4_rr">
+            <animateTransform attributeName="transform" type="rotate" values="-22;22;-22" dur="0.42s" repeatCount="indefinite" begin="0.1s"/>
+            <g transform="translate(22,78)">
+              <path d="M0 0 L0 36" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <path d="M0 36 L0 76" stroke="#E5A14D" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="0" cy="76" r="5" fill="#1A1A1A" opacity="0.9"/>
+              <rect x="-5" y="76" width="10" height="7" rx="2" fill="#222222"/>
+            </g>
+          </g>
+        </g>
+        <g id="dust">
+          <ellipse cx="30" cy="125" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="52" cy="124" rx="7" ry="3" fill="#6B5C44" opacity="0.55">
+            <animateMotion path="M0,0 L0,-14" dur="0.75s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

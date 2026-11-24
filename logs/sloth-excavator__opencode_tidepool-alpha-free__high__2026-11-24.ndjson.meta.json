@@ -1,0 +1,33 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "sloth-excavator",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/tidepool-alpha-free",
+  "model": "opencode/tidepool-alpha-free",
+  "model_id": "tidepool-alpha-free",
+  "effort": "high",
+  "effort_requested": "high",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-24T10:38:55+00:00",
+  "wall_seconds": 328,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 15645,
+    "output": 9296,
+    "reasoning": 47189,
+    "cache_read": 215368,
+    "total": 24941
+  },
+  "steps": 4,
+  "session_id": "ses_df2e1e309ffeegv9KnOoUfWaiv",
+  "events": 17,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false,
+  "attempts": 1,
+  "retry_errors": []
+}

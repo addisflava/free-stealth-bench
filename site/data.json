@@ -1,6 +1,6 @@
 {
  "benchmark": "free-stealth-bench",
- "generated_utc": "2026-11-22T19:26:52+00:00",
+ "generated_utc": "2026-11-24T10:44:28+00:00",
  "tasks": {
   "sloth-excavator": {
    "blurb": "Cartoon sloth in hard hat and hi-vis vest calmly operating a yellow tracked excavator, digging/filling a dirt pile, several animated elements."
@@ -11,8 +11,8 @@
  },
  "discovery": {
   "source": "provider discovery",
-  "snapshot_date": "2026-11-22",
-  "snapshot_file": "logs/models-snapshot-2026-11-22.txt",
+  "snapshot_date": "2026-11-24",
+  "snapshot_file": "logs/models-snapshot-2026-11-24.txt",
   "available": [
    "opencode/beam-free",
    "opencode/big-pickle",
@@ -26,7 +26,6 @@
    "opencode/tidepool-alpha-free"
   ],
   "new": [
-   "opencode/hy4-flash-free",
    "opencode/tidepool-alpha-free"
   ],
   "first_seen": {
@@ -1072,6 +1071,48 @@
    "external_refs": null,
    "script_blocks": null,
    "viewBox": null,
+   "canvas_offcanvas": false,
+   "root_transform_note": null
+  },
+  {
+   "id": "horse-racing__opencode_tidepool-alpha-free__high__2026-11-24",
+   "task": "horse-racing",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "model_id": "tidepool-alpha-free",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "variant": "high",
+   "effort": "high",
+   "effort_requested": "high",
+   "effort_fallback": false,
+   "timed_out": false,
+   "date_utc": "2026-11-24T10:44:24Z",
+   "opencode_version": "v2.0.26",
+   "agent_version": "v2.0.26",
+   "prompt_sha256": "2ee9fee034dae131e0245ecfb11fda734e7a3f188572e211d07ada2791143b2d",
+   "prompt_file": "prompts/horse-racing.txt",
+   "wall_seconds": 326,
+   "tokens": {
+    "input": 54895,
+    "output": 7263,
+    "reasoning": 40413,
+    "cache_read": 482096,
+    "total": 62158
+   },
+   "steps": 9,
+   "collection_method": "output.svg",
+   "result_status": "ok",
+   "error_type": null,
+   "error_message": null,
+   "svg_rel": "../results/horse-racing/opencode_tidepool-alpha-free__high__2026-11-24.svg",
+   "size_bytes": 33500,
+   "elements_total": 426,
+   "animation_elements": 72,
+   "gradient_defs": 8,
+   "external_refs": 0,
+   "script_blocks": 0,
+   "viewBox": "0 0 1200 800",
    "canvas_offcanvas": false,
    "root_transform_note": null
   },
@@ -2144,6 +2185,48 @@
    "root_transform_note": null
   },
   {
+   "id": "sloth-excavator__opencode_tidepool-alpha-free__high__2026-11-24",
+   "task": "sloth-excavator",
+   "model": "opencode/tidepool-alpha-free",
+   "provider": "opencode",
+   "model_id": "tidepool-alpha-free",
+   "harness": "opencode",
+   "target": "opencode/tidepool-alpha-free",
+   "variant": "high",
+   "effort": "high",
+   "effort_requested": "high",
+   "effort_fallback": false,
+   "timed_out": false,
+   "date_utc": "2026-11-24T10:38:55Z",
+   "opencode_version": "v2.0.26",
+   "agent_version": "v2.0.26",
+   "prompt_sha256": "daf295e19993e4e92f181671b1cbf353ac88a5b66659ca41b6a048f1ee560a41",
+   "prompt_file": "prompts/sloth-excavator.txt",
+   "wall_seconds": 328,
+   "tokens": {
+    "input": 15645,
+    "output": 9296,
+    "reasoning": 47189,
+    "cache_read": 215368,
+    "total": 24941
+   },
+   "steps": 4,
+   "collection_method": "output.svg",
+   "result_status": "ok",
+   "error_type": null,
+   "error_message": null,
+   "svg_rel": "../results/sloth-excavator/opencode_tidepool-alpha-free__high__2026-11-24.svg",
+   "size_bytes": 19497,
+   "elements_total": 242,
+   "animation_elements": 39,
+   "gradient_defs": 9,
+   "external_refs": 0,
+   "script_blocks": 0,
+   "viewBox": "0 0 1200 800",
+   "canvas_offcanvas": false,
+   "root_transform_note": null
+  },
+  {
    "id": "sloth-excavator__openrouter_stealth_crouton-alpha__high__2026-11-05",
    "task": "sloth-excavator",
    "model": "openrouter/stealth/crouton-alpha",
@@ -2188,8 +2271,8 @@
  ],
  "reviews": [],
  "summary": {
-  "runs": 54,
-  "ok": 29,
+  "runs": 56,
+  "ok": 31,
   "failed": 25,
   "models": 17,
   "tasks": [
@@ -2221,7 +2304,7 @@
    "composition_aesthetics",
    "technical_validity"
   ],
-  "updated_utc": "2026-11-22T19:26:52+00:00",
+  "updated_utc": "2026-11-24T10:44:28+00:00",
   "meta": {
    "probe": {
     "candidate": "opencode/inkling-2-small-free",

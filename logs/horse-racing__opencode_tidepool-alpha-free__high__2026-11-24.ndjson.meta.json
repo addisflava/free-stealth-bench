@@ -1,0 +1,33 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "horse-racing",
+  "provider": "opencode",
+  "harness": "opencode",
+  "target": "opencode/tidepool-alpha-free",
+  "model": "opencode/tidepool-alpha-free",
+  "model_id": "tidepool-alpha-free",
+  "effort": "high",
+  "effort_requested": "high",
+  "effort_fallback": false,
+  "agent_version": "v2.0.26",
+  "date_utc": "2026-11-24T10:44:24+00:00",
+  "wall_seconds": 326,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "output.svg",
+  "tokens": {
+    "input": 54895,
+    "output": 7263,
+    "reasoning": 40413,
+    "cache_read": 482096,
+    "total": 62158
+  },
+  "steps": 9,
+  "session_id": "ses_df2dcd947ffe05T92EkwySSw48",
+  "events": 31,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false,
+  "attempts": 1,
+  "retry_errors": []
+}
