@@ -1,0 +1,2 @@
+{"type": "step-finish", "part": {"type": "step-finish", "tokens": {"input": 404, "output": 8192, "reasoning": 0, "cache_read": 0, "total": 8596}}}
+{"type": "error", "error": {"type": "no_text", "message": "empty completion: \n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n\n         \n{\"id\":\"gen-1795526349-ujVoCgYz74jWXejJUsEL\",\"object\":\"chat.completion\",\"created\":1795526349,\"model\":\"liquid/lfm-3-1.7b:free\",\"provider\":\"Liquid\",\"system_fingerprint\":null,\"service_tier\":null"}}

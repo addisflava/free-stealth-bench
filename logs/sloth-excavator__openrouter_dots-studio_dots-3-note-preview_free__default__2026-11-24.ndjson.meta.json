@@ -1,0 +1,33 @@
+{
+  "benchmark": "free-stealth-bench",
+  "task": "sloth-excavator",
+  "provider": "openrouter",
+  "harness": "openai",
+  "target": "openrouter/dots-studio/dots-3-note-preview:free",
+  "model": "openrouter/dots-studio/dots-3-note-preview:free",
+  "model_id": "dots-studio/dots-3-note-preview:free",
+  "effort": "default",
+  "effort_requested": "default",
+  "effort_fallback": false,
+  "agent_version": "openai",
+  "date_utc": "2026-11-24T13:19:05+00:00",
+  "wall_seconds": 150,
+  "exit_code": 0,
+  "timed_out": false,
+  "collection_method": "extracted",
+  "tokens": {
+    "input": 396,
+    "output": 15628,
+    "reasoning": 0,
+    "cache_read": 0,
+    "total": 16024
+  },
+  "steps": null,
+  "session_id": null,
+  "events": 1,
+  "error_type": null,
+  "error_message": null,
+  "effort_rejected": false,
+  "attempts": 1,
+  "retry_errors": []
+}

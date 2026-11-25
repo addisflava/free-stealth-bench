@@ -247,7 +247,9 @@ effort_for() {
   printf '%s' "${resolved:-default}"
 }
 
-model_slug() { printf '%s' "$1" | tr '/@' '__'; }
+# Sanitize target ids for filenames. OpenRouter free ids end in ":free", which
+# is illegal on Windows/NTFS mounts (e.g. /mnt/e on WSL).
+model_slug() { printf '%s' "$1" | tr '/@:' '___'; }
 
 existing_record() {  # $1=task $2=slug $3=effort -> 0 if a sidecar for that combo exists (any date)
   [ -n "$(find "results/$1" -maxdepth 1 -name "${2}__${3}__*.json" -print -quit 2>/dev/null)" ]
@@ -371,13 +373,16 @@ run_one() {  # $1=task $2=prompt_file $3=model
     fi
   fi
 
-  local prompt_sha start end wall_seconds exit_code timed_out runner_code
+  local prompt_sha start end wall_seconds="" exit_code="" timed_out=0 runner_code=0
   prompt_sha="$(sha256sum "$prompt_file" | cut -d' ' -f1)"
 
   attempt() {  # $1=target $2=logfile $3=effort ; sets globals
     local target="$1" logfile="$2" effort_used="$3"
     local meta_path="$ROOT/$logfile.meta.json"
     start="$(date +%s)"
+    # Hard wall-clock cap: free endpoints can trickle tokens indefinitely, and
+    # runner.py's --timeout is only a per-socket timeout, not a total budget.
+    timeout -s TERM "$(( TIMEOUT + 30 ))" \
     python3 "$ROOT/runner.py" run --target "$target" --task "$task" \
         --prompt-file "$prompt_file" --effort "$effort_used" --timeout "$TIMEOUT" \
         --retries "$RETRIES" --retry-delay "$RETRY_DELAY" \
